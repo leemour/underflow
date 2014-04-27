@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/guard/listen
+  revision: 5398b2d2cff66364092a967384acf2e819f3ac59
+  specs:
+    listen (2.7.2)
+      celluloid (>= 0.15.2)
+      celluloid-io (>= 0.15.0)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -101,11 +111,6 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.1)
     kgio (2.9.2)
-    listen (2.7.2)
-      celluloid (>= 0.15.2)
-      celluloid-io (>= 0.15.0)
-      rb-fsevent (>= 0.9.3)
-      rb-inotify (>= 0.9)
     lumberjack (1.0.5)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -236,6 +241,7 @@ DEPENDENCIES
   guard-rspec
   jbuilder (~> 2.0)
   jquery-rails
+  listen!
   pg
   pry-byebug
   quiet_assets
