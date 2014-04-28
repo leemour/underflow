@@ -24,7 +24,6 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'guard-rspec'
-  gem "listen", git: 'https://github.com/guard/listen'
   gem "rb-readline", "~> 0.5.0"
   gem 'guard-livereload'
   gem 'rack-livereload'
