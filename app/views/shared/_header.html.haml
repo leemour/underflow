@@ -1,6 +1,6 @@
 %header
   .container-fluid
-    .row
+    .row.top
       .col-xs-6.col-sm-4
         %a{ href: '/', id: 'logo', title: t('to_home')}
           = image_tag "logo.png"
@@ -17,5 +17,5 @@
 
           .navbar-collapse.collapse
             %ul.nav.navbar-nav
-              %li= link_to '/', 'Главная'
-              %li= link_to '/help', 'Помощь'
+              %li= link_to 'Главная', '/'
+              %li= link_to 'Помощь', '/help'
