@@ -5,6 +5,8 @@ describe Answer do
   it { should have_db_index :user_id }
   it { should belong_to :question }
   it { should have_db_index :question_id }
+  it { should have_many :comments }
 
-  it { should ensure_length_of(:body).is_at_least(15).is_at_most(500) }
+  it { should validate_presence_of(:body) }
+  it { should ensure_length_of(:body).is_at_least(50).is_at_most(6000) }
 end
