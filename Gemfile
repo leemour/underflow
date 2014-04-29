@@ -10,6 +10,9 @@ gem 'jbuilder', '~> 2.0'
 gem 'turbolinks'
 gem 'pg'
 gem 'unicorn'
+gem 'haml-rails'
+gem 'bootstrap-sass', '~> 3.1'
+gem 'compass'
 
 group :development do
   gem 'capistrano-rails'

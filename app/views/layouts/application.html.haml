@@ -1,0 +1,36 @@
+!!! 5
+%html{lang: 'ru'}
+  %head
+    %meta{ charset: 'utf-8'}/
+    %meta{'http-equiv' => "X-UA-Compatible", content: "IE=edge"}/
+    %meta{ name: 'viewport',    content: 'width=device-width,initial-scale=1'}/
+    %meta{ name: 'description', content: '' }/
+    %meta{ name: 'keywords',    content: '' }/
+    %title #{app_name}
+    =favicon_link_tag 'favicon.ico'
+    %link{:href => '//webfonts.ru/import/clearsans.css', :rel => :stylesheet}
+    =stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    =stylesheet_link_tag "//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"
+    /[if lt IE 9]
+      %script{ src: '//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js' }
+      %script{ src: "//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"}
+
+  %body{class: body_class}
+
+    = render 'shared/header'
+
+    %main#content{role: 'main'}
+      .container-fluid
+        .row
+          .col-sm-8.col-lg-9
+            = [:error, :warning, :success, :notice].map { |type| flash_tag(type, :class => "alert alert-#{type} fade in", :bootstrap => true) }.join.html_safe
+
+            = yield
+
+          %aside#sidebar.col-sm-4.col-lg-3
+            = render "shared/sidebar"
+
+    %footer
+      = render 'shared/footer'
+
+    =javascript_include_tag 'application', 'data-turbolinks-track' => true

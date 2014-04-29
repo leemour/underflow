@@ -1,0 +1,21 @@
+%header
+  .container-fluid
+    .row
+      .col-xs-6.col-sm-4
+        %a{ href: '/', id: 'logo', title: t('to_home')}
+          = image_tag "logo.png"
+
+    .row
+      %nav.navbar.navbar-default{role: "navigation"}
+        .container-fluid
+          .navbar-header
+            %button.navbar-toggle.collapsed{'data-target' => ".navbar-collapse", 'data-toggle' => "collapse", :type => "button", title: t('toggle_nav')}
+              %span.sr-only= t('toggle_nav')
+              -3.times do
+                %span.icon-bar
+            .brand.visible-xs= t('main_menu')
+
+          .navbar-collapse.collapse
+            %ul.nav.navbar-nav
+              %li= link_to '/', 'Главная'
+              %li= link_to '/help', 'Помощь'
