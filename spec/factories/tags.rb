@@ -1,9 +1,11 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :answer do
-    user
-    question
+  factory :tag do
+    name "MyString"
+    excerpt "To be, or not to be, that is the question—
+      Whether 'tis Nobler in the mind to suffer
+      The Slings and Arrows of outrageous Fortune"
     body  "To be, or not to be, that is the question—
       Whether 'tis Nobler in the mind to suffer
       The Slings and Arrows of outrageous Fortune,

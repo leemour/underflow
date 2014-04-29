@@ -68,6 +68,7 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.2.19)
+    database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
@@ -248,6 +249,7 @@ DEPENDENCIES
   capistrano-rails
   coffee-rails (~> 4.0.0)
   compass
+  database_cleaner
   factory_girl_rails
   guard-livereload
   guard-rspec

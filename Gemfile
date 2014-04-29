@@ -35,6 +35,7 @@ end
 
 group :test do
   gem 'shoulda-matchers'
+  gem 'database_cleaner'
   gem 'rb-inotify', :require => false
   #gem 'rb-fsevent', :require => false
   #gem 'rb-fchange', :require => false
