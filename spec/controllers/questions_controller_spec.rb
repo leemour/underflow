@@ -39,9 +39,11 @@ describe QuestionsController do
       }.to change(Question, :count).by(1)
     end
 
-    it "redirects to question if it's created" do
-      post :create, question: attributes_for(:question)
-      expect(response).to redirect_to Question.last
+    context "with valid attributes" do
+      it "redirects to new question" do
+        post :create, question: attributes_for(:question)
+        expect(response).to redirect_to Question.last
+      end
     end
 
     # it "redirects to new_quesetion_path unless created" do

@@ -23,5 +23,8 @@ en:
   main_menu: Main menu
   toggle_nav: Open menu
   to_home: To homepage
+  Help: Help
   model_created: "%{model} was successfully created."
-  question: Вопрос
+  Question: Question
+  Questions: Questions
+  Ask_question: Ask question

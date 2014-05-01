@@ -12,11 +12,11 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
-        format.html { redirect_to(@question, :notice => t('model_created', model: t('question'))) }
-        format.json { render :json => @question }
+        format.html { redirect_to(@question, notice: t('model_created', model: t('question'))) }
+        format.json { render :show, status: :created, location: @question }
       else
-        format.html { render :action => "new" }
-        format.json { render :json => @question.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.json { render json: @question.errors, status: :unprocessable_entity }
       end
     end
   end

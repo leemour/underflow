@@ -2,5 +2,8 @@ ru:
   main_menu: Главное меню
   toggle_nav: Открыть меню
   to_home: На главную
+  Help: Помощь
   model_created: "%{model} успешно создан."
-  question: Вопрос
+  Question: Вопрос
+  Questions: Вопросы
+  Ask_question: Задать вопрос

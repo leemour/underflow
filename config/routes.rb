@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   root 'static#index'
 
   %w[help].each do |page|
-    get page, to: "static##{page}"
+    get page, to: "static##{page}", as: page
   end
 
   resources :questions
