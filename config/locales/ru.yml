@@ -1,2 +1,6 @@
 ru:
   main_menu: Главное меню
+  toggle_nav: Открыть меню
+  to_home: На главную
+  model_created: "%{model} успешно создан."
+  question: Вопрос

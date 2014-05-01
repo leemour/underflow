@@ -16,6 +16,5 @@ describe Question do
     subject { create(:question) }
 
     it { should be_active }
-    its(:status) { should eq('active') }
   end
 end

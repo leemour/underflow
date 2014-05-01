@@ -20,4 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  main_menu: Main menu
+  toggle_nav: Open menu
+  to_home: To homepage
+  model_created: "%{model} was successfully created."
+  question: Вопрос

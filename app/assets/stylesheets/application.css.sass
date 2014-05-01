@@ -16,10 +16,13 @@
 
 @import "bootstrap"
 
+
 header
   .navbar-inverse
     background-color: #1f2532
     border-radius: 0
+    .container-fluid
+      max-width: 1170px
     .navbar-header button
       border-color: #999
     .brand > *
@@ -29,7 +32,21 @@ header
         font-size: 18px
         padding: 12px
     #logo img
-      padding: 10px
+      padding: 10px 20px 10px 0
     ul.navbar-nav
       a
         color: #BBB
+
+main
+  .container-fluid
+    max-width: 1170px
+
+footer
+  .container-fluid
+    max-width: 1170px
+
+@media (max-width: $screen-xs-max)
+  header
+    .navbar-inverse
+      #logo img
+        padding-left: 15px
