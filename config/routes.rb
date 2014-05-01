@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     get page, to: "static##{page}"
   end
 
+  resources :questions
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
