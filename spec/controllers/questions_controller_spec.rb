@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe QuestionsController do
   describe "Routing" do
-    it { should route(:get, questions_path).to('questions#index') }
-    it { should route(:get, question_path(1)).to('questions#show', id: '1') }
-    it { should route(:post, questions_path).to('questions#create') }
+    it { should route(:get, questions_path).to   'questions#index' }
+    it { should route(:get, question_path(1)).to 'questions#show', id: '1' }
+    it { should route(:post, questions_path).to  'questions#create' }
   end
 
   describe "GET #index" do
@@ -12,12 +12,12 @@ describe QuestionsController do
       question1 = create(:question)
       question2 = create(:question)
       get :index
-      expect(assigns(:questions)).to match_array([question1, question2])
+      expect(assigns(:questions)).to match_array [question1, question2]
     end
 
     it "renders :index view" do
       get :index
-      expect(response).to render_template('index')
+      expect(response).to render_template 'index'
     end
   end
 
@@ -33,7 +33,7 @@ describe QuestionsController do
     it "renders :show view" do
       question = create(:question)
       get :show, id: question
-      expect(response).to render_template('show')
+      expect(response).to render_template 'show'
     end
   end
 
@@ -41,10 +41,10 @@ describe QuestionsController do
     before { get :new }
 
     it "assigns new Question to @question" do
-      expect(assigns(:question)).to be_a_new(Question)
+      expect(assigns(:question)).to be_a_new Question
     end
 
-    it { should render_template('new') }
+    it { should render_template 'new' }
   end
 
   describe "GET #edit" do
@@ -55,7 +55,7 @@ describe QuestionsController do
       expect(assigns(:question)).to eq(subject)
     end
 
-    it { should render_template('edit') }
+    it { should render_template 'edit' }
   end
 
   describe "POST #create" do
@@ -81,7 +81,7 @@ describe QuestionsController do
 
       it "reneders :new view" do
         post :create, question: {title: 'invalid'}
-        expect(response).to render_template('new')
+        expect(response).to render_template 'new'
       end
     end
   end
@@ -105,7 +105,7 @@ describe QuestionsController do
       end
 
       it "redirects to the updated Question" do
-        expect(response).to redirect_to(subject)
+        expect(response).to redirect_to subject
       end
     end
 
@@ -125,13 +125,18 @@ describe QuestionsController do
       end
 
       it "re-renders :edit view" do
-        expect(response).to render_template('edit')
+        expect(response).to render_template 'edit'
       end
     end
   end
 
   describe "DELETE destroy" do
     let!(:question) { create(:question) }
+
+    it "finds Question to delete" do
+      delete :destroy, id: question
+      expect(assigns(:question)).to eq(question)
+    end
 
     it "deletes the Question with requested id" do
       expect{
