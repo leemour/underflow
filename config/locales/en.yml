@@ -25,6 +25,8 @@ en:
   to_home: To homepage
   Help: Help
   model_created: "%{model} was successfully created."
+  model_updated: "%{model} was successfully updated."
+  model_deleted: "%{model} was successfully deleted."
   Question: Question
   Questions: Questions
   Ask_question: Ask question

@@ -4,6 +4,8 @@ ru:
   to_home: На главную
   Help: Помощь
   model_created: "%{model} успешно создан."
+  model_updated: "%{model} успешно обновлен."
+  model_deleted: "%{model} успешно удален."
   Question: Вопрос
   Questions: Вопросы
   Ask_question: Задать вопрос

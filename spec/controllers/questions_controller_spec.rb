@@ -8,47 +8,140 @@ describe QuestionsController do
   end
 
   describe "GET #index" do
-    before { get :index }
-
-    it { should render_template('index') }
-
-    it "assigns all questions to @questions" do
+    it "assigns all Questions to @questions" do
       question1 = create(:question)
       question2 = create(:question)
-      expect(assigns(:questions)).to include(question1, question2)
+      get :index
+      expect(assigns(:questions)).to match_array([question1, question2])
+    end
+
+    it "renders :index view" do
+      get :index
+      expect(response).to render_template('index')
     end
   end
 
   describe "GET #show" do
-    before { get :show, id: 1 }
+    subject { create(:question) }
 
-    it { should render_template('show') }
+    it "assigns Question with requested id to @question" do
+      question = create(:question)
+      get :show, id: question
+      expect(assigns(:question)).to eq(question)
+    end
 
-    it "assigns question with requested id to @question" do
-      question1 = create(:question, id: 3)
-      # TODO: Error - key already exists
-      # question2 = create(:question, id: 1)
-      expect(assigns(:question).id).to eq(1)
+    it "renders :show view" do
+      question = create(:question)
+      get :show, id: question
+      expect(response).to render_template('show')
     end
   end
 
-  describe "POST #create" do
-    it "creates a new contact" do
-      expect{
-        post :create, question: attributes_for(:question)
-      }.to change(Question, :count).by(1)
+  describe "GET #new" do
+    before { get :new }
+
+    it "assigns new Question to @question" do
+      expect(assigns(:question)).to be_a_new(Question)
     end
 
+    it { should render_template('new') }
+  end
+
+  describe "GET #edit" do
+    subject { create(:question) }
+    before { get :edit, id: subject }
+
+    it "finds Question for edit" do
+      expect(assigns(:question)).to eq(subject)
+    end
+
+    it { should render_template('edit') }
+  end
+
+  describe "POST #create" do
     context "with valid attributes" do
-      it "redirects to new question" do
+      it "saves new Question to DB" do
+        expect{
+          post :create, question: attributes_for(:question)
+        }.to change(Question, :count).by(1)
+      end
+
+      it "redirects to new Question" do
         post :create, question: attributes_for(:question)
         expect(response).to redirect_to Question.last
       end
     end
 
-    # it "redirects to new_quesetion_path unless created" do
-    #   post :create, question: {title: 'hi'}
-    #   expect(response).to redirect_to new_question_path
-    # end
+    context "with invalid attributes" do
+      it "doesn't save new Question to DB" do
+        expect{
+          post :create, question: {title: 'invalid'}
+        }.to_not change(Question, :count)
+      end
+
+      it "reneders :new view" do
+        post :create, question: {title: 'invalid'}
+        expect(response).to render_template('new')
+      end
+    end
+  end
+
+  describe "PATCH #update" do
+    subject { create(:question, title: 'Not updated title') }
+
+    context "with valid attributes" do
+      before do
+        patch :update, id: subject,
+          question: attributes_for(:question, title: 'Updated title!!')
+      end
+
+      it "finds Question for update" do
+        expect(assigns(:question)).to eq(subject)
+      end
+
+      it "changes @question attributes" do
+        subject.reload
+        expect(subject.title).to eq('Updated title!!')
+      end
+
+      it "redirects to the updated Question" do
+        expect(response).to redirect_to(subject)
+      end
+    end
+
+    context "with invalid attributes" do
+      before do
+        patch :update, id: subject,
+          question: attributes_for(:question, title: 'Too short')
+      end
+
+      it "finds Question for update" do
+        expect(assigns(:question)).to eq(subject)
+      end
+
+      it "doesn't change @question attributes" do
+        subject.reload
+        expect(subject.title).to eq('Not updated title')
+      end
+
+      it "re-renders :edit view" do
+        expect(response).to render_template('edit')
+      end
+    end
+  end
+
+  describe "DELETE destroy" do
+    let!(:question) { create(:question) }
+
+    it "deletes the Question with requested id" do
+      expect{
+        delete :destroy, id: question
+      }.to change(Question, :count).by(-1)
+    end
+
+    it "redirects to question index" do
+      delete :destroy, id: question
+      expect(response).to redirect_to questions_path
+    end
   end
 end

@@ -16,6 +16,7 @@ DatabaseCleaner.strategy = :transaction
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
+  config.include Capybara::DSL
 
   # config.formatter = :documentation # :progress, :html, :textmate
   # config.color_enabled = true

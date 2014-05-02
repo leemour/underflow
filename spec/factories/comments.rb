@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :comment do
-    user
+    user        nil
     commentable nil
-    body  "To be, or not to be, that is the question"
+    body        "To be, or not to be, that is the question"
   end
 end

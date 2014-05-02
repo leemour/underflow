@@ -13,8 +13,9 @@ describe Question do
   it { should ensure_length_of(:body).is_at_least(100).is_at_most(6000) }
 
   context 'when created' do
-    subject { create(:question) }
+    subject { build(:question) }
 
     it { should be_active }
+    it { should_not be_deleted }
   end
 end
