@@ -1,0 +1,18 @@
+#questions
+  - @questions.each do |question|
+    .question
+      .counters
+        .votes
+        .answers
+        .views
+      .content
+        %h3= link_to question.title, question_path(question)
+        .details
+          .tags
+            - question.tags.each do |tag|
+              =link_to tag.name, tag_path(tag)
+          .started
+            %span.time= created_ago question
+            %span.author
+            %span.author-reputation
+
