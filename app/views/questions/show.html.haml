@@ -1,0 +1,8 @@
+%h1= @question.title
+.content= @question.body.html_safe
+.tags
+  - @question.tags.each do |tag|
+    .tag= link_to tag.name, tag_path(tag)
+
+#answers
+  %h3= t('answers_count', count: @question.answers.count)

@@ -9,5 +9,16 @@ FactoryGirl.define do
       The Slings and Arrows of outrageous Fortune,
       Or to take Arms against a Sea of troubles,
       And by opposing end them?"
+
+    ignore do
+      tag_names   []
+    end
+    factory :question_with_tags do
+      after(:create) do |question, evaluator|
+        evaluator.tag_names.each do |name|
+          create(:tag, name: name, questions: [question])
+        end
+      end
+    end
   end
 end

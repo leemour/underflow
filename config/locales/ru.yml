@@ -9,3 +9,4 @@ ru:
   Question: Вопрос
   Questions: Вопросы
   Ask_question: Задать вопрос
+  answers_count: "%{count} ответов"

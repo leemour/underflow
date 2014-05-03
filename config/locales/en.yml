@@ -30,3 +30,4 @@ en:
   Question: Question
   Questions: Questions
   Ask_question: Ask question
+  answers_count: "%{count} answers"

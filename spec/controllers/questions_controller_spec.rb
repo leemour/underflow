@@ -9,10 +9,9 @@ describe QuestionsController do
 
   describe "GET #index" do
     it "assigns all Questions to @questions" do
-      question1 = create(:question)
-      question2 = create(:question)
+      questions = create_list(:question, 3)
       get :index
-      expect(assigns(:questions)).to match_array [question1, question2]
+      expect(assigns(:questions)).to match_array(questions)
     end
 
     it "renders :index view" do
