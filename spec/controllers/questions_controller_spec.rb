@@ -3,8 +3,12 @@ require 'spec_helper'
 describe QuestionsController do
   describe "Routing" do
     it { should route(:get, questions_path).to   'questions#index' }
-    it { should route(:get, question_path(1)).to 'questions#show', id: '1' }
+    it { should route(:get, question_path(1)).to 'questions#show', id: '1'}
+    it { should route(:get, new_question_path).to 'questions#new'}
+    it { should route(:get, edit_question_path(1)).to 'questions#edit', id: '1'}
     it { should route(:post, questions_path).to  'questions#create' }
+    it { should route(:patch, question_path(1)).to  'questions#update', id: '1' }
+    it { should route(:delete, question_path(1)).to  'questions#destroy', id: '1' }
   end
 
   describe "GET #index" do

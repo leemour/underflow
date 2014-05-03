@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
 
   resources :questions
+  resources :answers
   resources :tags
 
   # Example of regular route:

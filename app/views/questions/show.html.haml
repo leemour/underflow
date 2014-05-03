@@ -6,3 +6,11 @@
 
 #answers
   %h3= t('answers_count', count: @question.answers.count)
+  - @question.answers.each do |answer|
+    .answer
+      .answer-text= answer.body.html_safe
+
+  = form_for @question.answers.build, url: answers_path, html: {id: 'answer'} do |f|
+    = f.label :body, t('Your_answer')
+    = f.text_area :body
+    = f.submit t('Post_answer')
