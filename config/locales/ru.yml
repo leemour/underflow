@@ -12,3 +12,23 @@ ru:
   answers_count: "%{count} ответов"
   Your_answer: Ваш ответ
   Post_answer: Отправить ваш ответ
+  Post_question: Отправить вопрос
+  activerecord:
+    models:
+      question:
+        zero: 0 Вопросов
+        one: Вопрос
+        few: '%{count} Вопроса'
+        many: '%{count} Вопросов'
+        other: Вопросы
+      user:
+        zero: Пользователей
+        one: Пользователь
+        few: Пользователя
+        many: Пользователей
+        other: Пользователи
+    attributes:
+      question:
+        title: Заголовок
+        body: Текст
+        tags: Теги

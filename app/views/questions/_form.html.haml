@@ -1,0 +1,7 @@
+- unless @question.errors.empty?
+  = @question.errors.full_messages
+=form_for @question do |f|
+  =f.label :title
+  =f.text_field :title
+  =f.text_area :body, id: 'new-question-body'
+  = f.submit t('Post_question')

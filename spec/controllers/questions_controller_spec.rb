@@ -2,40 +2,37 @@ require 'spec_helper'
 
 describe QuestionsController do
   describe "Routing" do
-    it { should route(:get, questions_path).to   'questions#index' }
+    it { should route(:get, questions_path).to   'questions#index'}
     it { should route(:get, question_path(1)).to 'questions#show', id: '1'}
     it { should route(:get, new_question_path).to 'questions#new'}
     it { should route(:get, edit_question_path(1)).to 'questions#edit', id: '1'}
     it { should route(:post, questions_path).to  'questions#create' }
-    it { should route(:patch, question_path(1)).to  'questions#update', id: '1' }
-    it { should route(:delete, question_path(1)).to  'questions#destroy', id: '1' }
+    it { should route(:patch, question_path(1)).to  'questions#update', id: '1'}
+    it { should route(:delete, question_path(1)).to  'questions#destroy', id: '1'}
   end
 
   describe "GET #index" do
+    let(:questions) { create_list(:question, 3) }
+    before { get :index }
+
     it "assigns all Questions to @questions" do
-      questions = create_list(:question, 3)
-      get :index
       expect(assigns(:questions)).to match_array(questions)
     end
 
     it "renders :index view" do
-      get :index
       expect(response).to render_template 'index'
     end
   end
 
   describe "GET #show" do
     subject { create(:question) }
+    before { get :show, id: subject }
 
-    it "assigns Question with requested id to @question" do
-      question = create(:question)
-      get :show, id: question
-      expect(assigns(:question)).to eq(question)
+    it "assigns requested Question to @question" do
+      expect(assigns(:question)).to eq(subject)
     end
 
     it "renders :show view" do
-      question = create(:question)
-      get :show, id: question
       expect(response).to render_template 'show'
     end
   end
@@ -47,7 +44,9 @@ describe QuestionsController do
       expect(assigns(:question)).to be_a_new Question
     end
 
-    it { should render_template 'new' }
+    it "renders :new view" do
+      expect(response).to render_template 'new'
+    end
   end
 
   describe "GET #edit" do
@@ -141,7 +140,7 @@ describe QuestionsController do
       expect(assigns(:question)).to eq(question)
     end
 
-    it "deletes the Question with requested id" do
+    it "deletes the requested Question" do
       expect{
         delete :destroy, id: question
       }.to change(Question, :count).by(-1)

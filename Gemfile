@@ -13,6 +13,7 @@ gem 'puma'
 gem 'haml-rails'
 gem 'bootstrap-sass', '~> 3.1'
 gem 'compass'
+gem 'russian'
 
 group :development do
   gem 'capistrano-rails'
@@ -31,6 +32,7 @@ group :development, :test do
   gem 'guard-livereload'
   gem 'rack-livereload'
   gem 'factory_girl_rails'
+  gem 'launchy'
 end
 
 group :test do

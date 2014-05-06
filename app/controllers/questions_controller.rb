@@ -21,7 +21,8 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question,
-          notice: t('model_created', model: t('question')) }
+          notice: t('model_created',
+            model: t('activerecord.models.question', count: 1)) }
         format.json { render :show, status: :created, location: @question }
       else
         format.html { render action: "new" }
@@ -35,8 +36,9 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.update(question_params)
         format.html { redirect_to @question,
-          notice: t('model_updated', model: t('question')) }
-        format.json { render :show, status: :ok, location: @badge }
+          notice: t('model_updated',
+            model: t('activerecord.models.question', count: 1)) }
+        format.json { render :show, status: :ok, location: @question }
       else
         format.html { render :edit }
         format.json { render json: @question.errors,
@@ -49,7 +51,8 @@ class QuestionsController < ApplicationController
     @question.destroy
     respond_to do |format|
       format.html { redirect_to questions_path,
-        notice: t('model_deleted', model: t('question')) }
+        notice: t('model_deleted',
+          model: t('activerecord.models.question', count: 1)) }
       format.json { head :no_content}
     end
   end

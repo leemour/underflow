@@ -23,7 +23,7 @@
       .container-fluid
         .row
           .col-sm-8.col-lg-9
-            = render 'shared/flash'
+            = render 'shared/flash', locals: {flash: flash}
 
             = yield
 
