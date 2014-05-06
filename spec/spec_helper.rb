@@ -25,10 +25,8 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.before(:suite) do
+    FactoryGirl.lint
     DatabaseCleaner.clean_with(:truncation)
-    DatabaseCleaner.start
-      FactoryGirl.lint
-    DatabaseCleaner.clean
   end
 
   config.before(:each) do

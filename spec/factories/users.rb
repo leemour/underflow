@@ -4,6 +4,8 @@ FactoryGirl.define do
   factory :user do
     name        "MyString"
     email       "test@gmail.com"
+    password              '12345678'
+    password_confirmation '12345678'
     real_name   "MyString"
     website     "http://underflow.com"
     location    "Moscow"
