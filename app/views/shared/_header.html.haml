@@ -18,3 +18,8 @@
               %li= link_to t('Questions'), questions_path
               %li= link_to t('Ask_question'), new_question_path
               %li= link_to t('Help'), help_path
+              - if user_signed_in?
+                / %li= link_to t('user.profile'), user_path(current_user)
+              - else
+                %li= link_to t('user.log_in'), new_user_session_path
+                %li= link_to t('user.register'), new_user_registration_path

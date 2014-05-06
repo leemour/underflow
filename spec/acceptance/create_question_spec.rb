@@ -15,7 +15,9 @@ feature 'User creates question',
 
     fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
     fill_in 'new-question-body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
-    click_on 'Отправить вопрос'
+    within("form") do
+      click_on 'Задать вопрос'
+    end
 
     expect(page).to have_content 'Вопрос успешно создан.'
   end
@@ -26,7 +28,9 @@ feature 'User creates question',
 
     fill_in 'Заголовок', with: 'Короткий'
     fill_in 'new-question-body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
-    click_on 'Отправить вопрос'
+    within("form") do
+      click_on 'Задать вопрос'
+    end
 
     # save_and_open_page
     expect(page).to have_content 'Заголовок недостаточной длины'

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get page, to: "static##{page}", as: page
   end
 
+
   resources :questions
   resources :answers
   resources :tags

@@ -12,7 +12,10 @@ ru:
   answers_count: "%{count} ответов"
   Your_answer: Ваш ответ
   Post_answer: Отправить ваш ответ
-  Post_question: Отправить вопрос
+  user:
+    register: Регистрация
+    profile: Профиль
+    log_in: Войти
   activerecord:
     models:
       question:
