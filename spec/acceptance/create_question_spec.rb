@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-
-
 feature 'User creates question',
 %{
   In order to receive answers

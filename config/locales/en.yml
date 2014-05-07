@@ -33,3 +33,15 @@ en:
   answers_count: "%{count} answers"
   Your_answer: Your answer
   Post_answer: Post your answer
+  user:
+    profile: Profile
+    log_in: Log in
+    logging_in: Logging in
+    register: Register
+    registration: Registration
+    forgot_password: Forgot password?
+    no_confirm_instructions: Didn't receive confirmation instructions?
+    no_unlock_instructions: Didn't receive unlock instructions?
+    sign_in_with: Sign in with
+    edit: Edit
+    update: Update
