@@ -38,7 +38,10 @@ describe QuestionsController do
   end
 
   describe "GET #new" do
-    before { get :new }
+    before do
+      login_user
+      get :new
+    end
 
     it "assigns new Question to @question" do
       expect(assigns(:question)).to be_a_new Question
@@ -51,7 +54,10 @@ describe QuestionsController do
 
   describe "GET #edit" do
     subject { create(:question) }
-    before { get :edit, id: subject }
+    before do
+      login_user
+      get :edit, id: subject
+    end
 
     it "finds Question for edit" do
       expect(assigns(:question)).to eq(subject)
@@ -61,6 +67,8 @@ describe QuestionsController do
   end
 
   describe "POST #create" do
+    before { login_user }
+
     context "with valid attributes" do
       it "saves new Question to DB" do
         expect{
@@ -90,6 +98,7 @@ describe QuestionsController do
 
   describe "PATCH #update" do
     subject { create(:question, title: 'Not updated title') }
+    before { login_user }
 
     context "with valid attributes" do
       before do
@@ -134,6 +143,7 @@ describe QuestionsController do
 
   describe "DELETE destroy" do
     let!(:question) { create(:question) }
+    before { login_user }
 
     it "finds Question to delete" do
       delete :destroy, id: question

@@ -8,26 +8,13 @@ feature 'User creates account',
   } do
 
   scenario 'with valid fields' do
-    visit new_user_registration_path
-    fill_in 'Имя',    with: 'peter'
-    fill_in 'E-mail', with: '123@mail.ru'
-    fill_in 'Пароль', with: '12345678'
-    fill_in 'Подтверждение пароля', with: '12345678'
-    within 'form' do
-      click_on 'Зарегистрироваться'
-    end
+    sign_up_with('peter', '123@mail.ru', '12345678')
 
     expect(page).to have_content 'Вы успешно зарегистрировались.'
   end
 
   scenario 'with invalid fields' do
-    visit new_user_registration_path
-    fill_in 'E-mail', with: '123@mail.ru'
-    fill_in 'Пароль', with: '12345678'
-    fill_in 'Подтверждение пароля', with: '12345678'
-    within 'form' do
-      click_on 'Зарегистрироваться'
-    end
+    sign_up_with('', '123@mail.ru', '12345678')
 
     expect(page).to have_content 'Имя не может быть пустым'
   end
