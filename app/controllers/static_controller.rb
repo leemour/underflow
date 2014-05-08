@@ -1,5 +1,5 @@
 class StaticController < ApplicationController
-  def index
+  def faq
   end
 
   def help

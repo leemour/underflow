@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe StaticController do
-  describe "GET #index" do
-    before { get :index }
+  describe "GET #faq" do
+    before { get :faq }
 
-    it { should render_template('index') }
+    it { should render_template('faq') }
   end
 
   describe "GET #help" do
@@ -14,7 +14,6 @@ describe StaticController do
   end
 
   describe "Routing" do
-    it { should route(:get, '/').to('static#index') }
     it { should route(:get, '/help').to('static#help') }
   end
 end

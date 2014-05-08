@@ -7,48 +7,48 @@ feature 'User creates question',
   I want to ask questions
   } do
 
-  scenario 'with valid fields' do
-    create(:user, email: '123@mail.ru', password: '12345678')
-    sign_in_with('123@mail.ru', '12345678')
+  context 'when logged in' do
+    background  do
+      create(:user, email: '123@mail.ru', password: '12345678')
+      sign_in_with('123@mail.ru', '12345678')
 
-    visit questions_path
-    click_on 'Задать вопрос'
-
-    fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
-    fill_in 'new-question-body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
-    within("form") do
+      visit questions_path
       click_on 'Задать вопрос'
     end
 
-    expect(page).to have_content 'Вопрос успешно создан.'
+    scenario 'create with valid fields' do
+      fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
+      fill_in 'new-question-body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
+      within("form") do
+        click_on 'Задать вопрос'
+      end
+
+      expect(page).to have_content 'Вопрос успешно создан.'
+    end
+
+    scenario "can't create with invalid fields" do
+      fill_in 'Заголовок', with: 'Короткий'
+      fill_in 'new-question-body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
+      within("form") do
+        click_on 'Задать вопрос'
+      end
+
+      expect(page).to have_content 'Заголовок недостаточной длины'
+    end
   end
 
-  scenario 'with invalid fields' do
-    create(:user, email: '123@mail.ru', password: '12345678')
-    sign_in_with('123@mail.ru', '12345678')
-
-    visit questions_path
-    click_on 'Задать вопрос'
-
-    fill_in 'Заголовок', with: 'Короткий'
-    fill_in 'new-question-body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
-    within("form") do
+  context 'when not logged in' do
+    scenario "can't create question" do
+      visit questions_path
       click_on 'Задать вопрос'
+
+      fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
+      fill_in 'new-question-body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
+      within("form") do
+        click_on 'Задать вопрос'
+      end
+
+      expect(page).to have_content 'Вам необходимо войти в систему или зарегистрироваться.'
     end
-
-    expect(page).to have_content 'Заголовок недостаточной длины'
-  end
-
-  scenario 'when user not logged in' do
-    visit questions_path
-    click_on 'Задать вопрос'
-
-    fill_in 'Заголовок', with: 'Короткий'
-    fill_in 'new-question-body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
-    within("form") do
-      click_on 'Задать вопрос'
-    end
-
-    expect(page).to have_content 'Вам необходимо войти в систему или зарегистрироваться.'
   end
 end

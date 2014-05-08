@@ -29,6 +29,7 @@ ru:
     sign_in_with: Войти с помощью
     edit: Редактировать
     update: Обновить
+    log_out: Выйти
   activerecord:
     models:
       question:
