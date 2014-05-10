@@ -1,7 +1,9 @@
 - unless @question.errors.empty?
   = @question.errors.full_messages
 =form_for @question do |f|
-  =f.label :title
-  =f.text_field :title
-  =f.text_area :body, id: 'new-question-body'
-  = f.submit t('Ask_question')
+  .form-group
+    =f.label :title
+    =f.text_field :title, class: 'form-control'
+  .form-group
+    =f.text_area :body, class: 'form-control'
+  = f.submit t('Ask_question'), class: 'btn btn-success'

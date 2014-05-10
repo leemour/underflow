@@ -15,12 +15,6 @@ describe 'questions/show.html.haml' do
       'How to build a Ruby on Rails app in 1 second? I have no idea')
   end
 
-  it "displays Answer count" do
-    assign :question, build(:question)
-    render
-    expect(rendered).to have_selector 'h3', '0 ответов'
-  end
-
   context 'when Question has Tags' do
     it 'displays links of Question Tags ' do
       tag = create(:tag, name: 'Ruby on Rails')
@@ -41,33 +35,31 @@ describe 'questions/show.html.haml' do
     end
   end
 
-  # context "when logged in" do
-    it "displays new Answer label field" do
+  describe 'Answer part' do
+    before do
       assign :question, build(:question)
+    end
+
+    it "displays Answer count" do
       render
-      expect(rendered).to have_selector 'form#answer label', 'Ваш ответ'
+      expect(rendered).to have_selector 'h3', '0 ответов'
+    end
+
+    it "displays new Answer label field" do
+      render
+      expect(rendered).to have_selector 'form#answer h2', 'Ваш ответ'
     end
 
     it "displays new Answer form field" do
-      assign :question, build(:question)
       render
       expect(rendered).to have_selector(
         'form#answer textarea[name="answer[body]"]')
-      # expect(rendered).to have_xpath(
-      #   '//form[@id="answer"]/textarea[@name="answer[body]"]')
     end
 
     it "displays new Answer form field" do
-      assign :question, build(:question)
       render
       expect(rendered).to have_selector 'input[type=submit]',
         'Отправить ваш ответ'
     end
-  # end
-
-  # context "when logged out" do
-  #   it "doesn't display new Answer form" do
-  #     assign :question, build(:question)
-  #   end
-  # end
+  end
 end

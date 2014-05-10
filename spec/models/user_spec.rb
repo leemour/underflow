@@ -7,9 +7,12 @@ describe User do
 
   it { should validate_presence_of :name }
   it { should validate_presence_of :email }
+  it { should validate_uniqueness_of :name }
   it { should validate_uniqueness_of :email }
   it { should ensure_length_of(:name).is_at_least(3).is_at_most(30) }
   it { should allow_value('123@mail.ru').for(:email) }
+  it { should allow_value('http://underflow.com').for(:website) }
+
   it do
     should_not allow_value(
       '01.01-2013',
@@ -19,7 +22,6 @@ describe User do
       '12@.ru'
     ).for(:email)
   end
-  it { should allow_value('http://underflow.com').for(:website) }
   it do
     should_not allow_value(
       'ttp://mail.ru',

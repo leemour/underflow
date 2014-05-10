@@ -9,8 +9,8 @@ feature 'User creates question',
 
   context 'when logged in' do
     background  do
-      create(:user, email: '123@mail.ru', password: '12345678')
-      sign_in_with('123@mail.ru', '12345678')
+      user = create(:user, email: '123@mail.ru', password: '12345678')
+      sign_in_with(user.email, user.password)
 
       visit questions_path
       click_on 'Задать вопрос'
@@ -18,7 +18,8 @@ feature 'User creates question',
 
     scenario 'create with valid fields' do
       fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
-      fill_in 'new-question-body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
+      fill_in 'question_body',
+        with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
       within("form") do
         click_on 'Задать вопрос'
       end
@@ -28,7 +29,8 @@ feature 'User creates question',
 
     scenario "can't create with invalid fields" do
       fill_in 'Заголовок', with: 'Короткий'
-      fill_in 'new-question-body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
+      fill_in 'question_body',
+        with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
       within("form") do
         click_on 'Задать вопрос'
       end
@@ -43,7 +45,8 @@ feature 'User creates question',
       click_on 'Задать вопрос'
 
       fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
-      fill_in 'new-question-body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
+      fill_in 'question_body',
+        with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
       within("form") do
         click_on 'Задать вопрос'
       end

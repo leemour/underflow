@@ -7,9 +7,10 @@ feature 'User logs in',
   I want to log in
   } do
 
+  given(:user) { create(:user) }
+
   scenario 'when user exists' do
-    create(:user, email: '123@mail.ru', password: '12345678')
-    sign_in_with('123@mail.ru', '12345678')
+    sign_in_with(user.email, user.password)
 
     expect(page).to have_content 'Вход в систему выполнен.'
   end
@@ -21,8 +22,7 @@ feature 'User logs in',
   end
 
   scenario "when incorrect password" do
-    create(:user, email: '123@mail.ru', password: '12345678')
-    sign_in_with('123@mail.ru', '0')
+    sign_in_with(user.email, '0')
 
     expect(page).to have_content 'Неверный email или пароль.'
   end

@@ -17,8 +17,9 @@ DatabaseCleaner.strategy = :transaction
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Capybara::DSL
-  config.include Devise::TestHelpers, :type => :controller
-  config.include ControllerMacros, :type => :controller
+  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::TestHelpers, type: :view
+  config.include ControllerMacros, type: :controller
   config.include Acceptance::SessionHelpers, type: :feature
 
   # config.formatter = :documentation # :progress, :html, :textmate
@@ -28,6 +29,7 @@ RSpec.configure do |config|
   config.order = "random"
 
   config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
     FactoryGirl.lint
     DatabaseCleaner.clean_with(:truncation)
   end

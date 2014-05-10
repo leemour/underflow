@@ -7,6 +7,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
+    # @answer = answer_params ? @question.answers.build(answer_params) : @question.answers.build
   end
 
   def new
@@ -17,7 +18,7 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = Question.new(question_params)
+    @question = current_user.questions.build(question_params)
 
     respond_to do |format|
       if @question.save
@@ -67,4 +68,8 @@ class QuestionsController < ApplicationController
   def question_params
     params.require(:question).permit(:title, :body, :user_id, :status)
   end
+
+  # def answer_params
+  #   params.require(:answer).permit(:body, :question_id, :user_id)
+  # end
 end

@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :question do
-    user    nil
+    user
     title   "To be or not to be"
     body    "To be, or not to be, that is the question—
       Whether 'tis Nobler in the mind to suffer

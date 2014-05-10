@@ -12,7 +12,12 @@ ru:
   answers_count: "%{count} ответов"
   Your_answer: Ваш ответ
   Post_answer: Отправить ваш ответ
-  back: Назад
+  time:
+    ago: назад
+  common:
+    delete: Удалить
+    edit: Редактировать
+    back: Назад
   common_attributes: &common_attrs
     created_at: Создан
     updated_at: Изменен
@@ -30,11 +35,21 @@ ru:
     edit: Редактировать
     update: Обновить
     log_out: Выйти
+    settings: Настройки
+    cancel_account: Удалить аккаунт
+    cancel_my_account: Удалить мой аккаунт
+    unhappy: Недовольны?
+    current_password_required: 'необходим, чтобы подтвердить ваши изменения'
+    leave_blank: 'оставьте пустым, если не хотите менять'
+    login_to_answer: 'Вы должны авторизоваться, чтобы отвечать на вопросы'
+  question:
+    create: Новый вопрос
+    edit: Редактировать вопрос
   activerecord:
     models:
       question:
         zero: 0 Вопросов
-        one: Вопрос
+        one: '%{count} Вопрос'
         few: '%{count} Вопроса'
         many: '%{count} Вопросов'
         other: Вопросы
@@ -44,6 +59,12 @@ ru:
         few: Пользователя
         many: Пользователей
         other: Пользователи
+      answer:
+        zero: 0 Ответов
+        one: Ответ
+        few: '%{count} Ответа'
+        many: '%{count} Ответов'
+        other: Ответы
     attributes:
       question:
         title: Заголовок
@@ -55,6 +76,7 @@ ru:
         email: E-mail
         password: Пароль
         password_confirmation: Подтверждение пароля
+        current_password: Текущий пароль
         remember_me: Запомнить меня
         real_name: Полное имя
         website: Сайт
@@ -69,3 +91,7 @@ ru:
         last_sign_in_at: Последний вход в
         current_sign_in_ip: Текущий вход с IP
         last_sign_in_ip: Последний вход с IP
+      answer:
+        body: Текст
+        user_id: Пользователь
+        question_id: Вопрос

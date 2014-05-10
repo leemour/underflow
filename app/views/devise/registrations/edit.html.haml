@@ -1,34 +1,33 @@
-%h2
-  = "#{t('user.edit')} #{resource_name.to_s.humanize}"
+%h2= "#{t('user.edit')} #{resource.class.model_name.human}"
+
 = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
   = devise_error_messages!
-  %div
+  .form-group
     = f.label :name
-    %br/
-    = f.text_field :name, autofocus: true
-  %div
+    = f.text_field :name, class: 'form-control', autofocus: true
+  .form-group
     = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
+    = f.email_field :email, class: 'form-control', autofocus: true
   - if devise_mapping.confirmable? && resource.pending_reconfirmation?
-    %div
+    .form-group
       Currently waiting confirmation for: #{resource.unconfirmed_email}
-  %div
+  .form-group
     = f.label :password
-    %i (leave blank if you don't want to change it)
+    %i= t('user.leave_blank')
     %br/
-    = f.password_field :password, autocomplete: "off"
-  %div
+    = f.password_field :password, class: 'form-control', autocomplete: "off"
+  .form-group
     = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "off"
-  %div
+    = f.password_field :password_confirmation, class: 'form-control', autocomplete: "off"
+  .form-group
     = f.label :current_password
-    %i (we need your current password to confirm your changes)
+    %i= "#{t('user.current_password_required')}"
     %br/
-    = f.password_field :current_password, autocomplete: "off"
-  %div= f.submit t('user.update')
-%h3 Cancel my account
+    = f.password_field :current_password, class: 'form-control', autocomplete: "off"
+  = f.submit t('user.update'), class: 'btn btn-success'
+
+%h3= t('user.cancel_account')
 %p
-  Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete}
-= link_to t('back'), :back
+  = t('user.unhappy')
+  =button_to t('user.cancel_my_account'), registration_path(resource_name), class: 'btn btn-warning', data: { confirm: "Are you sure?" }, method: :delete
+= link_to t('common.back'), :back

@@ -1,0 +1,13 @@
+= form_for @question.answers.build, url: answers_path, html: {id: 'answer'}, role: "form" do |f|
+  %h2= t('Your_answer')
+
+  - if alert
+    - alert.each do |error|
+      %ul.errors.answer-errors
+        %li.alert.alert-danger= error
+
+  = f.hidden_field :question_id, value: @question.id
+  = f.hidden_field :user_id, value: current_user.id if current_user
+  .form-group
+    = f.text_area :body, class: "form-control"
+  = f.submit t('Post_answer'), class: "btn btn-success"
