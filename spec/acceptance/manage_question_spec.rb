@@ -10,7 +10,8 @@ feature 'User manages his question',
     background do
       user = create(:user)
       sign_in_with(user.email, user.password)
-      question = create(:question, user: user)
+      question = create(:question, user: user,
+        body: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. ')
       visit question_path(question)
     end
 
@@ -26,5 +27,7 @@ feature 'User manages his question',
 
     it 'deletes question' do
       click_on 'Удалить'
+      expect(page).to have_content 'Вопрос успешно удален.'
+      expect(page).to_not have_content 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
     end
   end

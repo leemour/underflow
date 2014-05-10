@@ -49,7 +49,7 @@ ru:
     models:
       question:
         zero: 0 Вопросов
-        one: '%{count} Вопрос'
+        one: Вопрос
         few: '%{count} Вопроса'
         many: '%{count} Вопросов'
         other: Вопросы

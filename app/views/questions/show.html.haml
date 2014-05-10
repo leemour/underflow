@@ -1,29 +1,35 @@
-%h1= @question.title
+#question
+  %h1= @question.title
 
-.content= @question.body.html_safe
-.tags
-  - @question.tags.each do |tag|
-    .tag= link_to tag.name, tag_path(tag)
-.details
-  - if @question.from?(current_user)
-    .controls
-      = link_to t('common.edit'), edit_question_path(@question)
-      = link_to t('common.delete'), question_path(@question, authenticity_token: form_authenticity_token), method: :delete
+  .content= @question.body.html_safe
+  .tags
+    - @question.tags.each do |tag|
+      .tag= link_to tag.name, tag_path(tag)
+  .details
+    - if @question.from?(current_user)
+      .controls.col-sm-6
+        = link_to t('common.edit'), edit_question_path(@question)
+        = link_to t('common.delete'), question_path(@question, authenticity_token: form_authenticity_token), method: :delete
 
-  .started
-    %span.time= created_ago @question
-    %span.author= link_to @question.user.name, user_path(@question.user)
-    %span.author-reputation
+    .started.col-sm-6.pull-right
+      %span.time= created_ago @question
+      %span.author= link_to @question.user.name, user_path(@question.user)
+      %span.author-reputation
 
 #answers
   %h3= t('activerecord.models.answer', count: @question.answers.count)
   - @question.answers.each do |answer|
     .answer
       .answer-text= answer.body.html_safe
-      .started
-        %span.time= created_ago answer
-        %span.author= link_to answer.user.name, user_path(answer.user)
-        %span.author-reputation
+      .details
+        - if @question.from?(current_user)
+          .controls.col-sm-6
+            = link_to t('common.edit'), edit_answer_path(answer)
+            = link_to t('common.delete'), answer_path(answer, authenticity_token: form_authenticity_token), method: :delete
+        .started.col-sm-6.pull-right
+          %span.time= created_ago answer
+          %span.author= link_to answer.user.name, user_path(answer.user)
+          %span.author-reputation
 
   = render 'answers/form'
 

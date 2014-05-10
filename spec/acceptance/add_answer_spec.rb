@@ -11,10 +11,7 @@ feature 'User adds an answer',
     background do
       user = create(:user)
       sign_in_with(user.email, user.password)
-
-
-      # queston = create(:question)
-      question = user.questions.create(attributes_for(:question))
+      question = create(:question, user: user)
       visit question_path(question)
     end
 
