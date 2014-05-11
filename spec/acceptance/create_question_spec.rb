@@ -9,7 +9,7 @@ feature 'User creates question',
 
   context 'when logged in' do
     background  do
-      user = create(:user, email: '123@mail.ru', password: '12345678')
+      user = create(:user)
       sign_in_with(user.email, user.password)
 
       visit questions_path

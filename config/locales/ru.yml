@@ -45,6 +45,8 @@ ru:
   question:
     create: Новый вопрос
     edit: Редактировать вопрос
+  answer:
+    edit: Редактировать ответ
   activerecord:
     models:
       question:
