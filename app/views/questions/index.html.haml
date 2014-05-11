@@ -13,6 +13,6 @@
               =link_to tag.name, tag_path(tag)
           .started
             %span.time= created_ago question
-            %span.author= question.user.name
+            %span.author= link_to question.user.name, user_path(question.user)
             %span.author-reputation
 

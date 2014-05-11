@@ -59,7 +59,7 @@ describe QuestionsController do
       get :edit, id: subject
     end
 
-    it "finds Question for edit" do
+    it "finds Question to edit" do
       expect(assigns(:question)).to eq(subject)
     end
 
@@ -110,7 +110,7 @@ describe QuestionsController do
         expect(assigns(:question)).to eq(subject)
       end
 
-      it "changes @question attributes" do
+      it "changes @question title" do
         subject.reload
         expect(subject.title).to eq('Updated title!!')
       end

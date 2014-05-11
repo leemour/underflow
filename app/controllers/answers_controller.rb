@@ -1,13 +1,12 @@
 class AnswersController < ApplicationController
+  before_action :set_answer, only: [:edit, :update, :destroy]
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
 
   def edit
-    @answer = Answer.find(params[:id])
   end
 
   def create
     @answer = current_user.answers.build(answer_params)
-
     if @answer.save
       redirect_to question_path(@answer.question),
         notice: t('model_created',
@@ -19,7 +18,6 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer = Answer.find(params[:id])
     respond_to do |format|
       if @answer.update(answer_params)
         format.html { redirect_to @answer.question,
@@ -35,8 +33,6 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    @answer = Answer.find(params[:id])
-    question = @answer.question
     @answer.destroy
     respond_to do |format|
       format.html { redirect_to question_path(@answer.question),
@@ -47,6 +43,10 @@ class AnswersController < ApplicationController
   end
 
   private
+
+  def set_answer
+    @answer = Answer.find(params[:id])
+  end
 
   def answer_params
     params.require(:answer).permit(:body, :question_id, :user_id)
