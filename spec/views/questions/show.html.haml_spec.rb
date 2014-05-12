@@ -1,14 +1,16 @@
 require 'spec_helper'
 
 describe 'questions/show.html.haml' do
+  before { assign :answer, build(:answer) }
+
   it "displays Question title" do
-    assign :question, build(:question, title: 'Question display title')
+    assign :question, create(:question, title: 'Question display title')
     render
     expect(rendered).to have_selector 'h1', text: 'Question display title'
   end
 
   it "displays Question body" do
-    assign :question, build(:question,
+    assign :question, create(:question,
       body: 'How to build a Ruby on Rails app in 1 second? I have no idea')
     render
     expect(rendered).to have_content(
@@ -37,7 +39,8 @@ describe 'questions/show.html.haml' do
 
   describe 'Answer part' do
     before do
-      assign :question, build(:question)
+      assign :question, create(:question)
+      assign :answer, build(:answer)
     end
 
     it "displays Answer count" do
@@ -47,7 +50,7 @@ describe 'questions/show.html.haml' do
 
     it "displays new Answer label field" do
       render
-      expect(rendered).to have_selector 'form#answer h2', 'Ваш ответ'
+      expect(rendered).to have_selector 'h2', 'Ваш ответ'
     end
 
     it "displays new Answer form field" do

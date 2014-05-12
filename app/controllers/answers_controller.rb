@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:edit, :update, :destroy]
-  before_action :set_question, only: [:new, :edit, :create]
+  before_action :set_question, only: [:new, :edit, :create, :update]
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
 
   def new
@@ -37,7 +37,7 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    @answer.destroy
+    @answer.destroy if @answer.user == current_user
     respond_to do |format|
       format.html { redirect_to question_path(@answer.question),
         notice: t('model_deleted',

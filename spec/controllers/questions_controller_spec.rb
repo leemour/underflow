@@ -146,18 +146,18 @@ describe QuestionsController do
   end
 
   describe "DELETE destroy" do
-    let!(:question) { create(:question) }
     before { login_user }
+    let!(:question) { create(:question, user: @user) }
 
     it "finds Question to delete" do
       delete :destroy, id: question
       expect(assigns(:question)).to eq(question)
     end
 
-    it "deletes the requested Question" do
+    it "deletes the Question from DB" do
       expect{
         delete :destroy, id: question
-      }.to change(Question, :count).by(-1)
+      }.to change(@user.questions, :count).by(-1)
     end
 
     it "redirects to question index" do
@@ -165,8 +165,13 @@ describe QuestionsController do
       expect(response).to redirect_to questions_path
     end
 
-    context "when Question doesn't belong to user" do
-      it 'shows error'
+    context "when not user's Question" do
+      it "doesn't delete Question from DB" do
+        alien_question = create(:question, user: create(:user))
+        expect{
+        delete :destroy, id: alien_question
+      }.to_not change(Question, :count)
+      end
     end
   end
 end

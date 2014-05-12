@@ -19,7 +19,6 @@ class QuestionsController < ApplicationController
 
   def create
     @question = current_user.questions.build(question_params)
-
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question,
@@ -50,7 +49,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @question.destroy
+    @question.destroy if @question.user == current_user
     respond_to do |format|
       format.html { redirect_to questions_path,
         notice: t('model_deleted',
@@ -68,8 +67,4 @@ class QuestionsController < ApplicationController
   def question_params
     params.require(:question).permit(:title, :body, :user_id, :status)
   end
-
-  # def answer_params
-  #   params.require(:answer).permit(:body, :question_id, :user_id)
-  # end
 end
