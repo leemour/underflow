@@ -11,7 +11,7 @@ describe AnswersController do
         it "saves new Answer to DB" do
           expect{
             post :create, answer: attributes_for(:answer, question_id: question)
-          }.to change(Answer, :count).by(1)
+          }.to change(question.answers, :count).by(1)
         end
 
         it 'redirects to answered Question' do
@@ -21,7 +21,13 @@ describe AnswersController do
       end
 
       context "with invalid attributes" do
-        it 'redirects to Question with error' do
+        it "doesn't save new Answer to DB" do
+          expect{
+            post :create, answer: {body: '', question_id: question}
+          }.to change(question.answers, :count).by(0)
+        end
+
+        it 'redirects to answered Question with error' do
           post :create, answer: {body: '', question_id: question}
           expect(request).to redirect_to(question_path(question))
         end

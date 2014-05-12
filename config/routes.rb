@@ -11,10 +11,10 @@ Rails.application.routes.draw do
   end
 
 
-  resources :questions
-  resources :answers
+  resources :questions do
+    resources :answers
+  end
   resources :tags
-
   resources :users
 
   # Example of regular route:

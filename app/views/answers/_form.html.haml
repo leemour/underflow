@@ -1,15 +1,11 @@
-- question = @question ? @question : @answer.question
-- answer = @question ? @question.answers.build : @answer
-= form_for answer, html: {id: 'answer'}, role: "form" do |f|
-  %h2= t('Your_answer')
+%h2= t('your_answer')
 
-  - errors = @answer ? @answer.errors.full_messages : alert
-  - if errors
-    - errors.each do |error|
+= form_for [@question, @answer], html: {id: 'answer'}, role: "form" do |f|
+  - if @answer.errors
+    - @answer.errors.full_messages.each do |error|
       %ul.errors.answer-errors
         %li.alert.alert-danger= error
 
-  = f.hidden_field :question_id, value: question.id
   .form-group
     = f.text_area :body, class: "form-control"
-  = f.submit t('Post_answer'), class: "btn btn-success"
+  = f.submit t('answer.post'), class: "btn btn-success"

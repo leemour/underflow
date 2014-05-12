@@ -2,16 +2,14 @@ ru:
   main_menu: Главное меню
   toggle_nav: Открыть меню
   to_home: На главную
-  Help: Помощь
+  help: Помощь
   model_created: "%{model} успешно создан."
   model_updated: "%{model} успешно обновлен."
   model_deleted: "%{model} успешно удален."
-  Question: Вопрос
-  Questions: Вопросы
-  Ask_question: Задать вопрос
+  question: Вопрос
+  questions: Вопросы
   answers_count: "%{count} ответов"
-  Your_answer: Ваш ответ
-  Post_answer: Отправить ваш ответ
+  your_answer: Ваш ответ
   time:
     ago: назад
   common:
@@ -45,8 +43,11 @@ ru:
   question:
     create: Новый вопрос
     edit: Редактировать вопрос
+    ask: Задать вопрос
   answer:
     edit: Редактировать ответ
+    new: Новый ответ
+    post: Отправить ваш ответ
     form:
       ask_question: Задать вопрос
   activerecord:

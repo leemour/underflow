@@ -7,7 +7,7 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    # @answer = answer_params ? @question.answers.build(answer_params) : @question.answers.build
+    @answer = @question.answers.build
   end
 
   def new

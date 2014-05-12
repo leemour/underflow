@@ -32,6 +32,10 @@ describe QuestionsController do
       expect(assigns(:question)).to eq(subject)
     end
 
+    it "assigns new Question Answer to @answer" do
+      expect(assigns(:answer)).to be_a_new Answer
+    end
+
     it "renders :show view" do
       expect(response).to render_template 'show'
     end

@@ -1,19 +1,23 @@
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:edit, :update, :destroy]
+  before_action :set_question, only: [:new, :edit, :create]
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
+
+  def new
+  end
 
   def edit
   end
 
   def create
     @answer = current_user.answers.build(answer_params)
+    @answer.question = @question
     if @answer.save
-      redirect_to question_path(@answer.question),
+      redirect_to question_path(@question),
         notice: t('model_created',
           model: t('activerecord.models.answer', count: 1))
     else
-      redirect_to question_path(@answer.question),
-        alert: @answer.errors.full_messages
+      render action: 'new'
     end
   end
 
@@ -46,6 +50,10 @@ class AnswersController < ApplicationController
 
   def set_answer
     @answer = Answer.find(params[:id])
+  end
+
+  def set_question
+    @question = Question.find(params[:question_id])
   end
 
   def answer_params

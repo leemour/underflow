@@ -29,10 +29,7 @@ en:
   model_deleted: "%{model} was successfully deleted."
   Question: Question
   Questions: Questions
-  Ask_question: Ask question
   answers_count: "%{count} answers"
-  Your_answer: Your answer
-  Post_answer: Post your answer
   user:
     profile: Profile
     log_in: Log in
