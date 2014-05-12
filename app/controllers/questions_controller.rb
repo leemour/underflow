@@ -35,7 +35,10 @@ class QuestionsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @question.update(question_params)
+      if @question.user != current_user
+        format.html { redirect_to questions_path }
+        format.json { head :no_content}
+      elsif @question.update(question_params)
         format.html { redirect_to @question,
           notice: t('model_updated',
             model: t('activerecord.models.question', count: 1)) }

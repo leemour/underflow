@@ -75,7 +75,7 @@ describe QuestionsController do
 
     context "with valid attributes" do
       it "saves new Question to DB" do
-        expect{
+        expect {
           post :create, question: attributes_for(:question)
         }.to change(@user.questions, :count).by(1)
       end
@@ -101,8 +101,8 @@ describe QuestionsController do
   end
 
   describe "PATCH #update" do
-    subject { create(:question, title: 'Not updated title') }
     before { login_user }
+    subject { create(:question, user: @user, title: 'Not updated title') }
 
     context "with valid attributes" do
       before do
@@ -143,6 +143,19 @@ describe QuestionsController do
         expect(response).to render_template 'edit'
       end
     end
+
+    context "when not user's Question" do
+      it "doesn't change @question attributes" do
+        alien_question = create(:question, user: create(:user),
+          title: 'Not updated title')
+
+        patch :update, id: alien_question,
+          question: attributes_for(:question, title: 'Not allowed to change title')
+        alien_question.reload
+
+        expect(alien_question.title).to eq('Not updated title')
+      end
+    end
   end
 
   describe "DELETE destroy" do
@@ -155,7 +168,7 @@ describe QuestionsController do
     end
 
     it "deletes the Question from DB" do
-      expect{
+      expect {
         delete :destroy, id: question
       }.to change(@user.questions, :count).by(-1)
     end

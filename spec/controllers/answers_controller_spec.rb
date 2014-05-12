@@ -55,11 +55,10 @@ describe AnswersController do
   end
 
   describe 'PATCH #update' do
-    let(:question) { create(:question) }
-    subject { create(:answer, question: question,
-      body: 'Not updated body. Not updated body. Not updated body.') }
-
     before { login_user }
+    let(:question) { create(:question) }
+    subject { create(:answer, user: @user, question: question,
+      body: 'Not updated body. Not updated body. Not updated body.') }
 
     context 'with valid attributes' do
       before do
@@ -102,6 +101,19 @@ describe AnswersController do
       end
     end
 
+    context "when not user's Answer" do
+      it "doesn't change @answer attributes" do
+        alien_answer = create(:answer, user: create(:user),
+          body: 'Not updated body. Not updated body.')
+
+        patch :update, id: alien_answer, question_id: question,
+          answer: attributes_for(:answer, body: 'Updated body! Updated body! Updated body!')
+        alien_answer.reload
+
+        expect(alien_answer.body).to eq('Not updated body. Not updated body.')
+      end
+    end
+  end
 
   describe "DELETE destroy" do
     before { login_user }
@@ -132,6 +144,5 @@ describe AnswersController do
         }.to_not change(Answer, :count)
       end
     end
-  end
   end
 end

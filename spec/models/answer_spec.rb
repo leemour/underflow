@@ -8,5 +8,5 @@ describe Answer do
   it { should have_many :comments }
 
   it { should validate_presence_of(:body) }
-  it { should ensure_length_of(:body).is_at_least(50).is_at_most(6000) }
+  it { should ensure_length_of(:body).is_at_least(30).is_at_most(6000) }
 end
