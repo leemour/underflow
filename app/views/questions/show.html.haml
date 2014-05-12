@@ -1,4 +1,4 @@
-#question
+.question{id: "question-#{@question.id}"}
   %h1= @question.title
 
   .content= @question.body.html_safe
@@ -9,7 +9,7 @@
     - if @question.from?(current_user)
       .controls.col-sm-6
         = link_to t('common.edit'), edit_question_path(@question)
-        = link_to t('common.delete'), question_path(@question, authenticity_token: form_authenticity_token), method: :delete
+        = link_to t('common.delete'), question_path(@question), method: :delete
 
     .started.col-sm-6.pull-right
       %span.time= created_ago @question

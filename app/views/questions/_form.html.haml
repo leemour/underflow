@@ -1,5 +1,8 @@
 - unless @question.errors.empty?
-  = @question.errors.full_messages
+  = @question.errors.full_messages.each do |error|
+    %ul.errors.question-errors
+      %li.alert.alert-danger= error
+
 =form_for @question do |f|
   .form-group
     =f.label :title

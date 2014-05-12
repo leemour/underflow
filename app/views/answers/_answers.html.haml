@@ -5,7 +5,7 @@
       - if question.from?(current_user)
         .controls.col-sm-6
           = link_to t('common.edit'), edit_answer_path(answer)
-          = link_to t('common.delete'), answer_path(answer, authenticity_token: form_authenticity_token), method: :delete
+          = link_to t('common.delete'), answer_path(answer), method: :delete
       .started.col-sm-6.pull-right
         %span.time= created_ago answer
         %span.author= link_to answer.user.name, user_path(answer.user)

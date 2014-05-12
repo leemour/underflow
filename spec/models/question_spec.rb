@@ -24,12 +24,12 @@ describe Question do
 
     it 'returns true when user is the author' do
       question = create(:question, user: user)
-      expect(question.from?(user)).to be_true
+      expect(question).to be_from(user)
     end
 
     it 'returns false when user is not the author' do
       question = create(:question)
-      expect(question.from?(user)).to be_false
+      expect(question).to_not be_from(user)
     end
   end
 end

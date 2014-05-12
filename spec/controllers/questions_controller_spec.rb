@@ -73,7 +73,7 @@ describe QuestionsController do
       it "saves new Question to DB" do
         expect{
           post :create, question: attributes_for(:question)
-        }.to change(Question, :count).by(1)
+        }.to change(@user.questions, :count).by(1)
       end
 
       it "redirects to new Question" do
@@ -159,6 +159,10 @@ describe QuestionsController do
     it "redirects to question index" do
       delete :destroy, id: question
       expect(response).to redirect_to questions_path
+    end
+
+    context "when Question doesn't belong to user" do
+      it 'shows error'
     end
   end
 end
