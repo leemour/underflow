@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../acceptance_helper'
 
 feature 'User adds an answer',
 %{
@@ -16,35 +16,53 @@ feature 'User adds an answer',
       visit question_path(question)
     end
 
-    scenario 'answers with valid fields' do
-      fill_in 'answer_body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
-      within("form") do
-        click_on 'Отправить ваш ответ'
-      end
+    context 'with valid body' do
+      context 'with AJAX' do
+        scenario 'adds answer', js: true do
+          fill_in 'answer_body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
+          within("form") do
+            click_on 'Отправить ваш ответ'
+          end
 
-      expect(page).to have_content 'Ответ успешно создан.'
-      expect(page).to have_content 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
-    end
-
-    scenario "can't answer with invalid fields" do
-      fill_in 'answer_body', with: ''
-      within("form") do
-        click_on 'Отправить ваш ответ'
-      end
-
-      expect(page).to have_content 'Текст недостаточной длины'
-    end
-
-
-    context 'with AJAX' do
-      scenario 'answers with valid fields', js: true do
-        fill_in 'answer_body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
-        within("form") do
-          click_on 'Отправить ваш ответ'
+          expect(page).to have_content 'Ответ успешно создан.'
+          expect(page).to have_content 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
         end
+      end
 
-        expect(page).to have_content 'Ответ успешно создан.'
-        expect(page).to have_content 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
+      context 'without AJAX' do
+        scenario 'adds answer' do
+          fill_in 'answer_body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
+          within("form") do
+            click_on 'Отправить ваш ответ'
+          end
+
+          expect(page).to have_content 'Ответ успешно создан.'
+          expect(page).to have_content 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
+        end
+      end
+    end
+
+    context 'with invalid body' do
+      context 'with AJAX' do
+        scenario "doesn't add answer", js: true do
+          fill_in 'answer_body', with: ''
+          within("form") do
+            click_on 'Отправить ваш ответ'
+          end
+
+          expect(page).to have_content 'Текст недостаточной длины'
+        end
+      end
+
+      context 'without AJAX' do
+        scenario "doesn't add answer" do
+          fill_in 'answer_body', with: ''
+          within("form") do
+            click_on 'Отправить ваш ответ'
+          end
+
+          expect(page).to have_content 'Текст недостаточной длины'
+        end
       end
     end
   end

@@ -1,6 +1,6 @@
 module ApplicationHelper
   def app_name
-    "Stack Underflow"
+    "Underflow"
   end
 
   def body_class

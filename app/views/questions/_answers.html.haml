@@ -3,7 +3,7 @@
     .answer{id: "answer-#{answer.id}"}
       .answer-text= answer.body.html_safe
       .details
-        - if @question.from?(current_user)
+        - if answer.from?(current_user)
           .controls.col-sm-6
             %span.edit
               = link_to t('common.edit'), edit_question_answer_path(@question, answer)

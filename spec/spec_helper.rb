@@ -20,34 +20,11 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   config.include Devise::TestHelpers, type: :view
   config.include ControllerMacros, type: :controller
-  config.include Acceptance::SessionHelpers, type: :feature
 
   # config.formatter = :documentation # :progress, :html, :textmate
   # config.color_enabled = true
   # Use color not only in STDOUT but also in pagers and files
   # config.tty = true
   config.order = "random"
-  config.use_transactional_fixtures = false
-
-  config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
-    FactoryGirl.lint
-    DatabaseCleaner.clean_with(:truncation)
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.strategy = :transaction
-  end
-
-  config.before(:each, :js => true) do
-    DatabaseCleaner.strategy = :truncation
-  end
-
-  config.before(:each) do
-    DatabaseCleaner.start
-  end
-
-  config.after(:each) do
-    DatabaseCleaner.clean
-  end
+  config.use_transactional_fixtures = true
 end
