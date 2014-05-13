@@ -22,7 +22,7 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question,
-          notice: t('model_created',
+          notice: t('model.created',
             model: t('activerecord.models.question', count: 1)) }
         format.json { render :show, status: :created, location: @question }
       else
@@ -40,7 +40,7 @@ class QuestionsController < ApplicationController
         format.json { head :no_content}
       elsif @question.update(question_params)
         format.html { redirect_to @question,
-          notice: t('model_updated',
+          notice: t('model.updated',
             model: t('activerecord.models.question', count: 1)) }
         format.json { render :show, status: :ok, location: @question }
       else
@@ -55,7 +55,7 @@ class QuestionsController < ApplicationController
     @question.destroy if @question.user == current_user
     respond_to do |format|
       format.html { redirect_to questions_path,
-        notice: t('model_deleted',
+        notice: t('model.deleted',
           model: t('activerecord.models.question', count: 1)) }
       format.json { head :no_content}
     end

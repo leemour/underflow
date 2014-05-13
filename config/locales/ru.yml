@@ -3,9 +3,12 @@ ru:
   toggle_nav: Открыть меню
   to_home: На главную
   help: Помощь
-  model_created: "%{model} успешно создан."
-  model_updated: "%{model} успешно обновлен."
-  model_deleted: "%{model} успешно удален."
+  model:
+    created: "%{model} успешно создан."
+    updated: "%{model} успешно обновлен."
+    deleted: "%{model} успешно удален."
+  errors:
+    denied: Доступ запрещен
   time:
     ago: назад
   common:
@@ -13,6 +16,7 @@ ru:
     edit: Редактировать
     back: Назад
     sure: Вы уверены?
+    cancel: Отмена
   common_attributes: &common_attrs
     created_at: Создан
     updated_at: Изменен

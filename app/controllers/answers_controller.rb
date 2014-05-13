@@ -30,24 +30,28 @@ class AnswersController < ApplicationController
     respond_to do |format|
       if @answer.user != current_user
         format.html { redirect_to question_path(@question) }
-        format.json { head :no_content}
+        format.js { }
       elsif @answer.update(answer_params)
         format.html { redirect_to @answer.question, tr(:answer, 'updated') }
-        format.json { render :show, status: :ok, location: @answer }
+        format.js { }
       else
         format.html { render :edit }
-        format.json { render json: @answer.errors,
-          status: :unprocessable_entity }
+        format.js { }
       end
     end
   end
 
   def destroy
-    @answer.destroy if @answer.user == current_user
     respond_to do |format|
-      format.html { redirect_to question_path(@answer.question),
-                      tr(:answer, 'deleted') }
-      format.json { head :no_content}
+      if @answer.user == current_user
+        @answer.destroy
+        format.html { redirect_to question_path(@answer.question),
+                        tr(:answer, 'deleted') }
+        format.js
+      else
+        format.html { redirect_to question_path(@answer.question) }
+        format.js { render nothing: true, status: :forbidden }
+      end
     end
   end
 

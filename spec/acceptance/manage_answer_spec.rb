@@ -61,31 +61,67 @@ feature 'User manages an answer',
         end
       end
 
-      scenario 'with correct text' do
-        fill_in 'answer_body',
-          with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
-        click_on 'Отправить ваш ответ'
+      context 'with AJAX' do
+        scenario 'with correct text', js: true do
+          within("#answer-#{answer.id}") do
+            fill_in 'answer_body',
+              with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
+            click_on 'Отправить ваш ответ'
+          end
 
-        expect(page).to have_content 'Ответ успешно обновлен.'
-        expect(page).to have_content 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
+          expect(page).to_not have_content answer.body
+          expect(page).to have_content 'Ответ успешно обновлен.'
+          expect(page).to have_content 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
+        end
+
+        scenario 'with incorrect text', js: true do
+          within("#answer-#{answer.id}") do
+            fill_in 'answer_body', with: ''
+            click_on 'Отправить ваш ответ'
+          end
+
+          expect(page).to have_content 'Текст недостаточной длины'
+        end
       end
 
-      scenario 'with incorrect text' do
-        fill_in 'answer_body', with: ''
-        click_on 'Отправить ваш ответ'
+      context 'without AJAX' do
+        scenario 'with correct text' do
+          fill_in 'answer_body',
+            with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
+          click_on 'Отправить ваш ответ'
 
-        expect(page).to have_content 'Текст недостаточной длины'
-        expect(page).to_not have_content answer.body
+          expect(page).to_not have_content answer.body
+          expect(page).to have_content 'Ответ успешно обновлен.'
+          expect(page).to have_content 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
+        end
+
+        scenario 'with incorrect text' do
+          fill_in 'answer_body', with: ''
+          click_on 'Отправить ваш ответ'
+
+          expect(page).to have_content 'Текст недостаточной длины'
+        end
       end
     end
 
-    scenario "deletes answer" do
-      within("#answer-#{answer.id}") do
-        click_on 'Удалить'
+    feature "deletes answer" do
+      scenario 'with AJAX', js: true do
+        within("#answer-#{answer.id}") do
+          click_on 'Удалить'
+        end
+
+        expect(page).to have_content 'Ответ успешно удален.'
+        expect(page).to_not have_content answer.body
       end
 
-      expect(page).to have_content 'Ответ успешно удален.'
-      expect(page).to_not have_content answer.body
+      scenario 'without AJAX' do
+        within("#answer-#{answer.id}") do
+          click_on 'Удалить'
+        end
+
+        expect(page).to have_content 'Ответ успешно удален.'
+        expect(page).to_not have_content answer.body
+      end
     end
   end
 end

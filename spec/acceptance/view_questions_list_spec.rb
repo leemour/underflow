@@ -7,12 +7,12 @@ feature 'User views list of questions',
   I want to see a list of questions
   } do
 
-  scenario 'on homepage ordered by date' do
+  scenario 'ordered by date newest first' do
     question1 = create(:question, title: 'Тестовый вопрос номер 1')
     question2 = create(:question, title: 'Тестовый вопрос номер 2')
 
     visit '/'
 
-    expect(question1.title).to appear_before(question2.title)
+    expect(question2.title).to appear_before(question1.title)
   end
 end

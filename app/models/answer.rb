@@ -5,6 +5,7 @@ class Answer < ActiveRecord::Base
 
   validates :body, presence: true, length: {in: 30..6000}
 
+  default_scope { order('created_at ASC') }
 
   def from?(user)
     user == self.user

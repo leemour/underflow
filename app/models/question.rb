@@ -9,6 +9,8 @@ class Question < ActiveRecord::Base
 
   enum status: [:active, :locked, :flagged, :deleted, :archived]
 
+  default_scope { order('created_at DESC') }
+
 
   def from?(user)
     user == self.user

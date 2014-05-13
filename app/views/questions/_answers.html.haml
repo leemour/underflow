@@ -2,13 +2,16 @@
   - if answer.persisted?
     .answer{id: "answer-#{answer.id}"}
       .answer-text= answer.body.html_safe
+      .answer-form
+        = render 'answers/edit_form', answer: answer
+
       .details
         - if answer.from?(current_user)
           .controls.col-sm-6
             %span.edit
-              = link_to t('common.edit'), edit_question_answer_path(@question, answer)
+              = link_to t('common.edit'), edit_question_answer_path(@question, answer), remote: true
             %span.delete
-              = link_to t('common.delete'), question_answer_path(@question, answer), method: :delete, data: { confirm: t("common.sure") }
+              = link_to t('common.delete'), question_answer_path(@question, answer), method: :delete, data: { confirm: t("common.sure") }, remote: true
         .started.col-sm-6.pull-right
           %span.time= created_ago answer
           %span.author= link_to answer.user.name, user_path(answer.user)

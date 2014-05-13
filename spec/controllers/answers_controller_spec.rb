@@ -10,7 +10,7 @@ describe AnswersController do
       context "with valid attributes" do
         context 'with AJAX' do
            it "saves new Answer to DB" do
-            expect{
+            expect {
               post :create, answer: attributes_for(:answer),
                 question_id: question, format: :js
             }.to change(question.answers, :count).by(1)
@@ -25,7 +25,7 @@ describe AnswersController do
 
         context 'without AJAX' do
           it "saves new Answer to DB" do
-            expect{
+            expect {
               post :create, answer: attributes_for(:answer), question_id: question
             }.to change(question.answers, :count).by(1)
           end
@@ -40,7 +40,7 @@ describe AnswersController do
       context "with invalid attributes" do
         context 'with AJAX' do
           it "doesn't save new Answer to DB" do
-            expect{
+            expect {
               post :create, answer: {body: ''}, question_id: question,
                 format: :js
             }.to change(question.answers, :count).by(0)
@@ -94,23 +94,46 @@ describe AnswersController do
       body: 'Not updated body. Not updated body. Not updated body.') }
 
     context 'with valid attributes' do
-      before do
-        patch :update, id: subject, question_id: question,
-          answer: attributes_for(:answer,
-            body: 'Updated body! Updated body! Updated body! Updated body!')
+      context "with AJAX" do
+        before do
+          patch :update, id: subject, question_id: question, format: :js,
+            answer: attributes_for(:answer,
+              body: 'Updated body! Updated body! Updated body! Updated body!')
+        end
+
+        it "finds Answer to edit" do
+          expect(assigns(:answer)).to eq(subject)
+        end
+
+        it 'updates @answer body' do
+          subject.reload
+          expect(subject.body).to eq('Updated body! Updated body! Updated body! Updated body!')
+        end
+
+        it "renders :update view" do
+          expect(response).to render_template 'update'
+        end
       end
 
-      it "finds Answer to edit" do
-        expect(assigns(:answer)).to eq(subject)
-      end
+      context "without AJAX" do
+        before do
+          patch :update, id: subject, question_id: question,
+            answer: attributes_for(:answer,
+              body: 'Updated body! Updated body! Updated body! Updated body!')
+        end
 
-      it 'updates @answer body' do
-        subject.reload
-        expect(subject.body).to eq('Updated body! Updated body! Updated body! Updated body!')
-      end
+        it "finds Answer to edit" do
+          expect(assigns(:answer)).to eq(subject)
+        end
 
-      it "redirects to the Answer Question" do
-        expect(response).to redirect_to subject.question
+        it 'updates @answer body' do
+          subject.reload
+          expect(subject.body).to eq('Updated body! Updated body! Updated body! Updated body!')
+        end
+
+        it "redirects to the Answer Question" do
+          expect(response).to redirect_to subject.question
+        end
       end
     end
 
@@ -151,28 +174,45 @@ describe AnswersController do
   describe "DELETE destroy" do
     before { login_user }
     let(:question) { create(:question) }
-    let!(:answer) { create(:answer, user: @user) }
+    let!(:answer) { create(:answer, user: @user, question: question) }
 
-    it "finds Question to delete" do
-      delete :destroy, id: answer, question_id: question
-      expect(assigns(:answer)).to eq(answer)
-    end
+    context "when user's Answer" do
+      context "with AJAX" do
+        it "deletes the requested Answer" do
+          expect {
+            delete :destroy, id: answer, question_id: question, format: :js
+          }.to change(@user.answers, :count).by(-1)
+        end
 
-    it "deletes the requested Question" do
-      expect{
-        delete :destroy, id: answer, question_id: question
-      }.to change(@user.answers, :count).by(-1)
-    end
+        it "renders :destroy view" do
+          delete :destroy, id: answer, question_id: question, format: :js
+          expect(response).to render_template 'destroy'
+        end
+      end
 
-    it "redirects to question index" do
-      delete :destroy, id: answer, question_id: question
-      expect(response).to redirect_to question_path(answer.question)
+      context "without AJAX" do
+        it "finds Answer to delete" do
+          delete :destroy, id: answer, question_id: question
+          expect(assigns(:answer)).to eq(answer)
+        end
+
+        it "deletes the requested Answer" do
+          expect {
+            delete :destroy, id: answer, question_id: question
+          }.to change(@user.answers, :count).by(-1)
+        end
+
+        it "redirects to Answer's Question" do
+          delete :destroy, id: answer, question_id: question
+          expect(response).to redirect_to question_path(answer.question)
+        end
+      end
     end
 
     context "when not user's Answer" do
       it "doesn't delete Answer from DB" do
         alien_answer = create(:answer, user: create(:user), question: question)
-        expect{
+        expect {
           delete :destroy, id: alien_answer, question_id: question
         }.to_not change(Answer, :count)
       end

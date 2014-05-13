@@ -1,0 +1,3 @@
+$('#answer-<%= @answer.id %>').remove();
+$('#content').prepend('<%= j render 'shared/flash',
+    flash: tr(:answer, 'deleted') %>');

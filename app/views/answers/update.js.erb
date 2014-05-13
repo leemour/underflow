@@ -1,0 +1,8 @@
+<% if @answer.errors.empty? %>
+  $('#content').prepend('<%= j render 'shared/flash',
+    flash: tr(:answer, 'updated') %>');
+  $('#answers').html('<%= j render 'questions/answers' %>');
+  $('#answer-<%= @answer.id %>').css('background-color', '#eee');
+<% else %>
+  $('#answer-<%= @answer.id %> form').replaceWith('<%= j render 'answers/form' %>');
+<% end %>
