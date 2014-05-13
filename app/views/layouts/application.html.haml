@@ -20,10 +20,10 @@
 
     = render 'shared/header'
 
-    %main#content{role: 'main'}
+    %main{role: 'main'}
       .container-fluid
         .row
-          .col-sm-8.col-lg-9
+          #content.col-sm-8.col-lg-9
             = render 'shared/flash', locals: {flash: flash}
 
             = yield

@@ -12,4 +12,9 @@ module ApplicationHelper
       time_ago_in_words(object.created_at) + " #{t('time.ago')}"
     end
   end
+
+  def tr(model, action)
+    { notice: t("model_#{action}",
+          model: t("activerecord.models.#{model}", count: 1)) }
+  end
 end

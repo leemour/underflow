@@ -8,28 +8,61 @@ describe AnswersController do
       before { login_user }
 
       context "with valid attributes" do
-        it "saves new Answer to DB" do
-          expect{
-            post :create, answer: attributes_for(:answer), question_id: question
-          }.to change(question.answers, :count).by(1)
+        context 'with AJAX' do
+           it "saves new Answer to DB" do
+            expect{
+              post :create, answer: attributes_for(:answer),
+                question_id: question, format: :js
+            }.to change(question.answers, :count).by(1)
+          end
+
+           it "renders :create view" do
+            post :create, answer: attributes_for(:answer),
+              question_id: question, format: :js
+            expect(response).to render_template 'create'
+          end
         end
 
-        it 'redirects to answered Question' do
-          post :create, answer: attributes_for(:answer), question_id: question
-          expect(request).to redirect_to(question_path(question))
+        context 'without AJAX' do
+          it "saves new Answer to DB" do
+            expect{
+              post :create, answer: attributes_for(:answer), question_id: question
+            }.to change(question.answers, :count).by(1)
+          end
+
+          it 'redirects to answered Question' do
+            post :create, answer: attributes_for(:answer), question_id: question
+            expect(request).to redirect_to(question_path(question))
+          end
         end
       end
 
       context "with invalid attributes" do
-        it "doesn't save new Answer to DB" do
-          expect{
-            post :create, answer: {body: ''}, question_id: question
-          }.to change(question.answers, :count).by(0)
+        context 'with AJAX' do
+          it "doesn't save new Answer to DB" do
+            expect{
+              post :create, answer: {body: ''}, question_id: question,
+                format: :js
+            }.to change(question.answers, :count).by(0)
+          end
+
+          it 'renders :create view' do
+            post :create, answer: {body: ''}, question_id: question, format: :js
+            expect(request).to render_template 'create'
+          end
         end
 
-        it 'redirects to answered Question with error' do
-          post :create, answer: {body: ''}, question_id: question
-          expect(request).to render_template 'new'
+        context 'without AJAX' do
+          it "doesn't save new Answer to DB" do
+            expect{
+              post :create, answer: {body: ''}, question_id: question
+            }.to change(question.answers, :count).by(0)
+          end
+
+          it 'redirects to answered Question with error' do
+            post :create, answer: {body: ''}, question_id: question
+            expect(request).to render_template 'new'
+          end
         end
       end
     end

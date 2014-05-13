@@ -7,6 +7,7 @@ feature 'User adds an answer',
   I want to answer the question
   } do
 
+
   context 'when logged in' do
     background do
       user = create(:user)
@@ -16,12 +17,13 @@ feature 'User adds an answer',
     end
 
     scenario 'answers with valid fields' do
-      fill_in 'answer_body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
+      fill_in 'answer_body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
       within("form") do
         click_on 'Отправить ваш ответ'
       end
 
       expect(page).to have_content 'Ответ успешно создан.'
+      expect(page).to have_content 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
     end
 
     scenario "can't answer with invalid fields" do
@@ -31,6 +33,19 @@ feature 'User adds an answer',
       end
 
       expect(page).to have_content 'Текст недостаточной длины'
+    end
+
+
+    context 'with AJAX' do
+      scenario 'answers with valid fields', js: true do
+        fill_in 'answer_body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
+        within("form") do
+          click_on 'Отправить ваш ответ'
+        end
+
+        expect(page).to have_content 'Ответ успешно создан.'
+        expect(page).to have_content 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
+      end
     end
   end
 

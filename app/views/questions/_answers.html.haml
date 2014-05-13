@@ -5,8 +5,10 @@
       .details
         - if @question.from?(current_user)
           .controls.col-sm-6
-            = link_to t('common.edit'), edit_question_answer_path(@question, answer)
-            = link_to t('common.delete'), question_answer_path(@question, answer), method: :delete
+            %span.edit
+              = link_to t('common.edit'), edit_question_answer_path(@question, answer)
+            %span.delete
+              = link_to t('common.delete'), question_answer_path(@question, answer), method: :delete, data: { confirm: t("common.sure") }
         .started.col-sm-6.pull-right
           %span.time= created_ago answer
           %span.author= link_to answer.user.name, user_path(answer.user)

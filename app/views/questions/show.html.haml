@@ -8,8 +8,10 @@
   .details
     - if @question.from?(current_user)
       .controls.col-sm-6
-        = link_to t('common.edit'), edit_question_path(@question)
-        = link_to t('common.delete'), question_path(@question), method: :delete
+        %span.edit
+          = link_to t('common.edit'), edit_question_path(@question)
+        %span.delete
+          = link_to t('common.delete'), question_path(@question), method: :delete, data: { confirm: t("common.sure") }
 
     .started.col-sm-6.pull-right
       %span.time= created_ago @question
@@ -18,8 +20,10 @@
 
 #answers
   %h3= t('activerecord.models.answer', count: @question.answers.count)
-  = render 'answers/answers'
+  = render 'answers'
 
+%h2= t('answer.your')
+#answer-form
   = render 'answers/form'
 
 - unless user_signed_in?

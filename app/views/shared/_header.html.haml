@@ -15,7 +15,7 @@
 
           .navbar-collapse.collapse
             %ul.nav.navbar-nav
-              %li= link_to t('questions'), questions_path
+              %li= link_to t('question.many'), questions_path
               %li= link_to t('question.ask'), new_question_path
               %li= link_to t('help'), help_path
               - if user_signed_in?
