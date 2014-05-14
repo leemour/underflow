@@ -16,8 +16,7 @@ class AnswersController < ApplicationController
     @answer.question = @question
     respond_to do |format|
       if @answer.save
-        format.html { redirect_to question_path(@question),
-                        tr(:answer, 'created') }
+        format.html { redirect_to @question, tr(:answer, 'created') }
         format.js
       else
         format.html { render action: 'new' }
@@ -29,14 +28,14 @@ class AnswersController < ApplicationController
   def update
     respond_to do |format|
       if @answer.user != current_user
-        format.html { redirect_to question_path(@question) }
-        format.js { }
+        format.html { redirect_to @question }
+        format.js { render nothing: true, status: :forbidden }
       elsif @answer.update(answer_params)
         format.html { redirect_to @answer.question, tr(:answer, 'updated') }
-        format.js { }
+        format.js
       else
         format.html { render :edit }
-        format.js { }
+        format.js
       end
     end
   end
@@ -45,11 +44,10 @@ class AnswersController < ApplicationController
     respond_to do |format|
       if @answer.user == current_user
         @answer.destroy
-        format.html { redirect_to question_path(@answer.question),
-                        tr(:answer, 'deleted') }
+        format.html { redirect_to @answer.question, tr(:answer, 'deleted') }
         format.js
       else
-        format.html { redirect_to question_path(@answer.question) }
+        format.html { redirect_to @answer.question }
         format.js { render nothing: true, status: :forbidden }
       end
     end

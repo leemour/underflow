@@ -105,22 +105,44 @@ describe QuestionsController do
     subject { create(:question, user: @user, title: 'Not updated title') }
 
     context "with valid attributes" do
-      before do
-        patch :update, id: subject,
-          question: attributes_for(:question, title: 'Updated title!!')
+      context "with AJAX" do
+        before do
+          patch :update, id: subject, format: :js,
+            question: attributes_for(:question, title: 'Updated title!!')
+        end
+
+        it "finds Question for update" do
+          expect(assigns(:question)).to eq(subject)
+        end
+
+        it "changes @question title" do
+          subject.reload
+          expect(subject.title).to eq('Updated title!!')
+        end
+
+        it "redirects to the updated Question" do
+          expect(response).to render_template 'update'
+        end
       end
 
-      it "finds Question for update" do
-        expect(assigns(:question)).to eq(subject)
-      end
+      context "without AJAX" do
+        before do
+          patch :update, id: subject,
+            question: attributes_for(:question, title: 'Updated title!!')
+        end
 
-      it "changes @question title" do
-        subject.reload
-        expect(subject.title).to eq('Updated title!!')
-      end
+        it "finds Question for update" do
+          expect(assigns(:question)).to eq(subject)
+        end
 
-      it "redirects to the updated Question" do
-        expect(response).to redirect_to subject
+        it "changes @question title" do
+          subject.reload
+          expect(subject.title).to eq('Updated title!!')
+        end
+
+        it "redirects to the updated Question" do
+          expect(response).to redirect_to subject
+        end
       end
     end
 

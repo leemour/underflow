@@ -52,31 +52,68 @@ feature 'User manages his question',
       visit question_path(question)
     end
 
-    feature 'edits question' do
-      scenario 'with correct attributes' do
-        click_on 'Редактировать'
-        fill_in 'question_body',
-          with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
-        within("form") do
-          click_on 'Задать вопрос'
+    context 'with AJAX' do
+      feature 'edits question' do
+        scenario 'with correct attributes', js: true do
+          click_on 'Редактировать'
+          fill_in 'question_body',
+            with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
+          within("form.edit_question") do
+            click_on 'Задать вопрос'
+          end
+          expect(page).to have_content 'Вопрос успешно обновлен.'
+          expect(page).to have_content 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
         end
-        expect(page).to have_content 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
-      end
 
-      scenario 'with incorrect attributes' do
-        click_on 'Редактировать'
-        fill_in 'question_body',
-          with: ''
-        within("form") do
-          click_on 'Задать вопрос'
+        scenario 'with incorrect attributes', js: true do
+          click_on 'Редактировать'
+          fill_in 'question_body',
+            with: ''
+          within("form.edit_question") do
+            click_on 'Задать вопрос'
+          end
+          expect(page).to have_content 'Текст недостаточной длины'
         end
-        expect(page).to have_content 'Текст недостаточной длины'
       end
     end
 
-    scenario 'deletes question' do
-      click_on 'Удалить'
-      expect(page).to have_content 'Вопрос успешно удален.'
+    context 'without AJAX' do
+      feature 'edits question' do
+        scenario 'with correct attributes' do
+          click_on 'Редактировать'
+          fill_in 'question_body',
+            with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
+          within("form") do
+            click_on 'Задать вопрос'
+          end
+          expect(page).to have_content 'Вопрос успешно обновлен.'
+          expect(page).to have_content 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
+        end
+
+        scenario 'with incorrect attributes' do
+          click_on 'Редактировать'
+          fill_in 'question_body',
+            with: ''
+          within("form") do
+            click_on 'Задать вопрос'
+          end
+          expect(page).to have_content 'Текст недостаточной длины'
+        end
+      end
+    end
+
+    feature "deletes answer" do
+      scenario 'with AJAX', js: true do
+        click_on 'Удалить'
+        expect(page).to have_content 'Вопрос успешно удален.'
+        expect(page).to_not have_content question.body
+      end
+
+      scenario 'without AJAX' do
+        click_on 'Удалить'
+        expect(page).to have_content 'Вопрос успешно удален.'
+        expect(page).to_not have_content question.body
+      end
     end
   end
 end

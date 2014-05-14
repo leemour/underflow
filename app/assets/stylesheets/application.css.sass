@@ -46,17 +46,6 @@ main
   .started
     text-align: right
 
-#answers
-  h3
-    margin-left: 10px
-
-.answer
-  margin-bottom: 20px
-  overflow: hidden
-  padding: 5px 10px 0
-  .answer-form
-    display: none
-
 .question
   margin-bottom: 30px
   overflow: hidden
@@ -72,10 +61,28 @@ main
     padding: 5px 10px 0
     h3
       margin: 0
+  form #question_body
+    min-height: 200px
+  .question-form
+    display: none
 
 .question .edit,
 .answer .edit
   margin-right: 10px
+
+
+#answers
+  h3
+    margin-left: 10px
+
+.answer
+  margin-bottom: 20px
+  overflow: hidden
+  padding: 5px 10px 0
+  &.own
+    background-color: #fbf9e8
+  .answer-form
+    display: none
 
 .started
   .time

@@ -1,10 +1,10 @@
-= form_for [@question, answer], remote: true, html: {id: 'answer'}, role: "form" do |f|
+= form_for [@question, answer], remote: true, role: "form" do |f|
   - if @answer.errors
     - @answer.errors.full_messages.each do |error|
       %ul.errors.answer-errors
         %li.alert.alert-danger= error
 
   .form-group
-    = f.text_area :body, class: "form-control"
+    = f.text_area :body, class: "form-control", id: "answer-body-#{answer.id}"
   = f.submit t('answer.post'), class: "btn btn-success"
   %button.cancel.btn= t('common.cancel')

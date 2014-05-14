@@ -64,7 +64,7 @@ feature 'User manages an answer',
       context 'with AJAX' do
         scenario 'with correct text', js: true do
           within("#answer-#{answer.id}") do
-            fill_in 'answer_body',
+            fill_in "answer-body-#{answer.id}",
               with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
             click_on 'Отправить ваш ответ'
           end
@@ -76,7 +76,7 @@ feature 'User manages an answer',
 
         scenario 'with incorrect text', js: true do
           within("#answer-#{answer.id}") do
-            fill_in 'answer_body', with: ''
+            fill_in "answer-body-#{answer.id}", with: ''
             click_on 'Отправить ваш ответ'
           end
 
@@ -86,7 +86,7 @@ feature 'User manages an answer',
 
       context 'without AJAX' do
         scenario 'with correct text' do
-          fill_in 'answer_body',
+          fill_in "answer_body",
             with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
           click_on 'Отправить ваш ответ'
 
@@ -96,7 +96,7 @@ feature 'User manages an answer',
         end
 
         scenario 'with incorrect text' do
-          fill_in 'answer_body', with: ''
+          fill_in "answer_body", with: ''
           click_on 'Отправить ваш ответ'
 
           expect(page).to have_content 'Текст недостаточной длины'

@@ -3,10 +3,12 @@
     %ul.errors.question-errors
       %li.alert.alert-danger= error
 
-=form_for @question do |f|
+=form_for @question, remote: true do |f|
   .form-group
     =f.label :title
     =f.text_field :title, class: 'form-control'
   .form-group
     =f.text_area :body, class: 'form-control'
-  = f.submit t('question.ask'), class: 'btn btn-success'
+  = f.submit t('question.ask'), disable_with: t('common.processing'), class: 'btn btn-success'
+  - if defined? edit
+    %button.cancel.btn= t('common.cancel')

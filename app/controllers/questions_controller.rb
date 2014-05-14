@@ -1,4 +1,6 @@
 class QuestionsController < ApplicationController
+  include ApplicationHelper
+
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   before_action :set_question, only: [:show, :edit, :update, :destroy]
 
@@ -21,14 +23,11 @@ class QuestionsController < ApplicationController
     @question = current_user.questions.build(question_params)
     respond_to do |format|
       if @question.save
-        format.html { redirect_to @question,
-          notice: t('model.created',
-            model: t('activerecord.models.question', count: 1)) }
-        format.json { render :show, status: :created, location: @question }
+        format.html { redirect_to @question, tr(:question, 'created') }
+        format.js
       else
         format.html { render action: "new" }
-        format.json { render json: @question.errors,
-          status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -37,27 +36,23 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.user != current_user
         format.html { redirect_to questions_path }
-        format.json { head :no_content}
+        format.js { render nothing: true, status: :forbidden }
       elsif @question.update(question_params)
-        format.html { redirect_to @question,
-          notice: t('model.updated',
-            model: t('activerecord.models.question', count: 1)) }
-        format.json { render :show, status: :ok, location: @question }
+        format.html { redirect_to @question, tr(:question, 'updated') }
+        format.js
       else
         format.html { render :edit }
-        format.json { render json: @question.errors,
-          status: :unprocessable_entity }
+        format.js
       end
     end
   end
 
   def destroy
-    @question.destroy if @question.user == current_user
-    respond_to do |format|
-      format.html { redirect_to questions_path,
-        notice: t('model.deleted',
-          model: t('activerecord.models.question', count: 1)) }
-      format.json { head :no_content}
+    if @question.user == current_user
+      @question.destroy
+      redirect_to questions_path, tr(:question, 'deleted')
+    else
+      redirect_to questions_path
     end
   end
 

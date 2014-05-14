@@ -1,4 +1,4 @@
-= form_for [@question, @answer], remote: true, html: {id: 'answer'}, role: "form" do |f|
+= form_for [@question, @answer], remote: true, role: "form" do |f|
   - if @answer.errors
     - @answer.errors.full_messages.each do |error|
       %ul.errors.answer-errors
@@ -6,4 +6,4 @@
 
   .form-group
     = f.text_area :body, class: "form-control"
-  = f.submit t('answer.post'), class: "btn btn-success"
+  = f.submit t('answer.post'), disable_with: t('common.processing'), class: "btn btn-success"

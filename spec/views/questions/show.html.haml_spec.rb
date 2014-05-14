@@ -55,8 +55,7 @@ describe 'questions/show.html.haml' do
 
     it "displays new Answer form field" do
       render
-      expect(rendered).to have_selector(
-        'form#answer textarea[name="answer[body]"]')
+      expect(rendered).to have_selector '#answer_body'
     end
 
     it "displays new Answer form field" do

@@ -20,7 +20,7 @@ feature 'User adds an answer',
       context 'with AJAX' do
         scenario 'adds answer', js: true do
           fill_in 'answer_body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
-          within("form") do
+          within("#answer-form") do
             click_on 'Отправить ваш ответ'
           end
 
@@ -32,7 +32,7 @@ feature 'User adds an answer',
       context 'without AJAX' do
         scenario 'adds answer' do
           fill_in 'answer_body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
-          within("form") do
+          within("#answer-form") do
             click_on 'Отправить ваш ответ'
           end
 
@@ -46,7 +46,7 @@ feature 'User adds an answer',
       context 'with AJAX' do
         scenario "doesn't add answer", js: true do
           fill_in 'answer_body', with: ''
-          within("form") do
+          within("#answer-form") do
             click_on 'Отправить ваш ответ'
           end
 
@@ -57,7 +57,7 @@ feature 'User adds an answer',
       context 'without AJAX' do
         scenario "doesn't add answer" do
           fill_in 'answer_body', with: ''
-          within("form") do
+          within("#answer-form") do
             click_on 'Отправить ваш ответ'
           end
 
@@ -73,7 +73,7 @@ feature 'User adds an answer',
       visit question_path(question)
 
       fill_in 'answer_body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
-      within("form#answer") do
+      within("#answer-form") do
         click_on 'Отправить ваш ответ'
       end
 

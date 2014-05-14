@@ -5,5 +5,5 @@
   $('#answers .answer').last().css('background-color', '#eee');
   $('#answer_body').val('');
 <% else %>
-  $('form#answer').replaceWith('<%= j render 'answers/form' %>');
+  $('#answer-form form').replaceWith('<%= j render 'answers/form' %>');
 <% end %>

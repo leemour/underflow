@@ -1,15 +1,16 @@
 - @question.answers.each do |answer|
   - if answer.persisted?
-    .answer{id: "answer-#{answer.id}"}
+    .answer{id: "answer-#{answer.id}", class: item_class(answer)}
       .answer-text= answer.body.html_safe
-      .answer-form
-        = render 'answers/edit_form', answer: answer
+      - if answer.from?(current_user)
+        .answer-form
+          = render 'answers/edit_form', answer: answer
 
       .details
         - if answer.from?(current_user)
           .controls.col-sm-6
             %span.edit
-              = link_to t('common.edit'), edit_question_answer_path(@question, answer), remote: true
+              = link_to t('common.edit'), edit_question_answer_path(@question, answer)
             %span.delete
               = link_to t('common.delete'), question_answer_path(@question, answer), method: :delete, data: { confirm: t("common.sure") }, remote: true
         .started.col-sm-6.pull-right

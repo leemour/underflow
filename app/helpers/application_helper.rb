@@ -17,4 +17,8 @@ module ApplicationHelper
     { notice: t("model.#{action}",
           model: t("activerecord.models.#{model}", count: 1)) }
   end
+
+  def item_class(item)
+    "own" if user_signed_in? && current_user == item.user
+  end
 end
