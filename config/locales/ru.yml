@@ -129,6 +129,12 @@ ru:
         last_sign_in_at: Последний вход в
         current_sign_in_ip: Текущий вход с IP
         last_sign_in_ip: Последний вход с IP
+      profile:
+        real_name: Полное имя
+        website: Сайт
+        location: Местонахождение
+        birthday: День рождения
+        about: О себе
       answer:
         body: Текст
         user_id: Пользователь

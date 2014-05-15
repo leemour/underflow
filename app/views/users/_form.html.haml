@@ -1,3 +1,8 @@
+- if @user.profile.errors.any?
+  - @user.profile.errors.full_messages.each do |error|
+    %ul.errors.question-errors
+      %li.alert.alert-danger= error
+
 =form_for @user, role: 'form' do |f|
   .form-group
     =f.label :real_name

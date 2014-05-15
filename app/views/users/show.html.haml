@@ -7,9 +7,10 @@
       %tr
         %td= t('activerecord.attributes.user.real_name')
         %td= @user.real_name
-      %tr
-        %td= t('activerecord.attributes.user.email')
-        %td= @user.email
+      - if @user == current_user
+        %tr
+          %td= t('activerecord.attributes.user.email')
+          %td= @user.email
 
     %h2= t('user.bio')
     %table

@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     if @user.profile.update(user_params)
       redirect_to @user, tr(:profile, 'updated')
     else
-      render action: 'edit'
+      render :edit
     end
   end
 
