@@ -13,6 +13,12 @@ module ApplicationHelper
     end
   end
 
+  def time_distance_ago(time_from)
+    unless time_from.blank?
+      distance_of_time_in_words_to_now(time_from) + " #{t('time.ago')}"
+    end
+  end
+
   def tr(model, action)
     { notice: t("model.#{action}",
           model: t("activerecord.models.#{model}", count: 1)) }

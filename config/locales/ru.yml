@@ -11,6 +11,7 @@ ru:
     denied: Доступ запрещен
   time:
     ago: назад
+    times: раз
   common:
     delete: Удалить
     edit: Редактировать
@@ -18,6 +19,9 @@ ru:
     sure: Вы уверены?
     cancel: Отмена
     processing: Запрос отправлен
+    save: Сохранить
+    made_by: Сделано
+    welcome: Добро пожаловать
   common_attributes: &common_attrs
     created_at: Создан
     updated_at: Изменен
@@ -42,6 +46,24 @@ ru:
     current_password_required: 'необходим, чтобы подтвердить ваши изменения'
     leave_blank: 'оставьте пустым, если не хотите менять'
     login_to_answer: 'Вы должны авторизоваться, чтобы отвечать на вопросы'
+    bio: Биография
+    visits: Посещения
+    stats: Статистика
+    private: Личное
+    age: Возраст
+    member_for: Участник
+    visited: Последний вход
+    seen: Активность
+    helpful_flags: Полезные пометки
+    profile_views: Просмотры профиля
+    edit: Редактировать профиль
+    new_password: Новый пароль
+    change_password: Изменение пароля
+    forgot_password: Забыли пароль?
+    resend_confirmation: Отправить подтверждение
+    confirm_account_notice: 'Пожалуйста, подтвердите ваш email, перейдя по ссылке:'
+    # confirm_account_notice: You can confirm your account email through the link below:
+    confirm_account: Подтвердить аккаунт
   question:
     one: Вопрос
     many: Вопросы
@@ -58,10 +80,10 @@ ru:
   activerecord:
     models:
       question:
-        zero: 0 Вопросов
+        zero: 0 вопросов
         one: Вопрос
-        few: '%{count} Вопроса'
-        many: '%{count} Вопросов'
+        few: '%{count} вопроса'
+        many: '%{count} вопросов'
         other: Вопросы
       user:
         zero: Пользователей
@@ -72,9 +94,15 @@ ru:
       answer:
         zero: 0 Ответов
         one: Ответ
-        few: '%{count} Ответа'
-        many: '%{count} Ответов'
+        few: '%{count} ответа'
+        many: '%{count} ответов'
         other: Ответы
+      profile:
+        zero: 0 профилей
+        one: Профиль
+        few: '%{count} профиля'
+        many: '%{count} профилей'
+        other: Профили
     attributes:
       question:
         title: Заголовок
@@ -87,12 +115,12 @@ ru:
         password: Пароль
         password_confirmation: Подтверждение пароля
         current_password: Текущий пароль
-        remember_me: Запомнить меня
         real_name: Полное имя
         website: Сайт
         location: Местонахождение
         birthday: День рождения
         about: О себе
+        remember_me: Запомнить меня
         reset_password_token: Маркер сброса пароля
         reset_password_sent_at: Сброс пароля выслан в
         remember_created_at: Запомнить дату создания

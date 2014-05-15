@@ -4,13 +4,17 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_one  :profile
   has_many :questions
   has_many :answers
   has_many :comments
 
+  delegate :real_name, :website, :location, :birthday, :about, to: :profile
+
   validates :name, presence: true, uniqueness: true, length: {in: 3..30}
   validates :email, length: {maximum: 254}, format: {with: Devise.email_regexp}
-  validates :real_name, allow_blank: true, format: {with: /\A[a-z0-9\-_\w]+\Z/i}
-  validates :website, allow_blank: true, format: {with: URI.regexp}
-  # validates_date :birthday, on_or_before: -> { Date.current }
+
+  def profile
+    super || self.create_profile
+  end
 end

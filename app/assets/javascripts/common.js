@@ -1,4 +1,6 @@
 $(function() {
+  $("form").find(':submit').attr('disabled', false);
+
   $('.question').on('click', '.edit', function(ev) {
     ev.preventDefault(); ev.stopPropagation();
     var question = $(this).closest('.question');

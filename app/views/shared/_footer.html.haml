@@ -1,7 +1,14 @@
 .container-fluid
   .row
-    .copyright.col-xs-6.col-sm-5.col-md-4
-      Все права защищены &copy;
-      =Time.now.year
+    .copyright.col-xs-4
+      MIT license
       %br/
-      %strong ООО «#{app_name}»
+      =Time.now.year
+      %strong «#{app_name}»
+
+    .info.col-xs-4
+
+    .author.col-xs-4
+      = t('common.made_by')
+      %strong
+        = link_to 'Riabit.ru', 'http://riabit.ru'

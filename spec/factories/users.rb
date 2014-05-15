@@ -6,10 +6,16 @@ FactoryGirl.define do
     sequence(:email) { |n| "email#{n}@gmail.com" }
     password              '12345678'
     password_confirmation '12345678'
-    real_name   "MyString"
-    website     "http://underflow.com"
-    location    "Moscow"
-    birthday    "2014-04-26 18:18:10"
-    about       "MyText"
+
+    factory :user_with_profile do
+      ignore do
+        profile Hash.new
+      end
+
+      after(:create) do |user, evaluator|
+        profile = evaluator.profile || {}
+        user.profile.update(profile)
+      end
+    end
   end
 end

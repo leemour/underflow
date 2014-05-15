@@ -1,0 +1,59 @@
+%h1= @user.name
+
+.row
+  .col-sm-6
+    %h2= t('user.private')
+    %table
+      %tr
+        %td= t('activerecord.attributes.user.real_name')
+        %td= @user.real_name
+      %tr
+        %td= t('activerecord.attributes.user.email')
+        %td= @user.email
+
+    %h2= t('user.bio')
+    %table
+      %tr
+        %td= t('activerecord.attributes.user.website')
+        %td= @user.website
+      %tr
+        %td= t('activerecord.attributes.user.location')
+        %td= @user.location
+      %tr
+        %td= t('user.age')
+        %td= distance_of_time_in_words_to_now(@user.birthday)
+
+    %h2= t('user.visits')
+    %table
+      %tr
+        %td= t('user.member_for')
+        %td= distance_of_time_in_words_to_now(@user.created_at)
+      %tr
+        %td= t('user.visited')
+        %td= "#{@user.sign_in_count} #{t('time.times')}"
+        / visited   485 days, 6 consecutive
+      %tr
+        %td= t('user.seen')
+        %td= time_distance_ago(@user.current_sign_in_at)
+        / seen  1 min ago
+
+    %h2= t('user.stats')
+    %table
+      %tr
+        %td= t('user.profile_views')
+        %td= distance_of_time_in_words(@user.created_at, Time.now)
+        / profile views   46
+      %tr
+        %td= t('user.helpful_flags')
+        %td= distance_of_time_in_words(@user.created_at, Time.now)
+        / helpful flags   1
+
+  .col-sm-6
+    %h3= t('activerecord.attributes.user.about')
+    .about
+      = @user.about.html_safe
+
+- if @user == current_user
+  .row.submit
+    .col-sm-12
+      = link_to t('common.edit'), edit_user_path(@user), class: 'btn btn-primary'

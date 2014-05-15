@@ -1,15 +1,17 @@
 %h2= t('user.logging_in')
 = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .control-group
+  .form-group
     = f.label :email
     = f.email_field :email, class: 'form-control', autofocus: true
-  .control-group
+  .form-group
     = f.label :password
     = f.password_field :password, class: 'form-control', autocomplete: "off"
   - if devise_mapping.rememberable?
-    .control-group
+    .form-group
       = f.check_box :remember_me
       = f.label :remember_me
   = f.submit t('user.log_in'), class: "btn btn-primary"
+  = link_to t('user.register'), new_registration_path(resource_name)
 
-= render "devise/shared/links"
+= link_to t('user.forgot_password'), new_password_path(resource_name)
+
