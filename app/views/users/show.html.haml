@@ -54,6 +54,10 @@
     .about
       = @user.about.html_safe
 
+  .col-sm-6
+    %h2= link_to t('activerecord.models.question', count: @user.questions.count), user_questions_path(@user)
+    %h2= link_to t('activerecord.models.answer', count: @user.answers.count), user_answers_path(@user)
+
 - if @user == current_user
   .row.submit
     .col-sm-12

@@ -1,0 +1,20 @@
+%h1= "#{t('user.questions')} #{@questions.first.user.name}"
+
+#questions
+  - @questions.each do |question|
+    .question{id: "question-#{question.id}"}
+      .counters
+        .votes
+        .answers
+        .views
+      .content
+        %h3= link_to question.title, question_path(question)
+        .details
+          .tags
+            - question.tags.each do |tag|
+              =link_to tag.name, tag_path(tag)
+          .started
+            %span.time= created_ago question
+            %span.author= link_to question.user.name, user_path(question.user)
+            %span.author-reputation
+

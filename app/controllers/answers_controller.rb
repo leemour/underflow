@@ -5,6 +5,10 @@ class AnswersController < ApplicationController
   before_action :set_question, only: [:new, :edit, :create, :update]
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
 
+  def by_user
+    @answers = Answer.where(user_id: params[:user_id])
+  end
+
   def new
   end
 

@@ -64,6 +64,8 @@ ru:
     confirm_account_notice: 'Пожалуйста, подтвердите ваш email, перейдя по ссылке:'
     # confirm_account_notice: You can confirm your account email through the link below:
     confirm_account: Подтвердить аккаунт
+    answers: Ответы пользователя
+    questions: Вопросы пользователя
   question:
     one: Вопрос
     many: Вопросы

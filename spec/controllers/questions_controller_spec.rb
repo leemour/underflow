@@ -11,6 +11,20 @@ describe QuestionsController do
     it { should route(:delete, question_path(1)).to  'questions#destroy', id: '1'}
   end
 
+  describe "GET #by_user" do
+    let(:user) { create(:user) }
+    let(:questions) { create_list(:question, 3, user: user) }
+    before { get :by_user, user_id: user }
+
+    it "assigns user Questions to @questions" do
+      expect(assigns(:questions)).to match_array(questions)
+    end
+
+    it "renders :index view" do
+      expect(response).to render_template 'by_user'
+    end
+  end
+
   describe "GET #index" do
     let(:questions) { create_list(:question, 3) }
     before { get :index }

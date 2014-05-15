@@ -11,9 +11,9 @@ feature 'User views a profile',
   background { create(:profile, user: user) }
 
   context "when other user's profile" do
-    scenario 'has name, real_name, website, location, about' do
-      visit user_path(user)
+    background { visit user_path(user) }
 
+    scenario 'has name, real_name, website, location, about' do
       expect(page).to have_content user.name
       expect(page).to have_content user.real_name
       expect(page).to have_content user.website
@@ -22,8 +22,6 @@ feature 'User views a profile',
     end
 
     scenario "doesn't have private attributes" do
-      visit user_path(user)
-
       expect(page).to_not have_content user.email
     end
   end
@@ -35,6 +33,28 @@ feature 'User views a profile',
       visit user_path(user)
 
       expect(page).to have_content user.email
+    end
+  end
+
+  context "view all" do
+    given!(:questions) { create_list(:question, 5, user: user) }
+    given!(:answers) { create_list(:answer, 5, user: user) }
+    background { visit user_path(user) }
+
+    scenario "user's questions" do
+      click_on '5 вопросов'
+
+      expect(page).to have_content questions[0].title
+      expect(page).to have_content questions[1].title
+      expect(page).to have_content questions[4].title
+    end
+
+    scenario "user's answers" do
+      click_on '5 ответов'
+
+      expect(page).to have_content answers[0].body
+      expect(page).to have_content answers[1].body
+      expect(page).to have_content answers[4].body
     end
   end
 end

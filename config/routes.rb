@@ -15,7 +15,10 @@ Rails.application.routes.draw do
     resources :answers
   end
   resources :tags
-  resources :users
+  resources :users do
+    get '/questions', to: 'questions#by_user', as: 'questions'
+    get '/answers', to: 'answers#by_user', as: 'answers'
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

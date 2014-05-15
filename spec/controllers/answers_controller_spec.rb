@@ -1,6 +1,21 @@
 require 'spec_helper'
 
 describe AnswersController do
+
+  describe "GET #by_user" do
+    let(:user) { create(:user) }
+    let(:answers) { create_list(:answer, 3, user: user) }
+    before { get :by_user, user_id: user }
+
+    it "assigns user Answers to @answers" do
+      expect(assigns(:answers)).to match_array(answers)
+    end
+
+    it "renders :index view" do
+      expect(response).to render_template 'by_user'
+    end
+  end
+
   describe "POST #create" do
     let(:question) { create(:question) }
 
