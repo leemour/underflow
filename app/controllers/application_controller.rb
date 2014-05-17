@@ -9,6 +9,14 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def render_error(message)
+    respond_to do |format|
+      format.html { redirect_to root_path, alert: message, status: :forbidden }
+      format.js { render "shared/error", locals: {message: message},
+        status: :forbidden }
+    end
+  end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << :name
     devise_parameter_sanitizer.for(:account_update) << :name

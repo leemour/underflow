@@ -1,9 +1,10 @@
 class AnswersController < ApplicationController
   include ApplicationHelper
 
-  before_action :set_answer, only: [:edit, :update, :destroy]
-  before_action :set_question, only: [:new, :edit, :create, :update]
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
+  before_action :set_answer, only: [:edit, :update, :destroy]
+  before_action :check_permission, only: [:update, :destroy]
+  before_action :set_question, only: [:new, :edit, :create, :update]
 
   def by_user
     @answers = Answer.where(user_id: params[:user_id])
@@ -31,10 +32,7 @@ class AnswersController < ApplicationController
 
   def update
     respond_to do |format|
-      if @answer.user != current_user
-        format.html { redirect_to @question }
-        format.js { render nothing: true, status: :forbidden }
-      elsif @answer.update(answer_params)
+      if @answer.update(answer_params)
         format.html { redirect_to @answer.question, tr(:answer, 'updated') }
         format.js
       else
@@ -45,19 +43,18 @@ class AnswersController < ApplicationController
   end
 
   def destroy
+    @answer.destroy
     respond_to do |format|
-      if @answer.user == current_user
-        @answer.destroy
-        format.html { redirect_to @answer.question, tr(:answer, 'deleted') }
-        format.js
-      else
-        format.html { redirect_to @answer.question }
-        format.js { render nothing: true, status: :forbidden }
-      end
+      format.html { redirect_to @answer.question, tr(:answer, 'deleted') }
+      format.js
     end
   end
 
   private
+
+  def check_permission
+    render_error t('errors.denied') if @answer.user != current_user
+  end
 
   def set_answer
     @answer = Answer.find(params[:id])

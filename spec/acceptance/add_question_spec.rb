@@ -25,10 +25,11 @@ feature 'User creates question',
       end
 
       expect(page).to have_content 'Вопрос успешно создан.'
+      expect(page).to have_content 'Тестовый заголовок вопроса'
     end
 
     scenario "can't create with invalid fields" do
-      fill_in 'Заголовок', with: 'Короткий'
+      fill_in 'Заголовок', with: 'Коротко'
       fill_in 'question_body',
         with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
       within("form") do
@@ -36,6 +37,7 @@ feature 'User creates question',
       end
 
       expect(page).to have_content 'Заголовок недостаточной длины'
+      expect(page).to_not have_content 'Коротко'
     end
   end
 
@@ -52,6 +54,7 @@ feature 'User creates question',
       end
 
       expect(page).to have_content 'Вам необходимо войти в систему или зарегистрироваться.'
+      expect(page).to_not have_content 'Тестовый заголовок вопроса'
     end
   end
 end

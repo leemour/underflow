@@ -3,22 +3,20 @@
 .question-text= @question.body.html_safe
 
 - if @question.from?(current_user)
-  .question-form
+  .question-edit-form
     = render 'form', edit: true
 
 .tags
   - @question.tags.each do |tag|
-    .tag= link_to tag.name, tag_path(tag)
+    .tag= link_to tag.name, tag
 
 .details
   - if @question.from?(current_user)
     .controls.col-sm-6
-      %span.edit
-        = link_to t('common.edit'), edit_question_path(@question)
-      %span.delete
-        = link_to t('common.delete'), question_path(@question), method: :delete, data: { confirm: t("common.sure") }
+      = link_to t('common.edit'), [:edit, @question], class: 'edit'
+      = link_to t('common.delete'), @question, class: 'delete', method: :delete, data: { confirm: t("common.sure") }
 
   .started.col-sm-6.pull-right
     %span.time= created_ago @question
-    %span.author= link_to @question.user.name, user_path(@question.user)
+    %span.author= link_to @question.user.name, @question.user
     %span.author-reputation

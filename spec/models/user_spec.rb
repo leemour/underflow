@@ -22,6 +22,7 @@ describe User do
 
   it "has profile when created" do
     user = User.create!(email: '123@mai.ru', password: '12345678', name: 'hey')
-    expect(user.profile.id).to_not eq(nil)
+    # expect(user.profile.id).to_not eq(nil)
+    expect(user.profile).to be_persisted
   end
 end

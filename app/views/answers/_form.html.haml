@@ -6,4 +6,4 @@
 
   .form-group
     = f.text_area :body, class: "form-control"
-  = f.submit t('answer.post'), disable_with: t('common.processing'), class: "btn btn-success"
+  = f.submit t('answer.post'), data: {disable_with: t('common.processing')}, class: "btn btn-success"

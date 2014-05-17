@@ -9,6 +9,7 @@
     =f.text_field :title, class: 'form-control'
   .form-group
     =f.text_area :body, class: 'form-control'
-  = f.submit t('question.ask'), disable_with: t('common.processing'), class: 'btn btn-success'
-  - if defined? edit
-    %button.cancel.btn= t('common.cancel')
+  .form-group
+    = f.submit t('question.ask'), data: {disable_with: t('common.processing')}, class: 'btn btn-success'
+    - if defined? edit
+      %button.cancel.btn= t('common.cancel')

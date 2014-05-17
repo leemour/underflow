@@ -3,6 +3,7 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :check_permission, only: [:update, :destroy]
 
   def by_user
     @questions = Question.where(user_id: params[:user_id])
@@ -52,15 +53,15 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if @question.user == current_user
-      @question.destroy
-      redirect_to questions_path, tr(:question, 'deleted')
-    else
-      redirect_to questions_path
-    end
+    @question.destroy
+    redirect_to questions_path, tr(:question, 'deleted')
   end
 
   private
+
+  def check_permission
+    render_error t('errors.denied') if @question.user != current_user
+  end
 
   def set_question
     @question = Question.find(params[:id])

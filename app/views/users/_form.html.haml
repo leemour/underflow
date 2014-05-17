@@ -20,4 +20,4 @@
     =f.label :about
     =f.text_area :about, class: 'form-control'
 
-  =f.submit t('common.save'), disable_with: t('common.processing'), class: 'btn btn-success'
+  =f.submit t('common.save'), data: {disable_with: t('common.processing')}, class: 'btn btn-success'

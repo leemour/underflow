@@ -102,9 +102,9 @@ describe QuestionsController do
 
     context "with invalid attributes" do
       it "doesn't save new Question to DB" do
-        expect{
+        expect {
           post :create, question: {title: 'invalid'}
-        }.to_not change(Question, :count)
+        }.to_not change(@user.questions, :count)
       end
 
       it "reneders :new view" do
@@ -181,15 +181,21 @@ describe QuestionsController do
     end
 
     context "when not user's Question" do
-      it "doesn't change @question attributes" do
-        alien_question = create(:question, user: create(:user),
-          title: 'Not updated title')
+      let!(:alien_question) { create(:question, user: create(:user),
+          title: 'Not updated title') }
 
+      it "doesn't change @question attributes" do
         patch :update, id: alien_question,
           question: attributes_for(:question, title: 'Not allowed to change title')
         alien_question.reload
 
         expect(alien_question.title).to eq('Not updated title')
+      end
+
+      it "responds with 403 status" do
+        patch :update, id: alien_question,
+          question: attributes_for(:question, title: 'Not allowed to change title')
+        expect(response.status).to eq(403)
       end
     end
   end
@@ -215,11 +221,17 @@ describe QuestionsController do
     end
 
     context "when not user's Question" do
+      let!(:alien_question) { create(:question, user: create(:user)) }
+
       it "doesn't delete Question from DB" do
-        alien_question = create(:question, user: create(:user))
-        expect{
+        expect {
+          delete :destroy, id: alien_question
+        }.to_not change(Question, :count)
+      end
+
+      it "responds with 403 status" do
         delete :destroy, id: alien_question
-      }.to_not change(Question, :count)
+        expect(response.status).to eq(403)
       end
     end
   end

@@ -1,18 +1,14 @@
 %h1= "#{t('user.answers')} #{@answers.first.user.name}"
 
-- @answers.each do |answer|
-  - if answer.persisted?
-    .answer{id: "answer-#{answer.id}", class: item_class(answer)}
-      .answer-text= answer.body.html_safe
+#answers
+  - @answers.each do |answer|
+    - if answer.persisted?
+      .answer{id: "answer-#{answer.id}", class: item_class(answer)}
+        %h2= link_to answer.question.title, "#{question_path(answer.question)}#answer-#{answer.id}"
+        .answer-text= answer.body.html_safe
 
-      .details
-        - if answer.from?(current_user)
-          .controls.col-sm-6
-            %span.edit
-              = link_to t('common.edit'), edit_question_answer_path(answer.question, answer)
-            %span.delete
-              = link_to t('common.delete'), question_answer_path(answer.question, answer), method: :delete, data: { confirm: t("common.sure") }, remote: true
-        .started.col-sm-6.pull-right
-          %span.time= created_ago answer
-          %span.author= link_to answer.user.name, user_path(answer.user)
-          %span.author-reputation
+        .details
+          .started.col-sm-6.pull-right
+            %span.time= created_ago answer
+            %span.author= link_to answer.user.name, answer.user
+            %span.author-reputation

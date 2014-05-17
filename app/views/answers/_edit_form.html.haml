@@ -6,5 +6,6 @@
 
   .form-group
     = f.text_area :body, class: "form-control", id: "answer-body-#{answer.id}"
-  = f.submit t('answer.post'), class: "btn btn-success"
-  %button.cancel.btn= t('common.cancel')
+  .form-group
+    = f.submit t('answer.post'), class: "btn btn-success"
+    %button.cancel.btn= t('common.cancel')

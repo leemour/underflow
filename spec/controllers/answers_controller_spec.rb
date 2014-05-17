@@ -183,6 +183,17 @@ describe AnswersController do
 
         expect(alien_answer.body).to eq('Not updated body. Not updated body.')
       end
+
+      it "responds with 403 status" do
+        alien_answer = create(:answer, user: create(:user),
+          body: 'Not updated body. Not updated body.')
+
+        patch :update, id: alien_answer, question_id: question,
+          answer: attributes_for(:answer, body: 'Updated body! Updated body! Updated body!')
+        alien_answer.reload
+
+        expect(response.status).to eq(403)
+      end
     end
   end
 
@@ -225,11 +236,18 @@ describe AnswersController do
     end
 
     context "when not user's Answer" do
+      let!(:alien_answer) { create(:answer, user: create(:user),
+        question: question) }
+
       it "doesn't delete Answer from DB" do
-        alien_answer = create(:answer, user: create(:user), question: question)
         expect {
           delete :destroy, id: alien_answer, question_id: question
         }.to_not change(Answer, :count)
+      end
+
+      it "responds with 403 status" do
+        delete :destroy, id: alien_answer, question_id: question
+        expect(response.status).to eq(403)
       end
     end
   end
