@@ -3,7 +3,8 @@
     flash: tr(:answer, 'created') %>');
   $('#answers').html('<%= j render 'questions/answers' %>');
   $('#answers .answer').last().css('background-color', '#eee');
-  $('#answer_body').val('');
+  $('#answer-form #answer_body').val('');
+  $('#answer-form .answer-errors').hide();
 <% else %>
-  $('#answer-form form').replaceWith('<%= j render 'answers/form' %>');
+  $('#answer-form').html('<%= j render 'answers/form', answer: @answer %>');
 <% end %>

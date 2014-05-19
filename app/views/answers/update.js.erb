@@ -4,5 +4,7 @@
   $('#answers').html('<%= j render 'questions/answers' %>');
   $('#answer-<%= @answer.id %>').css('background-color', '#eee');
 <% else %>
-  $('#answer-<%= @answer.id %> form').replaceWith('<%= j render 'answers/form' %>');
+  $('#answer-<%= @answer.id %> form').replaceWith(
+    '<%= j render 'answers/form', answer: @answer, edit: true %>'
+  );
 <% end %>

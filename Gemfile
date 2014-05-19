@@ -15,6 +15,7 @@ gem 'compass'
 gem 'russian'
 gem 'devise'
 gem 'carrierwave'
+gem 'remotipart'
 
 group :development do
   gem 'capistrano-rails'

@@ -1,6 +1,11 @@
 %h1= @question.title
 
-.question-text= @question.body.html_safe
+.question-body
+  .question-text= @question.body.html_safe
+  %ul.question-files
+    - @question.attachments.each do |attachment|
+      - if attachment.persisted?
+        %li= link_to attachment.file.filename, attachment.file.url
 
 - if @question.from?(current_user)
   .question-edit-form

@@ -1,10 +1,16 @@
 - @question.answers.each do |answer|
   - if answer.persisted?
     .answer{id: "answer-#{answer.id}", class: item_class(answer)}
-      .answer-text= answer.body.html_safe
+      .answer-body
+        .answer-text= answer.body.html_safe
+        %ul.question-files
+          - answer.attachments.each do |attachment|
+            - if attachment.persisted?
+              %li= link_to attachment.file.filename, attachment.file.url
+
       - if answer.from?(current_user)
         .answer-edit-form
-          = render 'answers/edit_form', answer: answer
+          = render 'answers/form', answer: answer, edit: true
 
       .details
         - if answer.from?(current_user)

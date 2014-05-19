@@ -21,6 +21,7 @@ class AnswersController < ApplicationController
     @answer.question = @question
     respond_to do |format|
       if @answer.save
+        @question.answers.each {|a| a.attachments.build }
         format.html { redirect_to @question, tr(:answer, 'created') }
         format.js
       else
@@ -33,6 +34,7 @@ class AnswersController < ApplicationController
   def update
     respond_to do |format|
       if @answer.update(answer_params)
+        @question.answers.each {|a| a.attachments.build }
         format.html { redirect_to @answer.question, tr(:answer, 'updated') }
         format.js
       else
@@ -65,6 +67,7 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, :question_id, :user_id)
+    params.require(:answer).permit(:body, :question_id,
+      attachments_attributes: [:file, :_destroy])
   end
 end

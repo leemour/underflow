@@ -1,19 +1,31 @@
 - edit ||= false
-- unless @question.errors.empty?
-  = @question.errors.full_messages.each do |error|
+
+- if @question.errors.any?
+  - @question.errors.full_messages.each do |error|
     %ul.errors.question-errors
       %li.alert.alert-danger= error
 
-=form_for @question, remote: !!edit do |f|
+= form_for @question, remote: !!edit do |f|
   .form-group
-    =f.label :title
-    =f.text_field :title, class: 'form-control'
+    = f.label :title
+    = f.text_field :title, class: 'form-control'
   .form-group
-    =f.text_area :body, class: 'form-control'
-  = fields_for :attachments do |a|
+    = f.text_area :body, class: 'form-control'
+
+  = f.fields_for :attachments do |a|
     .form-group
-      = a.label :file
-      = a.file_field :file
+      - if a.object.persisted?
+        = a.label :file
+        = link_to a.object.file.filename, a.object.file.url
+        %label.nested
+          = t('common.replace_file')
+          = a.file_field :file
+        = a.label t('common.delete')
+        = a.check_box '_destroy'
+      - else
+        = a.label :file
+        = a.file_field :file
+
   .form-group
     = f.submit t('question.ask'), data: {disable_with: t('common.processing')}, class: 'btn btn-success'
     - if edit

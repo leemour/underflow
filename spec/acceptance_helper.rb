@@ -28,4 +28,14 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  config.after(:all) do
+    # Get rid of the attachments
+    if Rails.env.test? || Rails.env.cucumber?
+      FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads/attachment/test"])
+      # if you want to delete everything under the CarrierWave root that you set in an initializer,
+      # you can do this:
+      # FileUtils.rm_rf(CarrierWave::Uploader::Base.root)
+    end
+  end
 end

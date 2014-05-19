@@ -22,6 +22,7 @@ ru:
     save: Сохранить
     made_by: Сделано
     welcome: Добро пожаловать
+    replace_file: Заменить файл
   common_attributes: &common_attrs
     created_at: Создан
     updated_at: Изменен
@@ -79,6 +80,12 @@ ru:
     your: Ваш ответ
     form:
       ask_question: Задать вопрос
+
+  helpers:
+    label:
+      attachments:
+        file: Файл
+
   activerecord:
     models:
       question:
@@ -116,16 +123,6 @@ ru:
         title: Заголовок
         body: Текст
         tags: Теги
-        question/attachment:
-          file: Файл
-        question/attachments:
-          file: Файл
-        attachment/file: 'Файл'
-        attachments/file: 'Файл'
-        attachment:
-          file: Файл
-        attachments:
-          file: Файл
       user:
         <<: *common_attrs
         name: Имя
@@ -158,9 +155,5 @@ ru:
         user_id: Пользователь
         question_id: Вопрос
       attachment:
-        file: Файл
-      attachments:
-        file: Файл
-      attachable:
         file: Файл
 

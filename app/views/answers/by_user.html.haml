@@ -5,7 +5,9 @@
     - if answer.persisted?
       .answer{id: "answer-#{answer.id}", class: item_class(answer)}
         %h2= link_to answer.question.title, "#{question_path(answer.question)}#answer-#{answer.id}"
-        .answer-text= answer.body.html_safe
+        .answer-body
+          .answer-text= answer.body.html_safe
+          .answer-text= answer.body.html_safe
 
         .details
           .started.col-sm-6.pull-right
