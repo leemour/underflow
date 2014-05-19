@@ -9,8 +9,6 @@ Rails.application.routes.draw do
   %w[faq help].each do |page|
     get page, to: "static##{page}", as: page
   end
-
-
   resources :questions do
     resources :answers, except: [:show, :index]
   end

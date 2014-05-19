@@ -14,6 +14,7 @@ gem 'bootstrap-sass', '~> 3.1.1'
 gem 'compass'
 gem 'russian'
 gem 'devise'
+gem 'carrierwave'
 
 group :development do
   gem 'capistrano-rails'

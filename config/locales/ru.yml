@@ -105,11 +105,27 @@ ru:
         few: '%{count} профиля'
         many: '%{count} профилей'
         other: Профили
+      attachment:
+        zero: 0 вложений
+        one: Вложение
+        few: '%{count} вложения'
+        many: '%{count} вложений'
+        other: Вложения
     attributes:
       question:
         title: Заголовок
         body: Текст
         tags: Теги
+        question/attachment:
+          file: Файл
+        question/attachments:
+          file: Файл
+        attachment/file: 'Файл'
+        attachments/file: 'Файл'
+        attachment:
+          file: Файл
+        attachments:
+          file: Файл
       user:
         <<: *common_attrs
         name: Имя
@@ -141,3 +157,10 @@ ru:
         body: Текст
         user_id: Пользователь
         question_id: Вопрос
+      attachment:
+        file: Файл
+      attachments:
+        file: Файл
+      attachable:
+        file: Файл
+
