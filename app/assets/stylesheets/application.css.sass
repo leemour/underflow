@@ -40,11 +40,6 @@ header
 main
   .container-fluid
     max-width: 1170px
-  .controls, .started
-    padding: 0
-    margin: 5px 0 10px
-  .started
-    text-align: right
 
 .question
   margin-bottom: 30px
@@ -58,18 +53,23 @@ main
   .question
     background-color: #f5f5f5
     margin-bottom: 10px
-    padding: 5px 10px 0
+    padding: 5px 15px 0
     h3
       margin: 0
   form #question_body
     min-height: 200px
-  .question-edit-form
-    display: none
+
+.question-edit-form,
+.answer-edit-form,
+.comment-edit-form
+  display: none
 
 .question .edit,
 .answer .edit
   margin-right: 10px
 
+#answers
+  margin-top: 20px
 
 #answers
   h3
@@ -81,11 +81,12 @@ main
   padding: 5px 10px 0
   &.own
     background-color: #fbf9e8
-  .answer-edit-form
-    display: none
 
-
+.controls, .started
+  margin: 5px 0 10px
 .started
+  font-size: 0.9em
+  text-align: right
   .time
     margin-right: 10px
 
@@ -102,8 +103,13 @@ label.nested
   input
     display: inline-block
 
-#answers
-  margin-top: 20px
+
+.comments
+  .comment
+    border-top: 1px dotted #ddd
+    margin: 40px 0
+    padding: 5px 0 0 30px
+
 
 body.users.show
   h2

@@ -15,7 +15,7 @@ gem 'compass'
 gem 'russian'
 gem 'devise'
 gem 'carrierwave'
-gem 'remotipart'
+gem 'remotipart', git: 'git@github.com:JangoSteve/remotipart.git'
 
 group :development do
   gem 'capistrano-rails'

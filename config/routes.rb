@@ -6,17 +6,29 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'questions#index'
 
+  concern :commentable do
+    resources :comments, except: [:show, :index]
+  end
+
   %w[faq help].each do |page|
     get page, to: "static##{page}", as: page
   end
+
   resources :questions do
-    resources :answers, except: [:show, :index]
+    concerns :commentable
+    resources :answers, except: [:show, :index, :destroy]
   end
-  resources :tags
+
+  resources :answers, only: [:show, :index, :destroy] do
+    concerns :commentable
+  end
+
   resources :users, only: [:show, :edit, :update] do
     get '/questions', to: 'questions#by_user', as: 'questions'
     get '/answers', to: 'answers#by_user', as: 'answers'
   end
+
+  resources :tags
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

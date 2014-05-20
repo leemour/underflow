@@ -83,11 +83,8 @@ ru:
   attachment:
     add: Добавить файл
     remove: Удалить файл
-
-  helpers:
-    label:
-      attachments:
-        file: Файл
+  comment:
+    add: Комментировать
 
   activerecord:
     models:
@@ -121,6 +118,13 @@ ru:
         few: '%{count} вложения'
         many: '%{count} вложений'
         other: Вложения
+      comment:
+        zero: 0 комментариев
+        one: Комментарий
+        few: '%{count} комменатария'
+        many: '%{count} комментариев'
+        other: Комментарии
+
     attributes:
       question:
         title: Заголовок
@@ -159,4 +163,6 @@ ru:
         question_id: Вопрос
       attachment:
         file: Файл
+      comment:
+        body: Текст
 

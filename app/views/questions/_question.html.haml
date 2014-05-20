@@ -15,9 +15,9 @@
   - @question.tags.each do |tag|
     .tag= link_to tag.name, tag
 
-.details
-  - if @question.from?(current_user)
-    .controls.col-sm-6
+.row.details
+  .controls.col-sm-6
+    - if @question.from?(current_user)
       = link_to t('common.edit'), [:edit, @question], class: 'edit'
       = link_to t('common.delete'), @question, class: 'delete', method: :delete, data: { confirm: t("common.sure") }
 
@@ -25,3 +25,9 @@
     %span.time= created_ago @question
     %span.author= link_to @question.user.name, @question.user
     %span.author-reputation
+
+- if user_signed_in?
+  = link_to t('comment.add'), new_question_comment_path(@question)
+
+.comments
+  = render 'comments/comments', commentable: @question

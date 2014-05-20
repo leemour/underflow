@@ -13,7 +13,6 @@ describe Answer do
   it { should validate_presence_of(:body) }
   it { should ensure_length_of(:body).is_at_least(30).is_at_most(6000) }
 
-
   describe '#from?(user)' do
     let(:user) { create(:user) }
 

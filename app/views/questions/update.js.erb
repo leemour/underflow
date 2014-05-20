@@ -9,7 +9,8 @@
       $('.question').html("<%= j render 'questions/question' %>");
   <% end %>
 
-  $('#question-<%= @question.id %>').css('background-color', '#eee');
+  $('#question-<%= @question.id %> .question-body')
+    .css('background-color', '#e0e0e0');
 <% else %>
   $('#question-<%= @question.id %> form').replaceWith(
     '<%= j render 'questions/form', edit: true %>'
