@@ -1,7 +1,13 @@
 <% if @answer.errors.empty? %>
   $('#content').prepend('<%= j render 'shared/flash',
     flash: tr(:answer, 'updated') %>');
-  $('#answers').html('<%= j render 'questions/answers' %>');
+
+  <% if remotipart_submitted? %>
+    $('#answers').html("<%= j "#{render 'questions/answers'}" %>");
+  <% else %>
+    $('#answers').html('<%= j render 'questions/answers' %>');
+  <% end %>
+
   $('#answer-<%= @answer.id %>').css('background-color', '#eee');
 <% else %>
   $('#answer-<%= @answer.id %> form').replaceWith(

@@ -27,7 +27,7 @@ $(function() {
     $('.answer-body').show();
     $('.controls').show();
     $('.answer-edit-form').hide();
-    var answerId = $(this).data('answer-id')
+    var answerId = $(this).data('answer-id');
     var answer = $('#answer-' + answerId);
     var answerText = $(answer).find('.answer-text');
     $(answer).find('.answer-edit-form textarea').val(answerText.text());
@@ -52,6 +52,32 @@ $(function() {
     setTimeout(function() {
       button.attr('disabled', false);
       button.val(oldValue);
-    }, 3000)
+    }, 3000);
+  });
+
+  $('.question').on('click', '.add-file', function(ev) {
+    ev.preventDefault(); ev.stopPropagation();
+    var upload = $(this).closest('.question').find('.file-upload').last().clone();
+    var count = upload.html().match(/attributes\]\[(\d+)\]/)[1];
+    count++;
+    upload.html(
+      upload.html()
+      .replace(/attributes\]\[\d+\]/mg, 'attributes]['+count+']')
+      .replace(/attributes_\d+/mg, 'attributes_'+count)
+    );
+    upload.insertBefore($(this));
+  });
+
+  $('#answers').on('click', '.answer .add-file', function(ev) {
+    ev.preventDefault(); ev.stopPropagation();
+    var upload = $(this).closest('.answer').find('.file-upload').last().clone();
+    var count = upload.html().match(/attributes\]\[(\d+)\]/)[1];
+    count++;
+    upload.html(
+      upload.html()
+      .replace(/attributes\]\[\d+\]/mg, 'attributes]['+count+']')
+      .replace(/attributes_\d+/mg, 'attributes_'+count)
+    );
+    upload.insertBefore($(this));
   });
 });

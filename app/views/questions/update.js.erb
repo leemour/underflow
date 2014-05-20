@@ -1,7 +1,14 @@
 <% if @question.errors.empty? %>
-  $('#content').prepend('<%= j render 'shared/flash',
-    flash: tr(:question, 'updated') %>');
-  $('.question').html('<%= j render 'questions/question' %>');
+  $('#content').prepend(
+    '<%= j render 'shared/flash',  flash: tr(:question, 'updated') %>'
+  );
+
+  <% if remotipart_submitted? %>
+       $('.question').html("<%= j "#{render 'questions/question'}" %>");
+  <% else %>
+      $('.question').html("<%= j render 'questions/question' %>");
+  <% end %>
+
   $('#question-<%= @question.id %>').css('background-color', '#eee');
 <% else %>
   $('#question-<%= @question.id %> form').replaceWith(

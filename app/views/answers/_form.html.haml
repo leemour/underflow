@@ -11,7 +11,7 @@
     = f.text_area :body, class: "form-control"
 
   = f.fields_for :attachments do |a|
-    .form-group
+    .form-group.file-upload
       - if a.object.persisted?
         = a.label :file
         = link_to a.object.file.filename, a.object.file.url
@@ -23,6 +23,9 @@
       - else
         = a.label :file
         = a.file_field :file
+
+  .form-group
+    = link_to t('attachment.add'), '#', class: "add-file btn btn-info btn-xs"
 
   = f.submit t('answer.post'), data: {disable_with: t('common.processing')}, class: "btn btn-success"
   - if edit

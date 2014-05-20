@@ -80,6 +80,9 @@ ru:
     your: Ваш ответ
     form:
       ask_question: Задать вопрос
+  attachment:
+    add: Добавить файл
+    remove: Удалить файл
 
   helpers:
     label:
