@@ -1,25 +1,51 @@
 $(function() {
   $("form").find(':submit').attr('disabled', false);
 
-  $('.question').on('click', '.question-details .edit', function(ev) {
-    ev.preventDefault(); ev.stopPropagation();
-    var question = $(this).closest('.question');
+  function showQuestionForm(link) {
+    var question = $(link).closest('.question');
     var questionTitle = $(question).find('h1').text();
     var questionText = $(question).find('.question-text');
     questionText = questionText.text().replace(/^\s{3,}|\s{3,}$/gm,'');
     $(question).find('.question-edit-form #question_title').val(questionTitle);
     $(question).find('.question-edit-form textarea').val(questionText);
     $(question).find('.question-body').hide();
-    $(question).find('.controls').hide();
+    $(question).find('.question .controls').hide();
+    $('.comments .controls').show();
     $(question).find('.question-errors').hide();
     $(question).find('.question-edit-form').show();
-  });
+  }
 
-  $('.question').on('click', 'form .cancel', function(ev) {
-    ev.preventDefault(); ev.stopPropagation();
+  function hideQuestionForm() {
     $('.question-body').show();
     $('.controls').show();
     $('.question-edit-form').hide();
+    hideCommentForm();
+  }
+
+  function hideCommentForm() {
+    $('.comment-body').show();
+    $('.add-comment').show();
+    $('.comment-create-form').hide();
+    $('.comment-edit-form').hide();
+  }
+
+  function showNewCommentForm(link) {
+    var question = $(link).closest('.question');
+    $(question).find('.comment-create-form').show();
+    $(link).hide();
+    $(question).find('.comment-errors').hide();
+    $(question).find('.comment-edit-form').hide();
+  }
+
+  $('.question').on('click', '.question-details .edit', function(ev) {
+    ev.preventDefault(); ev.stopPropagation();
+    hideCommentForm();
+    showQuestionForm(this);
+  });
+
+  $('.question').on('click', '.cancel', function(ev) {
+    ev.preventDefault(); ev.stopPropagation();
+    hideQuestionForm();
   });
 
   $('#answers').on('click', '.answer-details .edit', function(ev) {
@@ -37,11 +63,15 @@ $(function() {
     $(answer).find('.answer-edit-form').show();
   });
 
-  $('#answers').on('click', '.answer form .cancel', function(ev) {
+  $('#answers').on('click', '.answer .cancel', function(ev) {
     ev.preventDefault(); ev.stopPropagation();
     $('.answer-body').show();
     $('.controls').show();
     $('.answer-edit-form').hide();
+    $('.comment-body').show();
+    $('.add-comment').show();
+    $('.comment-create-form').hide();
+    $('.comment-edit-form').hide();
   });
 
   $("form").submit(function() {
@@ -84,20 +114,8 @@ $(function() {
 
   $('.question').on('click', '.add-comment', function(ev) {
     ev.preventDefault(); ev.stopPropagation();
-    var question = $(this).closest('.question');
-    $(question).find('.comment-create-form').show();
-    $(this).hide();
-    // $(comment).find('.comment-errors').hide();
-    // $(comment).find('.comment-edit-form').show();
-  });
-
-  $('.question').on('click', '.cancel', function(ev) {
-    ev.preventDefault(); ev.stopPropagation();
-    $('.comment-body').show();
-    $('.add-comment').show();
-    $('.controls').show();
-    $('.comment-create-form').hide();
-    $('.comment-edit-form').hide();
+    hideQuestionForm();
+    showNewCommentForm(this);
   });
 
   $('.comments').on('click', '.comment-details .edit', function(ev) {
@@ -110,13 +128,5 @@ $(function() {
     $(comment).find('.controls').hide();
     $(comment).find('.comment-errors').hide();
     $(comment).find('.comment-edit-form').show();
-  });
-
-  $('.comments').on('click', '.cancel', function(ev) {
-    ev.preventDefault(); ev.stopPropagation();
-    $('.comment-body').show();
-    $('.controls').show();
-    $('.comment-create-form').hide();
-    $('.comment-edit-form').hide();
   });
 });

@@ -1,0 +1,17 @@
+<% if @comment.errors.empty? %>
+  $('#content').prepend('<%= j render 'shared/flash',
+    flash: tr(:comment, 'created') %>');
+  $('#<%= @commentable.class.to_s.underscore %>-<%= @commentable.id %> .comments').html(
+    '<%= j render 'comments/comments', comment: @comment,
+      commentable: @commentable %>'
+  );
+  $('.comments .comment').last().css('background-color', '#eee');
+  $('.comment-create-form #comment_body').val('');
+  $('.comment-create-form').hide();
+  $('.comment-create-form .comment-errors').hide();
+<% else %>
+  $('.comment-create-form').html(
+    '<%= j render 'comments/form', edit: true, comment: @comment,
+      commentable: @commentable %>'
+  );
+<% end %>
