@@ -13,23 +13,34 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.build(comment_params)
     @comment.commentable = @commentable
-    if @comment.save
-      if @commentable.is_a? Question
-        redirect_to @commentable, tr(:comment, 'created')
-      elsif @commentable.is_a? Answer
-        redirect_to @commentable.question, tr(:comment, 'created')
+    respond_to do |format|
+      if @comment.save
+        format.html do
+          if @commentable.is_a? Question
+            redirect_to @commentable, tr(:comment, 'created')
+          elsif @commentable.is_a? Answer
+            redirect_to @commentable.question, tr(:comment, 'created')
+          end
+        end
+        format.js
+      else
+        format.html { render :new }
+        format.js
       end
-    else
-      render :new
     end
   end
 
   def destroy
     @comment.destroy
-    if @commentable.is_a? Question
-      redirect_to @commentable, tr(:comment, 'deleted')
-    elsif @commentable.is_a? Answer
-      redirect_to @commentable.question, tr(:comment, 'deleted')
+    respond_to do |format|
+      format.html do
+        if @commentable.is_a? Question
+          redirect_to @commentable, tr(:comment, 'deleted')
+        elsif @commentable.is_a? Answer
+          redirect_to @commentable.question, tr(:comment, 'deleted')
+        end
+      end
+      format.js
     end
   end
 
