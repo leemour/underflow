@@ -18,15 +18,19 @@ feature 'User adds a comment to answer',
     end
 
     context 'with valid body' do
-      # scenario 'with AJAX', js: true do
-      #   within("#answer-form") do
-      #     fill_in 'answer_body', with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
-      #     click_on 'Отправить ваш ответ'
-      #   end
+      scenario 'with AJAX', js: true do
+        within("#answer-#{answer.id}") do
+          click_on 'Комментировать'
+          fill_in "comment_body", with: 'Хороший комментарий'
+          click_on 'Добавить комментарий'
+        end
 
-      #   expect(page).to have_content 'Ответ успешно создан.'
-      #   expect(page).to have_content 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос.'
-      # end
+
+        expect(page).to have_content 'Комментарий успешно создан.'
+        within("#answer-#{answer.id}") do
+          expect(page).to have_content 'Хороший комментарий'
+        end
+      end
 
       scenario 'without AJAX' do
         within("#answer-#{answer.id}") do
@@ -42,16 +46,19 @@ feature 'User adds a comment to answer',
     end
 
     context 'with invalid body' do
-    #   context 'with AJAX' do
-    #     scenario "doesn't add answer", js: true do
-    #       fill_in 'answer_body', with: ''
-    #       within("#answer-form") do
-    #         click_on 'Отправить ваш ответ'
-    #       end
+      context 'with AJAX' do
+        scenario "doesn't add answer", js: true do
+          within("#answer-#{answer.id}") do
+            click_on 'Комментировать'
+            fill_in "comment_body", with: ''
+            click_on 'Добавить комментарий'
+          end
 
-    #       expect(page).to have_content 'Текст недостаточной длины'
-    #     end
-    #   end
+          within("#answer-#{answer.id}") do
+            expect(page).to have_content 'Текст недостаточной длины'
+          end
+        end
+      end
 
       context 'without AJAX' do
         scenario "doesn't add answer" do

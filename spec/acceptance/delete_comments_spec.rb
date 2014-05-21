@@ -60,16 +60,18 @@ feature 'User deletes a comment',
       given!(:comment) do
         create(:question_comment, commentable: question, user: user)
       end
+      before { visit question_path(question) }
 
-      # scenario 'with AJAX', js: true do
-      #   click_on 'Удалить'
-      #   expect(page).to have_content 'Вопрос успешно удален.'
-      #   expect(page).to_not have_content question.body
-      # end
+      scenario 'with AJAX', js: true do
+        within("#comment-#{comment.id}") do
+          click_on 'Удалить'
+        end
+
+        expect(page).to have_content 'Комментарий успешно удален.'
+        expect(page).to_not have_content comment.body
+      end
 
       scenario 'without AJAX' do
-        visit question_path(question)
-
         within("#comment-#{comment.id}") do
           click_on 'Удалить'
         end
@@ -83,16 +85,18 @@ feature 'User deletes a comment',
       given!(:comment) do
         create(:answer_comment, commentable: answer, user: user)
       end
+      before { visit question_path(question) }
 
-      # scenario 'with AJAX', js: true do
-      #   click_on 'Удалить'
-      #   expect(page).to have_content 'Вопрос успешно удален.'
-      #   expect(page).to_not have_content question.body
-      # end
+      scenario 'with AJAX', js: true do
+        within("#comment-#{comment.id}") do
+          click_on 'Удалить'
+        end
+
+        expect(page).to have_content 'Комментарий успешно удален.'
+        expect(page).to_not have_content comment.body
+      end
 
       scenario 'without AJAX' do
-        visit question_path(question)
-
         within("#comment-#{comment.id}") do
           click_on 'Удалить'
         end

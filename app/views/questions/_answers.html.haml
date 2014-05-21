@@ -23,7 +23,9 @@
           %span.author-reputation
 
       - if user_signed_in?
-        = link_to t('comment.add'), new_answer_comment_path(answer)
+        = link_to t('comment.add'), new_answer_comment_path(answer), class: 'add-comment'
+        .comment-create-form
+          = render 'comments/form', commentable: answer, comment: answer.comments.build, edit: true
 
       .comments
         = render 'comments/comments', commentable: answer

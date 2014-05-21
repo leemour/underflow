@@ -27,4 +27,8 @@ module ApplicationHelper
   def item_class(item)
     "own" if user_signed_in? && current_user == item.user
   end
+
+  def class_with_id(object)
+    "#{object.class.to_s.underscore}-#{object.id}"
+  end
 end

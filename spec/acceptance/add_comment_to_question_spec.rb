@@ -20,13 +20,14 @@ feature 'User adds a comment to question',
       scenario 'with AJAX', js: true do
         within("#question-#{question.id}") do
           click_on 'Комментировать'
+          fill_in "comment_body", with: 'Хороший комментарий'
+          click_on 'Добавить комментарий'
         end
 
-        fill_in "comment_body", with: 'Хороший комментарий'
-        click_on 'Добавить комментарий'
-
         expect(page).to have_content 'Комментарий успешно создан.'
-        expect(page).to have_content 'Хороший комментарий'
+        within("#question-#{question.id}") do
+          expect(page).to have_content 'Хороший комментарий'
+        end
       end
 
       scenario 'without AJAX' do
@@ -38,21 +39,24 @@ feature 'User adds a comment to question',
         click_on 'Добавить комментарий'
 
         expect(page).to have_content 'Комментарий успешно создан.'
-        expect(page).to have_content 'Хороший комментарий'
+        within("#question-#{question.id}") do
+          expect(page).to have_content 'Хороший комментарий'
+        end
       end
     end
 
     context 'with invalid body' do
       context 'with AJAX' do
-        scenario "doesn't add answer" do
+        scenario "doesn't add answer", js: true do
           within("#question-#{question.id}") do
             click_on 'Комментировать'
+            fill_in "comment_body", with: ''
+            click_on 'Добавить комментарий'
           end
 
-          fill_in "comment_body", with: ''
-          click_on 'Добавить комментарий'
-
-          expect(page).to have_content 'Текст недостаточной длины'
+          within("#question-#{question.id}") do
+            expect(page).to have_content 'Текст недостаточной длины'
+          end
         end
       end
 
