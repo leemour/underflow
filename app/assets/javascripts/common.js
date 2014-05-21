@@ -1,7 +1,7 @@
 $(function() {
   $("form").find(':submit').attr('disabled', false);
 
-  $('.question').on('click', '.edit', function(ev) {
+  $('.question').on('click', '.question-details .edit', function(ev) {
     ev.preventDefault(); ev.stopPropagation();
     var question = $(this).closest('.question');
     var questionTitle = $(question).find('h1').text();
@@ -22,7 +22,7 @@ $(function() {
     $('.question-edit-form').hide();
   });
 
-  $('#answers').on('click', '.answer .edit', function(ev) {
+  $('#answers').on('click', '.answer-details .edit', function(ev) {
     ev.preventDefault(); ev.stopPropagation();
     $('.answer-body').show();
     $('.controls').show();
@@ -79,5 +79,44 @@ $(function() {
       .replace(/attributes_\d+/mg, 'attributes_'+count)
     );
     upload.insertBefore($(this));
+  });
+
+
+  $('.question').on('click', '.add-comment', function(ev) {
+    ev.preventDefault(); ev.stopPropagation();
+    var question = $(this).closest('.question');
+    $(question).find('.comment-create-form').show();
+    $(this).hide();
+    // $(comment).find('.comment-errors').hide();
+    // $(comment).find('.comment-edit-form').show();
+  });
+
+  $('.question').on('click', '.cancel', function(ev) {
+    ev.preventDefault(); ev.stopPropagation();
+    $('.comment-body').show();
+    $('.add-comment').show();
+    $('.controls').show();
+    $('.comment-create-form').hide();
+    $('.comment-edit-form').hide();
+  });
+
+  $('.comments').on('click', '.comment-details .edit', function(ev) {
+    ev.preventDefault(); ev.stopPropagation();
+    var comment = $(this).closest('.comment');
+    var commentBody = $(comment).find('.comment-body');
+    var commentText = commentBody.text().replace(/^\s{3,}|\s{3,}$/gm,'');
+    $(comment).find('.comment-edit-form textarea').val(commentText);
+    commentBody.hide();
+    $(comment).find('.controls').hide();
+    $(comment).find('.comment-errors').hide();
+    $(comment).find('.comment-edit-form').show();
+  });
+
+  $('.comments').on('click', '.cancel', function(ev) {
+    ev.preventDefault(); ev.stopPropagation();
+    $('.comment-body').show();
+    $('.controls').show();
+    $('.comment-create-form').hide();
+    $('.comment-edit-form').hide();
   });
 });

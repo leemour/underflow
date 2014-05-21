@@ -8,18 +8,11 @@
             - if attachment.persisted?
               %li= link_to attachment.file.filename, attachment.file.url
 
-      - if user_signed_in?
-        = link_to t('comment.add'), new_answer_comment_path(answer)
-
       - if answer.from?(current_user)
         .answer-edit-form
           = render 'answers/form', answer: answer, edit: true
 
-      .comments
-        = render 'comments/comments', commentable: answer
-
-
-      .details
+      .row.answer-details
         - if answer.from?(current_user)
           .controls.col-sm-6
             = link_to t('common.edit'), [:edit, @question, answer], class: 'edit', data: {answer_id: answer.id}
@@ -28,3 +21,10 @@
           %span.time= created_ago answer
           %span.author= link_to answer.user.name, answer.user
           %span.author-reputation
+
+      - if user_signed_in?
+        = link_to t('comment.add'), new_answer_comment_path(answer)
+
+      .comments
+        = render 'comments/comments', commentable: answer
+

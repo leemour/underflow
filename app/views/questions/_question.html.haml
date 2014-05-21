@@ -15,7 +15,7 @@
   - @question.tags.each do |tag|
     .tag= link_to tag.name, tag
 
-.row.details
+.row.question-details
   .controls.col-sm-6
     - if @question.from?(current_user)
       = link_to t('common.edit'), [:edit, @question], class: 'edit'
@@ -27,7 +27,9 @@
     %span.author-reputation
 
 - if user_signed_in?
-  = link_to t('comment.add'), new_question_comment_path(@question)
+  = link_to t('comment.add'), new_question_comment_path(@question), class: 'add-comment'
+  .comment-create-form
+    = render 'comments/form', commentable: @question, comment: @comment, edit: true
 
 .comments
   = render 'comments/comments', commentable: @question

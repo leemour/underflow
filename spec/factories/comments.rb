@@ -2,8 +2,16 @@
 
 FactoryGirl.define do
   factory :comment do
-    user          nil
-    commentable   nil
-    body        "To be, or not to be, that is the question"
+    user
+    commentable nil
+    body        "Lorem ipsum dolor sit amet lorum"
+
+    factory :question_comment do
+      association :commentable, factory: :question
+    end
+
+    factory :answer_comment do
+      association :commentable, factory: :answer
+    end
   end
 end

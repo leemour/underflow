@@ -4,6 +4,7 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_action :check_permission, only: [:update, :destroy]
+  # before_action :set_comment, only: [:show, :update]
 
   def by_user
     @questions = Question.where(user_id: params[:user_id])
@@ -16,6 +17,7 @@ class QuestionsController < ApplicationController
   def show
     @question.attachments.build
     @answer = @question.answers.build
+    @comment = @question.comments.build
     @question.answers.each {|a| a.attachments.build }
   end
 
@@ -31,6 +33,7 @@ class QuestionsController < ApplicationController
     @question = current_user.questions.build(question_params)
     respond_to do |format|
       if @question.save
+        @comment = @question.comments.build
         format.html { redirect_to @question, tr(:question, 'created') }
         format.js
       else
@@ -43,9 +46,9 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.user != current_user
-        format.html { redirect_to questions_path }
-        format.js { render nothing: true, status: :forbidden }
+        render_error t('errors.denied')
       elsif @question.update(question_params)
+        @comment = @question.comments.build
         format.html { redirect_to @question, tr(:question, 'updated') }
         format.js
       else
@@ -62,12 +65,16 @@ class QuestionsController < ApplicationController
 
   private
 
-  def check_permission
-    render_error t('errors.denied') if @question.user != current_user
-  end
-
   def set_question
     @question = Question.find(params[:id])
+  end
+
+  def set_comment
+    @comment = @question.comments.build
+  end
+
+  def check_permission
+    render_error t('errors.denied') if @question.user != current_user
   end
 
   def question_params

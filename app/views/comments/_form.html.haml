@@ -1,10 +1,14 @@
+- edit ||= false
+
 - if comment.errors.any?
   - comment.errors.full_messages.each do |error|
     %ul.errors.comment-errors
       %li.alert.alert-danger= error
 
-= form_for [commentable, comment] do |f|
+= form_for [commentable, comment], remote: true do |f|
   .form-group
     = f.text_area :body, id: (comment.id ? "comment-body-#{comment.id}" : "comment_body" ), class: "form-control"
   .form-group
-    = f.submit t('comment.add'), data: {disable_with: t('common.processing')}, class: 'btn btn-success'
+    = f.submit t('comment.create'), data: {disable_with: t('common.processing')}, class: 'btn btn-success'
+    - if edit
+      %button.cancel.btn= t('common.cancel')

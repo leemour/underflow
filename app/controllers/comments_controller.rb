@@ -1,7 +1,10 @@
 class CommentsController < ApplicationController
   include ApplicationHelper
 
-  before_action :set_parent, only: [:new, :create]
+  before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
+  before_action :set_comment, only: [:edit, :update, :destroy]
+  before_action :check_permission, only: [:update, :destroy]
+  before_action :set_commentable, only: [:new, :create, :destroy]
 
   def new
     @comment = Comment.new
@@ -21,18 +24,31 @@ class CommentsController < ApplicationController
     end
   end
 
-  protected
-
-  def comment_params
-    params.require(:comment).permit(:body)
+  def destroy
+    @comment.destroy
+    if @commentable.is_a? Question
+      redirect_to @commentable, tr(:comment, 'deleted')
+    elsif @commentable.is_a? Answer
+      redirect_to @commentable.question, tr(:comment, 'deleted')
+    end
   end
+
+  protected
 
   def set_comment
     @comment = Comment.find(params[:id])
   end
 
-  def set_parent
+  def set_commentable
     parent ||= %w[question answer].find {|p| params.has_key? "#{p}_id"}
     @commentable = parent.classify.constantize.find(params["#{parent}_id"])
+  end
+
+  def check_permission
+    render_error t('errors.denied') if @comment.user != current_user
+  end
+
+  def comment_params
+    params.require(:comment).permit(:body)
   end
 end

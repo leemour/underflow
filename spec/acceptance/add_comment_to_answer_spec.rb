@@ -34,7 +34,7 @@ feature 'User adds a comment to answer',
         end
 
         fill_in "comment_body", with: 'Хороший комментарий'
-        click_on 'Комментировать'
+        click_on 'Добавить комментарий'
 
         expect(page).to have_content 'Комментарий успешно создан.'
         expect(page).to have_content 'Хороший комментарий'
@@ -60,7 +60,7 @@ feature 'User adds a comment to answer',
           end
 
           fill_in "comment_body", with: ''
-          click_on 'Комментировать'
+          click_on 'Добавить комментарий'
 
           expect(page).to have_content 'Текст недостаточной длины'
         end
