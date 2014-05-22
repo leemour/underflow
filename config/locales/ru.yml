@@ -86,6 +86,7 @@ ru:
   comment:
     add: Комментировать
     create: Добавить комментарий
+    edit: Редактировать комментарий
 
   activerecord:
     models:

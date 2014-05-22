@@ -7,9 +7,9 @@ feature 'User deletes a comment',
   I want to delete question or answer comment
   } do
 
-  given(:user) { create(:user) }
+  given(:user)     { create(:user) }
   given(:question) { create(:question, user: user) }
-  given!(:answer) { create(:answer, question: question, user: user) }
+  given!(:answer)  { create(:answer, question: question, user: user) }
 
   context 'when not logged in' do
     scenario "no question comment delete link" do

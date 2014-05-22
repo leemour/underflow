@@ -4,10 +4,13 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   before_action :set_comment, only: [:edit, :update, :destroy]
   before_action :check_permission, only: [:update, :destroy]
-  before_action :set_commentable, only: [:new, :create, :destroy]
+  before_action :set_commentable, only: [:new, :edit, :create, :update, :destroy]
 
   def new
     @comment = Comment.new
+  end
+
+  def edit
   end
 
   def create
@@ -25,6 +28,24 @@ class CommentsController < ApplicationController
         format.js
       else
         format.html { render :new }
+        format.js
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @comment.update(comment_params)
+        format.html do
+          if @commentable.is_a? Question
+            redirect_to @commentable, tr(:comment, 'updated')
+          elsif @commentable.is_a? Answer
+            redirect_to @commentable.question, tr(:comment, 'updated')
+          end
+        end
+        format.js
+      else
+        format.html { render :edit }
         format.js
       end
     end

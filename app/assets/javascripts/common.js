@@ -91,8 +91,8 @@ $(function() {
     $('.comment-edit-form').hide();
   }
 
-  // Add file
-  function addFile(link, container) {
+  // Add extra file input field
+  function addFileInput(link, container) {
     var upload = $(link).closest(container).find('.file-upload').last().clone();
     var count = upload.html().match(/attributes\]\[(\d+)\]/)[1];
     count++;
@@ -163,11 +163,11 @@ $(function() {
   // Add file links
   $('.question').on('click', '.add-file', function(ev) {
     ev.preventDefault(); ev.stopPropagation();
-    addFile(this, '.question')
+    addFileInput(this, '.question')
   });
 
   $('#answers').on('click', '.answer .add-file', function(ev) {
     ev.preventDefault(); ev.stopPropagation();
-    addFile(this, '.answer')
+    addFileInput(this, '.answer')
   });
 });
