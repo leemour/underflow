@@ -87,6 +87,10 @@ ru:
     add: Комментировать
     create: Добавить комментарий
     edit: Редактировать комментарий
+  tag:
+    name: Имя
+    description: Описание
+    excerpt: Краткое описание
 
   activerecord:
     models:
@@ -126,12 +130,18 @@ ru:
         few: '%{count} комменатария'
         many: '%{count} комментариев'
         other: Комментарии
+      tag:
+        zero: 0 тегов
+        one: Тег
+        few: '%{count} тега'
+        many: '%{count} тегов'
+        other: Теги
 
     attributes:
       question:
         title: Заголовок
         body: Текст
-        tags: Теги
+        tag_list: Теги
       user:
         <<: *common_attrs
         name: Имя

@@ -15,7 +15,7 @@
  */
 
 @import "bootstrap"
-
+@import "magicsuggest"
 
 header
   .navbar-inverse
@@ -41,21 +41,24 @@ main
   .container-fluid
     max-width: 1170px
 
-.question
-  margin-bottom: 30px
-  overflow: hidden
-  h1
-    margin-top: 0
-  .content
-    margin-bottom: 5px
+#questions
+  .question
+    margin-bottom: 30px
+    overflow: hidden
+    h3
+      margin: 0
+    .tags
+      margin-top: 5px
 
-.questions
+body.questions
   .question
     background-color: #f5f5f5
     margin-bottom: 10px
     padding: 5px 15px 0
-    h3
-      margin: 0
+    h1
+      margin-top: 0
+    .content
+      margin-bottom: 5px
   form #question_body
     min-height: 200px
 
@@ -63,7 +66,10 @@ main
 .answer-edit-form,
 .comment-create-form,
 .comment-edit-form
+  border: 1px dotted #aaa
   display: none
+  margin: -5px -15px 30px
+  padding: 5px 15px
 
 .question .edit,
 .answer .edit
@@ -79,7 +85,7 @@ main
 .answer
   margin-bottom: 20px
   overflow: hidden
-  padding: 5px 10px 0
+  padding: 5px 15px 0
   &.own
     background-color: #fbf9e8
 
@@ -104,6 +110,15 @@ label.nested
   input
     display: inline-block
 
+
+.tags
+  a
+    background-color: #706f98
+    color: #fff
+    display: inline-block
+    font-size: 0.9em
+    padding: 1px 6px
+    margin: 4px 5px 5px 0
 
 .comments
   .comment

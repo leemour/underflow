@@ -15,3 +15,5 @@
 //= require jquery.remotipart
 //= require bootstrap
 //= require common
+//= require magic_suggest
+//= require magicsuggest

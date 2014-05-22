@@ -18,4 +18,15 @@ class Question < ActiveRecord::Base
   def from?(user)
     user == self.user
   end
+
+  def tag_list
+    tags.pluck(:name)
+  end
+
+  def tag_list=(tags)
+    tags = tags.split(',') if tags.is_a? String
+    new_tags = [*tags].map {|t| Tag.find_or_create_by(name: t.downcase.strip) }
+    new_tags.each {|t| self.tags << t unless self.tags.include? t }
+    self.tags.each {|t| self.tags.delete(t) unless new_tags.include? t }
+  end
 end

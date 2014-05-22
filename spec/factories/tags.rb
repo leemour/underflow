@@ -2,7 +2,8 @@
 
 FactoryGirl.define do
   factory :tag do
-    name        "MyString"
+    questions []
+    sequence(:name) {|n| "tag#{n}" }
     excerpt     "To be, or not to be, that is the question—
       Whether 'tis Nobler in the mind to suffer
       The Slings and Arrows of outrageous Fortune"

@@ -35,4 +35,54 @@ describe Question do
       expect(question).to_not be_from(user)
     end
   end
+
+  describe '#tag_list' do
+    subject { create(:question) }
+    let!(:tags) { create_list(:tag, 3, questions: [subject]) }
+
+    it "returns array of Question Tag names" do
+      tag_names = tags.map(&:name)
+      expect(subject.tag_list).to match_array(tag_names)
+    end
+  end
+
+  describe '#tag_list=' do
+    subject { create(:question) }
+    let!(:tag) { create(:tag, name: 'tag1', questions: [subject]) }
+
+    it "creates tag that doesn't exist" do
+      expect {
+        subject.update(tag_list: 'tag1,tag2')
+      }.to change(Tag, :count).by(1)
+    end
+
+    it "doesn't delete tags that exist" do
+      expect {
+        subject.update(tag_list: '')
+      }.to_not change(Tag, :count)
+    end
+
+    it "doesnt' delete tags already associated with question" do
+      expect {
+        subject.update(tag_list: 'tag1')
+      }.to change(subject.tags, :count).by(0)
+    end
+
+    it "keeps tags name already associated with question" do
+      subject.update(tag_list: 'tag1')
+      expect(subject.tags.first).to eq(tag)
+    end
+
+    it "adds new tags to question" do
+      expect {
+        subject.update(tag_list: 'tag1,tag2')
+      }.to change(subject.tags, :count).by(1)
+    end
+
+    it "removes already associated tags from question" do
+      expect {
+        subject.update(tag_list: '')
+      }.to change(subject.tags, :count).by(-1)
+    end
+  end
 end

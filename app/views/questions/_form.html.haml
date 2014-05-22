@@ -11,6 +11,9 @@
     = f.text_field :title, class: 'form-control'
   .form-group
     = f.text_area :body, class: 'form-control'
+  .form-group
+    = f.label :tag_list
+    = f.text_field :tag_list, class: 'form-control suggest-tag'
 
   = f.fields_for :attachments do |a|
     .form-group.file-upload
