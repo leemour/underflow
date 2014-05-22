@@ -1,0 +1,8 @@
+%h1= t('activerecord.models.tag', count: @tags.length)
+
+#tags
+  - @tags.each do |tag|
+    .tag
+      %h2= link_to tag.name, tag
+      .tag-excerpt= tag.excerpt
+      .tag-text= tag.description

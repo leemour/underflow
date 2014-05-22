@@ -1,0 +1,16 @@
+- questions.each do |question|
+  .question{id: "question-#{question.id}"}
+    .counters
+      .votes
+      .answers
+      .views
+    .content
+      %h3= link_to question.title, question
+      .details
+        .tags
+          - question.tags.each do |tag|
+            =link_to tag.name, tag
+        .started
+          %span.time= created_ago question
+          %span.author= link_to question.user.name, question.user
+          %span.author-reputation

@@ -1,0 +1,8 @@
+%h1= @tag.name
+
+.tag-body
+  .tag-excerpt= @tag.excerpt
+  .tag-text= @tag.description
+
+.tag-questions
+  = render 'questions/list', questions: @tag.questions
