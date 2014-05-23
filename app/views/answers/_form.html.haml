@@ -1,4 +1,4 @@
-- edit ||= false
+- remote = answer.persisted? if remote.nil?
 
 - if answer.errors.any?
   - answer.errors.full_messages.each do |error|
@@ -28,5 +28,5 @@
     = link_to t('attachment.add'), '#', class: "add-file btn btn-info btn-xs"
 
   = f.submit t('answer.post'), data: {disable_with: t('common.processing')}, class: "btn btn-success"
-  - if edit
+  - if remote
     %button.cancel.btn= t('common.cancel')

@@ -1,11 +1,11 @@
-- edit = @question.persisted?
+- remote = @question.persisted? if remote.nil?
 
 - if @question.errors.any?
   - @question.errors.full_messages.each do |error|
     %ul.errors.question-errors
       %li.alert.alert-danger= error
 
-= form_for @question, remote: !!edit do |f|
+= form_for @question, remote: !!remote do |f|
   .form-group
     = f.label :title
     = f.text_field :title, class: 'form-control'
@@ -34,5 +34,5 @@
 
   .form-group
     = f.submit t('question.ask'), data: {disable_with: t('common.processing')}, class: 'btn btn-success'
-    - if edit
+    - if remote
       %button.cancel.btn= t('common.cancel')

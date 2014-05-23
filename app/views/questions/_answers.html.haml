@@ -11,7 +11,7 @@
 
       - if answer.from?(current_user)
         .answer-edit-form
-          = render 'answers/form', answer: answer, edit: true
+          = render 'answers/form', answer: answer
 
       .row.answer-details
         - if answer.from?(current_user)

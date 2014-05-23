@@ -10,7 +10,7 @@
 
 - if @question.from?(current_user)
   .question-edit-form
-    = render 'form', edit: true
+    = render 'form'
 
 .tags
   / .tag-list= @question.tag_list

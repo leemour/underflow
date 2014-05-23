@@ -11,6 +11,6 @@
   $('#answer-<%= @answer.id %>').css('background-color', '#eee');
 <% else %>
   $('#answer-<%= @answer.id %> form').replaceWith(
-    '<%= j render 'answers/form', answer: @answer, edit: true %>'
+    '<%= j render 'answers/form', answer: @answer %>'
   );
 <% end %>
