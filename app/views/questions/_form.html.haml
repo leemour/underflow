@@ -1,4 +1,4 @@
-- edit ||= false
+- edit = @question.persisted?
 
 - if @question.errors.any?
   - @question.errors.full_messages.each do |error|

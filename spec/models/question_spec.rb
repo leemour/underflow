@@ -65,7 +65,7 @@ describe Question do
     it "doesnt' delete tags already associated with question" do
       expect {
         subject.update(tag_list: 'tag1')
-      }.to change(subject.tags, :count).by(0)
+      }.to_not change(subject.tags, :count)
     end
 
     it "keeps tags name already associated with question" do

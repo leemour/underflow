@@ -4,6 +4,7 @@
       .answer-body
         .answer-text= answer.body.html_safe
         %ul.question-files
+          - answer.attachments.build
           - answer.attachments.each do |attachment|
             - if attachment.persisted?
               %li= link_to attachment.file.filename, attachment.file.url

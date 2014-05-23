@@ -15,10 +15,8 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @question.attachments.build
     @answer = @question.answers.build
     @comment = @question.comments.build
-    @question.answers.each {|a| a.attachments.build }
   end
 
   def new
@@ -31,23 +29,16 @@ class QuestionsController < ApplicationController
 
   def create
     @question = current_user.questions.build(question_params)
-    respond_to do |format|
-      if @question.save
-        @comment = @question.comments.build
-        format.html { redirect_to @question, tr(:question, 'created') }
-        format.js
-      else
-        format.html { render action: "new" }
-        format.js
-      end
+    if @question.save
+      redirect_to @question, tr(:question, 'created')
+    else
+      render :new
     end
   end
 
   def update
     respond_to do |format|
-      if @question.user != current_user
-        render_error t('errors.denied')
-      elsif @question.update(question_params)
+      if @question.update(question_params)
         @comment = @question.comments.build
         format.html { redirect_to @question, tr(:question, 'updated') }
         format.js

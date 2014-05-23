@@ -60,7 +60,6 @@ ru:
     edit: Редактировать профиль
     new_password: Новый пароль
     change_password: Изменение пароля
-    forgot_password: Забыли пароль?
     resend_confirmation: Отправить подтверждение
     confirm_account_notice: 'Пожалуйста, подтвердите ваш email, перейдя по ссылке:'
     # confirm_account_notice: You can confirm your account email through the link below:
@@ -78,8 +77,6 @@ ru:
     new: Новый ответ
     post: Отправить ваш ответ
     your: Ваш ответ
-    form:
-      ask_question: Задать вопрос
   attachment:
     add: Добавить файл
     remove: Удалить файл

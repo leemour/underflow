@@ -1,39 +1,36 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more, please read the Rails Internationalization guide
-# available at http://guides.rubyonrails.org/i18n.html.
-
 en:
   main_menu: Main menu
   toggle_nav: Open menu
   to_home: To homepage
   Help: Help
-  model_created: "%{model} was successfully created."
-  model_updated: "%{model} was successfully updated."
-  model_deleted: "%{model} was successfully deleted."
-  Question: Question
-  Questions: Questions
-  answers_count: "%{count} answers"
+  model:
+    created: "%{model} was successfully created."
+    updated: "%{model} was successfully updated."
+    deleted: "%{model} was successfully deleted."
+  errors:
+    denied: Access denied
+  time:
+    ago: ago
+    times: times
+  common:
+    delete: Delete
+    edit: Edit
+    back: Back
+    sure: Are you sure?
+    cancel: Cancel
+    processing: Processing request
+    save: Save
+    made_by: Made by
+    welcome: Welcome
+    replace_file: Replace file
+  common_attributes: &common_attrs
+    created_at: Created at
+    updated_at: Updated at
+    slug: Slug
   user:
     profile: Profile
-    log_in: Log in
-    logging_in: Logging in
+    log_in: Sign in
+    logging_in: Signing in
     register: Register
     registration: Registration
     forgot_password: Forgot password?
@@ -42,3 +39,116 @@ en:
     sign_in_with: Sign in with
     edit: Edit
     update: Update
+    log_out: Log out
+    settings: Settings
+    cancel_account: Cancel account
+    cancel_my_account: Cancel my account
+    unhappy: Unhappy?
+    current_password_required: required to confirm changes
+    leave_blank: leave blank unles you want to change it
+    login_to_answer: You have to sign in to answer questions
+    bio: Bio
+    visits: Visits
+    stats: Statistics
+    private: Private
+    age: Age
+    member_for: Member for
+    visited: Visited
+    seen: Seen
+    helpful_flags: Helpful flags
+    profile_views: Profile views
+    edit: Edit profile
+    new_password: New password
+    change_password: Change password
+    resend_confirmation: Resemd confirmation
+    confirm_account_notice: 'You can confirm your account email through the link below:'
+    confirm_account: Confirm account
+    answers: User answers
+    questions: User questions
+  question:
+    one: Question
+    many: Questions
+    create: New questions
+    edit: Edit question
+    ask: Ask question
+  answer:
+    edit: Edit answer
+    new: New answer
+    post: Post answer
+    your: Your answer
+  attachment:
+    add: Add file
+    remove: Remove file
+  comment:
+    add: Add comment
+    create: Post comment
+    edit: Edit comment
+  tag:
+    name: Name
+    description: Description
+    excerpt: Excerpt
+
+  activerecord:
+    models:
+      question:
+        one: Question
+        other: Questions
+      user:
+        one: User
+        other: Users
+      answer:
+        one: Answer
+        other: Answers
+      profile:
+        one: Profile
+        other: Profiles
+      attachment:
+        one: Attachment
+        other: Attachments
+      comment:
+        one: Comment
+        other: Comments
+      tag:
+        one: Tag
+        other: Tags
+
+    attributes:
+      question:
+        title: Title
+        body: Text
+        tag_list: Tags
+      user:
+        <<: *common_attrs
+        name: Name
+        email: Email
+        password: Password
+        password_confirmation: Password confirmation
+        current_password: Current password
+        real_name: Real name
+        website: Webiste
+        location: Location
+        birthday: Birthday
+        about: About
+        remember_me: Remember me
+        reset_password_token: Password reset token
+        reset_password_sent_at: Password reset sent at
+        remember_created_at: Remember created at
+        sign_in_count: Sign in count
+        current_sign_in_at: Current sign in at
+        last_sign_in_at: Last sign in at
+        current_sign_in_ip: Current sign in IP
+        last_sign_in_ip: Last sign in IP
+      profile:
+        real_name: Real name
+        website: Website
+        location: Location
+        birthday: Birthday
+        about: About
+      answer:
+        body: Text
+        user_id: User
+        question_id: Question
+      attachment:
+        file: File
+      comment:
+        body: Text

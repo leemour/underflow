@@ -4,9 +4,9 @@
   );
 
   <% if remotipart_submitted? %>
-       $('.question').html("<%= j "#{render 'questions/question'}" %>");
+    $('.question').html("<%= j "#{render 'questions/question'}" %>");
   <% else %>
-      $('.question').html("<%= j render 'questions/question' %>");
+    $('.question').html("<%= j render 'questions/question' %>");
   <% end %>
 
   $('#question-<%= @question.id %> .question-body')

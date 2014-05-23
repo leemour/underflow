@@ -3,6 +3,7 @@
 .question-body
   .question-text= @question.body.html_safe
   %ul.question-files
+    - @question.attachments.build
     - @question.attachments.each do |attachment|
       - if attachment.persisted?
         %li= link_to attachment.file.filename, attachment.file.url

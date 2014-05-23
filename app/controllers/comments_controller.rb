@@ -18,13 +18,7 @@ class CommentsController < ApplicationController
     @comment.commentable = @commentable
     respond_to do |format|
       if @comment.save
-        format.html do
-          if @commentable.is_a? Question
-            redirect_to @commentable, tr(:comment, 'created')
-          elsif @commentable.is_a? Answer
-            redirect_to @commentable.question, tr(:comment, 'created')
-          end
-        end
+        format.html { redirect_to @question, tr(:comment, 'created') }
         format.js
       else
         format.html { render :new }
@@ -36,13 +30,7 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html do
-          if @commentable.is_a? Question
-            redirect_to @commentable, tr(:comment, 'updated')
-          elsif @commentable.is_a? Answer
-            redirect_to @commentable.question, tr(:comment, 'updated')
-          end
-        end
+        format.html { redirect_to @question, tr(:comment, 'updated') }
         format.js
       else
         format.html { render :edit }
@@ -54,13 +42,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.html do
-        if @commentable.is_a? Question
-          redirect_to @commentable, tr(:comment, 'deleted')
-        elsif @commentable.is_a? Answer
-          redirect_to @commentable.question, tr(:comment, 'deleted')
-        end
-      end
+      format.html { redirect_to @question, tr(:comment, 'deleted') }
       format.js
     end
   end
@@ -74,6 +56,7 @@ class CommentsController < ApplicationController
   def set_commentable
     parent ||= %w[question answer].find {|p| params.has_key? "#{p}_id"}
     @commentable = parent.classify.constantize.find(params["#{parent}_id"])
+    @question = @commentable.is_a?(Question) ? @commentable : @commentable.question
   end
 
   def check_permission
