@@ -12,5 +12,8 @@
             =link_to tag.name, tag
         .started
           %span.time= created_ago question
-          %span.author= link_to question.user.name, question.user
+          %span.author
+            = link_to question.user do
+              = image_tag question.user.avatar_url(:thumb), class: 'avatar'
+              = question.user.name
           %span.author-reputation

@@ -9,12 +9,21 @@ class User < ActiveRecord::Base
   has_many :answers
   has_many :comments
 
-  delegate :real_name, :website, :location, :birthday, :about, to: :profile
+  accepts_nested_attributes_for :profile
+
+  delegate :real_name, :website, :location, :birthday, :about, :avatar_url,
+    to: :profile
 
   validates :name, presence: true, uniqueness: true, length: {in: 3..30}
   validates :email, length: {maximum: 254}, format: {with: Devise.email_regexp}
 
-  def profile
-    super || self.create_profile
+  after_create :set_profile
+
+  def set_profile
+    self.create_profile
   end
+
+  # def profile
+  #   super || self.create_profile
+  # end
 end

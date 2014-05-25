@@ -15,6 +15,7 @@ gem 'compass'
 gem 'russian'
 gem 'devise'
 gem 'carrierwave'
+gem 'mini_magick'
 gem 'remotipart', git: 'git@github.com:JangoSteve/remotipart.git'
 
 group :development do

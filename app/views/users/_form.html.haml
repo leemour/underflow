@@ -3,21 +3,26 @@
     %ul.errors.question-errors
       %li.alert.alert-danger= error
 
-=form_for @user, role: 'form' do |f|
-  .form-group
-    =f.label :real_name
-    =f.text_field :real_name, class: 'form-control'
-  .form-group
-    =f.label :website
-    =f.text_field :website, class: 'form-control'
-  .form-group
-    =f.label :location
-    =f.text_field :location, class: 'form-control'
-  .form-group
-    =f.label :birthday
-    =f.date_select :birthday, class: 'form-control'
-  .form-group
-    =f.label :about
-    =f.text_area :about, class: 'form-control'
+= form_for @user, role: 'form' do |f|
+  = f.fields_for :profile do |p|
+    .form-group
+      = p.label :real_name
+      = p.text_field :real_name, class: 'form-control'
+    .form-group
+      = p.label :avatar
+      = p.file_field :avatar
+      = image_tag @user.avatar_url(:medium), class: 'avatar'
+    .form-group
+      = p.label :website
+      = p.text_field :website, class: 'form-control'
+    .form-group
+      = p.label :location
+      = p.text_field :location, class: 'form-control'
+    .form-group
+      = p.label :birthday
+      = p.date_select :birthday, class: 'form-control'
+    .form-group
+      = p.label :about
+      = p.text_area :about, class: 'form-control'
 
-  =f.submit t('common.save'), data: {disable_with: t('common.processing')}, class: 'btn btn-success'
+  = f.submit t('common.save'), data: {disable_with: t('common.processing')}, class: 'btn btn-success'

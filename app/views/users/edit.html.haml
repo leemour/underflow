@@ -1,3 +1,5 @@
-%h1= t('user.edit')
+%h1
+  = t('user.edit')
+  = link_to @user.name, @user
 
 = render 'form'

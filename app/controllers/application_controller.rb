@@ -21,4 +21,12 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) << :name
     devise_parameter_sanitizer.for(:account_update) << :name
   end
+
+  # def default_url_options
+  #   if Rails.env.production?
+  #     { host: 'underflow.riabit.ru' }
+  #   else
+  #     { host: 'localhost:3000' }
+  #   end
+  # end
 end

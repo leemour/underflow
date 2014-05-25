@@ -166,6 +166,7 @@ ru:
         location: Местонахождение
         birthday: День рождения
         about: О себе
+        avatar: Аватар
       answer:
         body: Текст
         user_id: Пользователь

@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.profile.update(user_params)
+    if @user.update(user_params)
       redirect_to @user, tr(:profile, 'updated')
     else
       render :edit
@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:real_name, :website, :location, :birthday, :about)
+    params.require(:user).permit(profile_attributes: [:id, :real_name,
+      :website, :location, :birthday, :about, :avatar, :_destroy])
   end
 end

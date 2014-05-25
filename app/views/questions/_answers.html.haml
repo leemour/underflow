@@ -20,7 +20,10 @@
             = link_to t('common.delete'), answer, class: 'delete', method: :delete, data: { confirm: t("common.sure") }, remote: true
         .started.col-sm-6.pull-right
           %span.time= created_ago answer
-          %span.author= link_to answer.user.name, answer.user
+          %span.author
+            = link_to answer.user do
+              = image_tag answer.user.avatar_url(:thumb), class: 'avatar'
+              = answer.user.name
           %span.author-reputation
 
       - if user_signed_in?

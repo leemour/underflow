@@ -15,4 +15,7 @@
 
         .started.col-sm-6.pull-right
           %span.time= created_ago comment
-          %span.author= link_to comment.user.name, comment.user
+          %span.author
+            = link_to comment.user do
+              = image_tag comment.user.avatar_url(:micro), class: 'avatar'
+              = comment.user.name
