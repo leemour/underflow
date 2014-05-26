@@ -1,0 +1,6 @@
+%h1= t('activerecord.models.user.other')
+
+#users
+  - @users.each do |user|
+    .user
+      %h3= link_to user.name, user

@@ -6,11 +6,11 @@
       .views
     .content
       %h3= link_to question.title, question
-      .details
-        .tags
+      .row.details
+        .tags.col-sm-6
           - question.tags.each do |tag|
             =link_to tag.name, tag
-        .started
+        .started.col-sm-6
           %span.time= created_ago question
           %span.author
             = link_to question.user do

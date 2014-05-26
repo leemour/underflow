@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     concerns :commentable
   end
 
-  resources :users, only: [:show, :edit, :update] do
+  resources :users, only: [:index, :show, :edit, :update] do
     get '/questions', to: 'questions#by_user', as: 'questions'
     get '/answers', to: 'answers#by_user', as: 'answers'
   end
