@@ -87,6 +87,7 @@ en:
     name: Name
     description: Description
     excerpt: Excerpt
+    with: with tag
 
   activerecord:
     models:

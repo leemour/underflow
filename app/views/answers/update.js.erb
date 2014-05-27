@@ -1,6 +1,7 @@
 <% if @answer.errors.empty? %>
-  $('#content').prepend('<%= j render 'shared/flash',
-    flash: tr(:answer, 'updated') %>');
+  $('#content').prepend(
+    '<%= j render 'shared/flash', flash: tr(:answer, 'updated') %>'
+  );
 
   <% if remotipart_submitted? %>
     $('#answers').html("<%= j "#{render 'questions/answers'}" %>");

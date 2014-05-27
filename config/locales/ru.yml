@@ -88,6 +88,7 @@ ru:
     name: Имя
     description: Описание
     excerpt: Краткое описание
+    with: с тегом
 
   activerecord:
     models:

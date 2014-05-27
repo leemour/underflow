@@ -1,6 +1,7 @@
 <% if @comment.errors.empty? %>
-  $('#content').prepend('<%= j render 'shared/flash',
-    flash: tr(:comment, 'created') %>');
+  $('#content').prepend(
+    '<%= j render 'shared/flash', flash: tr(:comment, 'created') %>'
+  );
   $('#<%= class_with_id(@commentable) %> .comments').html(
     '<%= j render 'comments/comments', comment: @comment,
       commentable: @commentable %>'

@@ -1,3 +1,4 @@
 $('#comment-<%= @comment.id %>').remove();
-$('#content').prepend('<%= j render 'shared/flash',
-    flash: tr(:comment, 'deleted') %>');
+$('#content').prepend(
+  '<%= j render 'shared/flash', flash: tr(:comment, 'deleted') %>'
+);

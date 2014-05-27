@@ -1,4 +1,7 @@
-%h1= @user.name
+%h1
+  = t('activerecord.models.user.one')
+  = @user.name
+
 = image_tag @user.avatar_url(:medium), class: 'avatar'
 
 .row

@@ -6,6 +6,10 @@
 @import "bootstrap"
 @import "magicsuggest"
 
+
+h2
+  font-size: 20px
+
 header
   .navbar-inverse
     background-color: #1f2532
@@ -80,6 +84,13 @@ body.questions
   &.own
     background-color: #fbf9e8
 
+#users
+  .user
+    width: 300px
+  .avatar
+    float: left
+    margin: -5px 10px 0 0
+
 .controls, .started
   margin: 5px 0 10px
 .started
@@ -123,8 +134,6 @@ body .tags
 
 
 body.users.show
-  h2
-    font-size: 20px
   table td:first-child
     font-weight: bold
     width: 150px

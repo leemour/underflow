@@ -1,6 +1,7 @@
 <% if @answer.errors.empty? %>
-  $('#content').prepend('<%= j render 'shared/flash',
-    flash: tr(:answer, 'created') %>');
+  $('#content').prepend(
+    '<%= j render 'shared/flash', flash: tr(:answer, 'created') %>'
+  );
   $('#answers').html('<%= j render 'questions/answers' %>');
   $('#answers .answer').last().css('background-color', '#eee');
   $('#answer-form #answer_body').val('');

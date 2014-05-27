@@ -10,15 +10,15 @@ class AvatarUploader < CarrierWave::Uploader::Base
   process resize_to_fit: [512, 512]
 
   version :micro do
-    process resize_to_fit: [16, 16]
+    process resize_to_fill: [16, 16]
   end
 
   version :thumb do
-    process resize_to_fit: [32, 32]
+    process resize_to_fill: [32, 32]
   end
 
   version :medium do
-    process resize_to_fit: [128, 128]
+    process resize_to_fill: [128, 128]
   end
 
   version :large do

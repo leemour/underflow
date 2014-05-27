@@ -1,6 +1,7 @@
 <% if @comment.errors.empty? %>
-  $('#content').prepend('<%= j render 'shared/flash',
-    flash: tr(:comment, 'updated') %>');
+  $('#content').prepend(
+    '<%= j render 'shared/flash', flash: tr(:comment, 'updated') %>'
+  );
 
   <% if remotipart_submitted? %>
     $('#<%= class_with_id(@commentable) %> .comments').html(

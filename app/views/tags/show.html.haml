@@ -1,8 +1,14 @@
-%h1= @tag.name
+%h1
+  = t('activerecord.models.tag.one')
+  = @tag.name
 
 .tag-body
   .tag-excerpt= @tag.excerpt
   .tag-text= @tag.description
 
 .tag-questions
+  %h2
+    = t('activerecord.models.question.other')
+    = t('tag.with')
+
   = render 'questions/list', questions: @tag.questions
