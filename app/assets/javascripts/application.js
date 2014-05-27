@@ -15,5 +15,7 @@
 //= require jquery.remotipart
 //= require bootstrap
 //= require common
-//= require magic_suggest
 //= require magicsuggest
+//= require tags
+//= require handlebars.runtime
+//= require answers

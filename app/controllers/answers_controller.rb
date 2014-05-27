@@ -23,9 +23,12 @@ class AnswersController < ApplicationController
       if @answer.save
         format.html { redirect_to @question, tr(:answer, 'created') }
         format.js
+        format.json { render json: @answer}
       else
-        format.html { render action: 'new' }
+        format.html { render :new }
         format.js
+        format.json { render json: @answer.errors.full_messages,
+          status: :unprocessable_entity }
       end
     end
   end
