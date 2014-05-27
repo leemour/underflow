@@ -10,7 +10,7 @@ class Profile < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
-  def avatar_url(size)
+  def avatar_url(size=:thumb)
     avatar.url ? avatar.url(size) : gravatar_url(size)
   end
 

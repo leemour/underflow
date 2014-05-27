@@ -18,6 +18,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'remotipart', git: 'git@github.com:JangoSteve/remotipart.git'
 gem 'handlebars_assets'
+gem 'rails-timeago'
 
 group :development do
   gem 'capistrano-rails'

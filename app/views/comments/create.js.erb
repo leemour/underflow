@@ -10,6 +10,7 @@
   $('.comment-create-form #comment_body').val('');
   $('.comment-create-form').hide();
   $('.comment-create-form .comment-errors').hide();
+  $('.add-comment').show();
 <% else %>
   $('#<%= class_with_id(@commentable) %> .comment-create-form').html(
     '<%= j render 'comments/form', edit: true, comment: @comment,

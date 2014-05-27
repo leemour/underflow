@@ -23,7 +23,7 @@ class AnswersController < ApplicationController
       if @answer.save
         format.html { redirect_to @question, tr(:answer, 'created') }
         format.js
-        format.json { render json: @answer}
+        format.json { render :create }
       else
         format.html { render :new }
         format.js

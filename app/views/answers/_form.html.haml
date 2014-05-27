@@ -6,7 +6,6 @@
       %li.alert.alert-danger= error
 
 = form_for [@question, answer], remote: true, data: {type: 'json'} do |f|
-  / = hidden_field_tag :authenticity_token, value: form_authenticity_token
   .form-group
     = f.text_area :body, class: "form-control"
 

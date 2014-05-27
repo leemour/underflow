@@ -3,7 +3,7 @@
     .answer{id: "answer-#{answer.id}", class: item_class(answer)}
       .answer-body
         .answer-text= answer.body.html_safe
-        %ul.question-files
+        %ul.answer-files
           - answer.attachments.build
           - answer.attachments.each do |attachment|
             - if attachment.persisted?

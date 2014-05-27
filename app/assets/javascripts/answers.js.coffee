@@ -1,7 +1,8 @@
 $('#new_answer').on 'ajax:success', (e, data, status, xhr) ->
-  answer = $.parseJSON(xhr.responseText)
-  alert(answer.body)
-  $('#answers').append "<div class='answer'>" + answer.body + '</div>'
+  context = $.parseJSON(xhr.responseText)
+  console.log(context)
+  answer = HandlebarsTemplates['answers/answer'](context);
+  $('#answers').append answer
 .on 'ajax:error', (e, xhr, status, error) ->
   errors = $.parseJSON(xhr.responseText)
   errorList = $("<ul class='errors answer-errors'></ul>")

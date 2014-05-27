@@ -18,4 +18,7 @@
 //= require magicsuggest
 //= require tags
 //= require handlebars.runtime
+//= require rails-timeago
+//= require locales/jquery.timeago.ru.js
 //= require answers
+//= require_tree ./templates

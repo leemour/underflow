@@ -1,0 +1,78 @@
+<div class="answer own" id="answer-{{answer.id}}">
+  <div class="answer-body">
+    <div class="answer-text">{{{answer.body}}}</div>
+    <ul class="answer-files">
+      {{#attachments}}
+        <li>
+          <a href="{{url}}">{{filename}}</a>
+        </li>
+      {{/attachments}}
+    </ul>
+  </div>
+  <div class="answer-edit-form">
+    <form accept-charset="UTF-8" action="/questions/{{answer.question_id}}/answers/{{answer.id}}" class="edit_answer" data-remote="true" data-type="json" enctype="multipart/form-data" id="edit_answer_{id}}" method="post">
+      <div style="display:none">
+        <input name="utf8" type="hidden" value="✓">
+        <input name="_method" type="hidden" value="patch">
+      </div>
+      <div class="form-group">
+        <textarea class="form-control" id="answer_body" name="answer[body]">
+        </textarea>
+      </div>
+      <div class="form-group file-upload">
+        <label for="answer_attachments_attributes_0_file">
+          <%= I18n.t('activerecord.attributes.attachment.file') %>
+        </label>
+        <input id="answer_attachments_attributes_0_file" name="answer[attachments_attributes][0][file]" type="file">
+      </div>
+      <div class="form-group">
+        <a class="add-file btn btn-info btn-xs" href="#">
+          <%= I18n.t('attachment.add') %>
+        </a>
+      </div>
+      <input class="btn btn-success" data-disable-with="<%= I18n.t('common.processing') %>" name="commit" type="submit" value="<%= I18n.t('answer.post') %>">
+      <button class="cancel btn"><%= I18n.t('common.cancel') %></button>
+    </form>
+  </div>
+  <div class="row answer-details">
+    <div class="controls col-sm-6">
+      <a class="edit" data-answer-id="{{answer.id}}" href="/questions/{{answer.question_id}}/answers/{{answer.id}}/edit">
+        <%= I18n.t('common.edit') %>
+      </a>
+      <a class="delete" data-confirm="<%= I18n.t('common.sure') %>" data-method="delete" data-remote="true" href="/answers/{{answer.id}}" rel="nofollow">
+        <%= I18n.t('common.delete') %>
+      </a>
+    </div>
+    <div class="started col-sm-6 pull-right">
+      <span class="timeago" title="{{answer.created_at}}">{{answer.created_at}}</span>
+      <span class="author">
+        <a href="/users/{{user.id}}">
+          <img alt="user avatar" class="avatar" src="{{user.avatar_url}}">
+          {{user.name}}
+        </a>
+      </span>
+      <span class="author-reputation"></span>
+    </div>
+  </div>
+  <a class="add-comment" href="/answers/{{answer.id}}/comments/new">
+    <%= I18n.t('comment.add') %>
+  </a>
+  <div class="comment-create-form">
+    <form accept-charset="UTF-8" action="/answers/{{answer.id}}/comments" class="new_comment" data-remote="true" id="new_comment" method="post">
+      <div style="display:none">
+        <input name="utf8" type="hidden" value="✓">
+      </div>
+      <div class="form-group">
+        <textarea class="form-control" id="comment_body" name="comment[body]">
+        </textarea>
+      </div>
+      <div class="form-group">
+        <input class="btn btn-success" data-disable-with="<%= I18n.t('common.processing') %>" name="commit" type="submit" value="<%= I18n.t('comment.create') %>">
+        <button class="cancel btn"><%= I18n.t('common.cancel') %></button>
+      </div>
+    </form>
+  </div>
+  <div class="comments">
+
+  </div>
+</div>

@@ -1,4 +1,7 @@
 $(function() {
+  //Timeago
+  $(".timeago").timeago();
+
   // AJAX form submit enable
   $("form").find(':submit').attr('disabled', false);
 
