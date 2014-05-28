@@ -2,6 +2,42 @@ require 'spec_helper'
 
 describe AnswersController do
 
+  describe "GET #accept" do
+    before { login_user }
+
+    context 'when not Question author' do
+      let(:question) { create(:question) }
+      let(:answer) { create(:answer, question: question) }
+      before { get :accept, id: answer }
+
+      it "doesn't accept answer" do
+        expect(assigns(:answer).accepted).to be_false
+      end
+
+      it "responds with 403 status" do
+        expect(response.status).to eq(403)
+      end
+    end
+
+    context 'when Question author' do
+      let(:question) { create(:question, user: @user) }
+      let(:answer) { create(:answer, question: question) }
+      before { get :accept, id: answer }
+
+      it "finds Answer to accept" do
+        expect(assigns(:answer)).to eq(answer)
+      end
+
+      it "toggles Answer accepted value" do
+        expect(assigns(:answer).accepted).to be_true
+      end
+
+      it "redirects to Answer Question" do
+        expect(response).to redirect_to question_path(question)
+      end
+    end
+  end
+
   describe "GET #by_user" do
     let(:user) { create(:user) }
     let(:answers) { create_list(:answer, 3, user: user) }

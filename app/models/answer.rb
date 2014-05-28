@@ -1,5 +1,6 @@
 class Answer < ActiveRecord::Base
   default_scope { order('created_at ASC') }
+  scope :accepted_first, -> { reorder('accepted DESC, created_at ASC') }
 
   belongs_to :user
   belongs_to :question

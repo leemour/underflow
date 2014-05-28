@@ -2,9 +2,17 @@ class AnswersController < ApplicationController
   include ApplicationHelper
 
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
-  before_action :set_answer, only: [:edit, :update, :destroy]
-  before_action :check_permission, only: [:update, :destroy]
+  before_action :set_answer, only: [:accept, :edit, :update, :destroy]
+  before_action :check_permission, only: [:accept, :update, :destroy]
   before_action :set_question, only: [:new, :edit, :create, :update]
+
+  def accept
+    @answer.toggle(:accepted).save
+    respond_to do |format|
+      format.html { redirect_to @answer.question }
+      format.js
+    end
+  end
 
   def by_user
     @answers = Answer.where(user_id: params[:user_id])
@@ -59,7 +67,11 @@ class AnswersController < ApplicationController
   private
 
   def check_permission
-    render_error t('errors.denied') if @answer.user != current_user
+    if params[:action] == 'accept'
+      render_error t('errors.denied') if @answer.question.user != current_user
+    else
+      render_error t('errors.denied') if @answer.user != current_user
+    end
   end
 
   def set_answer

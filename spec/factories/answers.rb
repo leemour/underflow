@@ -4,6 +4,7 @@ FactoryGirl.define do
   factory :answer do
     user
     question
+    accepted false
     body      "To be, or not to be, that is the question—
       Whether 'tis Nobler in the mind to suffer
       The Slings and Arrows of outrageous Fortune,

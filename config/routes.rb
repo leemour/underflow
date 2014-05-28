@@ -19,8 +19,9 @@ Rails.application.routes.draw do
     resources :answers, except: [:show, :index, :destroy]
   end
 
-  resources :answers, only: [:show, :index, :destroy] do
+  resources :answers, only: [:destroy] do
     concerns :commentable
+    get 'accept', on: :member
   end
 
   resources :users, only: [:index, :show, :edit, :update] do

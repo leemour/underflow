@@ -7,7 +7,6 @@ feature 'User adds an answer',
   I want to answer the question
   } do
 
-
   context 'when logged in' do
     background do
       user = create(:user)

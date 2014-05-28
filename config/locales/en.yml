@@ -76,6 +76,8 @@ en:
     new: New answer
     post: Post answer
     your: Your answer
+    choose: Choose best answer
+    best: Best answer
   attachment:
     add: Add file
     remove: Remove file

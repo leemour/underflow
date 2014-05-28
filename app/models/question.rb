@@ -29,4 +29,12 @@ class Question < ActiveRecord::Base
     new_tags.each {|t| self.tags << t unless self.tags.include? t }
     self.tags.each {|t| self.tags.delete(t) unless new_tags.include? t }
   end
+
+  def accepted_answer
+    answers.find_by_accepted(true)
+  end
+
+  def accepted?(answer)
+    accepted_answer == answer
+  end
 end

@@ -85,4 +85,32 @@ describe Question do
       }.to change(subject.tags, :count).by(-1)
     end
   end
+
+  describe '#accepted_answer' do
+    subject { create(:question) }
+
+    it 'returns accepted answer if accepted' do
+      answer = create(:answer, question: subject, accepted: true)
+      expect(subject.accepted_answer).to eq(answer)
+    end
+
+    it 'returns nil if not accepted' do
+      answer = create(:answer, question: subject)
+      expect(subject.accepted_answer).to be_nil
+    end
+  end
+
+  describe '#accepted?' do
+    subject { create(:question) }
+
+    it 'returns true if answer is accepted' do
+      answer = create(:answer, question: subject, accepted: true)
+      expect(subject.accepted?(answer)).to be_true
+    end
+
+    it 'returns true if answer is not accepted' do
+      answer = create(:answer, question: subject)
+      expect(subject.accepted?(answer)).to be_false
+    end
+  end
 end

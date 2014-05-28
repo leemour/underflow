@@ -1,37 +1,44 @@
-- @question.answers.each do |answer|
+- @question.answers.accepted_first.each do |answer|
   - if answer.persisted?
     .answer{id: "answer-#{answer.id}", class: item_class(answer)}
-      .answer-body
-        .answer-text= answer.body.html_safe
-        %ul.answer-files
-          - answer.attachments.build
-          - answer.attachments.each do |attachment|
-            - if attachment.persisted?
-              %li= link_to attachment.file.filename, attachment.file.url
+      .vote-cell
+        - if @question.user == current_user
+          - link_class = 'accept'
+          - link_class += @question.accepted?(answer) ? ' accepted' : ''
+          = link_to accept_answer_path(answer), remote: true, class: link_class do
+            %span.glyphicon.glyphicon-ok
+            %span.text= @question.accepted?(answer) ? t('answer.best') : t('answer.choose')
+      .answer-cell
+        .answer-body
+          .answer-text= answer.body.html_safe
+          %ul.answer-files
+            - answer.attachments.build
+            - answer.attachments.each do |attachment|
+              - if attachment.persisted?
+                %li= link_to attachment.file.filename, attachment.file.url
 
-      - if answer.from?(current_user)
-        .answer-edit-form
-          = render 'answers/form', answer: answer
-
-      .row.answer-details
         - if answer.from?(current_user)
-          .controls.col-sm-6
-            = link_to t('common.edit'), [:edit, @question, answer], class: 'edit', data: {answer_id: answer.id}
-            = link_to t('common.delete'), answer, class: 'delete', method: :delete, data: { confirm: t("common.sure") }, remote: true
-        .started.col-sm-6.pull-right
-          / %span.time= created_ago answer
-          = timeago_tag answer.created_at, lang: I18n.locale
-          %span.author
-            = link_to answer.user do
-              = image_tag answer.user.avatar_url(:thumb), class: 'avatar'
-              = answer.user.name
-          %span.author-reputation
+          .answer-edit-form
+            = render 'answers/form', answer: answer
 
-      - if user_signed_in?
-        = link_to t('comment.add'), new_answer_comment_path(answer), class: 'add-comment'
-        .comment-create-form
-          = render 'comments/form', commentable: answer, comment: answer.comments.build, edit: true
+        .row.answer-details
+          - if answer.from?(current_user)
+            .controls.col-sm-6
+              = link_to t('common.edit'), [:edit, @question, answer], class: 'edit', data: {answer_id: answer.id}
+              = link_to t('common.delete'), answer, class: 'delete', method: :delete, data: { confirm: t("common.sure") }, remote: true
+          .started.col-sm-6.pull-right
+            = timeago_tag answer.created_at, lang: I18n.locale
+            %span.author
+              = link_to answer.user do
+                = image_tag answer.user.avatar_url(:thumb), class: 'avatar'
+                = answer.user.name
+            %span.author-reputation
 
-      .comments
-        = render 'comments/comments', commentable: answer
+        - if user_signed_in?
+          = link_to t('comment.add'), new_answer_comment_path(answer), class: 'add-comment'
+          .comment-create-form
+            = render 'comments/form', commentable: answer, comment: answer.comments.build, edit: true
+
+        .comments
+          = render 'comments/comments', commentable: answer
 
