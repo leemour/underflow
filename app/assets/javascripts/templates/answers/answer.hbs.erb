@@ -2,11 +2,6 @@
   <div class="answer-body">
     <div class="answer-text">{{{answer.body}}}</div>
     <ul class="answer-files">
-      {{#attachments}}
-        <li>
-          <a href="{{url}}">{{filename}}</a>
-        </li>
-      {{/attachments}}
     </ul>
   </div>
   <div class="answer-edit-form">
@@ -44,7 +39,9 @@
       </a>
     </div>
     <div class="started col-sm-6 pull-right">
-      <span class="timeago" title="{{answer.created_at}}">{{answer.created_at}}</span>
+      <time lang="ru" data-time-ago="{{answer.created_at}}" datetime='{{answer.created_at}}' title="{{answer.created_at_human}}">
+        {{answer.created_at_human}}
+      </time>
       <span class="author">
         <a href="/users/{{user.id}}">
           <img alt="user avatar" class="avatar" src="{{user.avatar_url}}">

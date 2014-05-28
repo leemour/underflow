@@ -3,7 +3,10 @@ json.answer do
   json.body @answer.body
   json.question_id @answer.question_id
   json.created_at @answer.created_at.iso8601
-  json.created_at_human l @answer.created_at
+end
+json.attachments @answer.attachments do |attachment|
+  json.filename attachment.file.filename
+  json.url attachment.file.url
 end
 json.user do
   json.id @answer.user.id
@@ -12,5 +15,5 @@ json.user do
 end
 json.alert do
   json.class 'success'
-  json.message tr(:answer, 'created')[:notice]
+  json.message tr(:answer, 'updated')[:notice]
 end

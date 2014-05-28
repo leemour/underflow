@@ -24,7 +24,7 @@
       = link_to t('common.delete'), @question, class: 'delete', method: :delete, data: { confirm: t("common.sure") }
 
   .started.col-sm-6.pull-right
-    %span.time= created_ago @question
+    = timeago_tag @question.created_at, lang: I18n.locale
     %span.author
       = link_to @question.user do
         = image_tag @question.user.avatar_url(:thumb), class: 'avatar'

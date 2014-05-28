@@ -38,9 +38,12 @@ class AnswersController < ApplicationController
       if @answer.update(answer_params)
         format.html { redirect_to @answer.question, tr(:answer, 'updated') }
         format.js
+        format.json { render :update }
       else
         format.html { render :edit }
         format.js
+        format.json { render json: {errors: @answer.errors.full_messages,
+          id: @answer.id}, status: :unprocessable_entity }
       end
     end
   end

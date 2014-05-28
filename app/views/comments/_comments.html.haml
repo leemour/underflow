@@ -14,7 +14,7 @@
             = link_to t('common.delete'), [commentable, comment], class: 'delete', method: :delete, data: { confirm: t("common.sure") }, remote: true
 
         .started.col-sm-6.pull-right
-          %span.time= created_ago comment
+          = timeago_tag comment.created_at, lang: I18n.locale
           %span.author
             = link_to comment.user do
               = image_tag comment.user.avatar_url(:micro), class: 'avatar'

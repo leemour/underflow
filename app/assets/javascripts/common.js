@@ -1,7 +1,4 @@
 $(function() {
-  //Timeago
-  $(".timeago").timeago();
-
   // AJAX form submit enable
   $("form").find(':submit').attr('disabled', false);
 
@@ -17,7 +14,7 @@ $(function() {
     }, 3000);
   });
 
-  var Under = {
+  Under = {
     // Show edit forms
     showQuestionForm: function(link) {
       var question = $(link).closest('.question');

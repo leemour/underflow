@@ -11,6 +11,6 @@
 
         .details
           .started.col-sm-6.pull-right
-            %span.time= created_ago answer
+            = timeago_tag answer.created_at, lang: I18n.locale
             %span.author= link_to answer.user.name, answer.user
             %span.author-reputation

@@ -15,8 +15,7 @@ describe 'questions/index.html.haml' do
     question = create(:question)
     assign :questions, [question]
     render
-    expect(rendered).to have_selector '.question .time',
-      text: created_ago(question)
+    expect(rendered).to have_selector '.question time'
   end
 
   it "displays Question author name" do

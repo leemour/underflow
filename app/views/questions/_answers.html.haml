@@ -19,7 +19,8 @@
             = link_to t('common.edit'), [:edit, @question, answer], class: 'edit', data: {answer_id: answer.id}
             = link_to t('common.delete'), answer, class: 'delete', method: :delete, data: { confirm: t("common.sure") }, remote: true
         .started.col-sm-6.pull-right
-          %span.time= created_ago answer
+          / %span.time= created_ago answer
+          = timeago_tag answer.created_at, lang: I18n.locale
           %span.author
             = link_to answer.user do
               = image_tag answer.user.avatar_url(:thumb), class: 'avatar'

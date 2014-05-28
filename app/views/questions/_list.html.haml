@@ -11,7 +11,7 @@
           - question.tags.each do |tag|
             =link_to tag.name, tag
         .started.col-sm-6
-          %span.time= created_ago question
+          = timeago_tag question.created_at, lang: I18n.locale
           %span.author
             = link_to question.user do
               = image_tag question.user.avatar_url(:thumb), class: 'avatar'
