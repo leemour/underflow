@@ -67,7 +67,9 @@ body.questions
   padding: 5px 15px
 
 .question .edit,
-.answer .edit
+.answer .edit,
+.question .delete,
+.answer .delete
   margin-right: 10px
 
 #answers
@@ -85,23 +87,27 @@ body.questions
     background-color: #fbf9e8
   .vote-cell
     float: left
-    width: 70px
-    a
-      border: 1px solid #999
-      color: #419d4c
+    width: 45px
+    .accept
+      border: 2px solid #bbb
+      border-radius: 3px
+      color: #bbb
       display: block
-      height: 35px
-      font-size: 25px
-      padding: 1px 3px
-      width: 35px
+      font-size: 18px
+      height: 30px
+      padding: 2px 4px
+      width: 30px
       &.accepted
+        border-color: #4baf4b
         color: #fff
-        background-color: #419d4c
+        background-color: #4baf4b
+      &.hidden
+        display: none
       .text
         display: block
         text-indent: -9999px
   .answer-cell
-    margin-left: 70px
+    margin-left: 60px
 
 #users
   .user
@@ -111,9 +117,9 @@ body.questions
     margin: -5px 10px 0 0
 
 .controls, .started
+  font-size: 0.9em
   margin: 5px 0 10px
 .started
-  font-size: 0.9em
   text-align: right
   .time
     margin-right: 10px

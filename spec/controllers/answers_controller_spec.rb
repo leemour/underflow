@@ -36,6 +36,44 @@ describe AnswersController do
         expect(response).to redirect_to question_path(question)
       end
     end
+
+    context 'when Question has accepted Answer' do
+      let(:question) { create(:question, user: @user) }
+      let!(:accepted_answer) { create(:answer, question: question,
+        accepted: true) }
+      let(:answer) { create(:answer, question: question) }
+      before { get :accept, id: answer }
+
+      it "finds Answer Question" do
+        expect(assigns(:question)).to eq(question)
+      end
+
+      it "finds already accepted answer" do
+        expect(assigns(:question).accepted_answer).to eq(accepted_answer)
+      end
+
+      it "doesn't toggle Answer accepted value" do
+        expect(assigns(:answer).accepted).to be_false
+      end
+
+      it "responds with 422 status" do
+        expect(response.status).to eq(422)
+      end
+    end
+
+    context 'when Answer already accepted' do
+      let(:question) { create(:question, user: @user) }
+      let(:answer) { create(:answer, question: question, accepted: true) }
+      before { get :accept, id: answer }
+
+      it "toggles Answer accepted value to false" do
+        expect(assigns(:answer).accepted).to be_false
+      end
+
+      it "redirects to Answer Question" do
+        expect(response).to redirect_to question_path(question)
+      end
+    end
   end
 
   describe "GET #by_user" do

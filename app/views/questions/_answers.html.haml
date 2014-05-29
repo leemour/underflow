@@ -3,11 +3,14 @@
     .answer{id: "answer-#{answer.id}", class: item_class(answer)}
       .vote-cell
         - if @question.user == current_user
-          - link_class = 'accept'
-          - link_class += @question.accepted?(answer) ? ' accepted' : ''
-          = link_to accept_answer_path(answer), remote: true, class: link_class do
+          = link_to accept_answer_path(answer), remote: true, class: accept_link_class(@question, answer) do
             %span.glyphicon.glyphicon-ok
             %span.text= @question.accepted?(answer) ? t('answer.best') : t('answer.choose')
+        - elsif @question.accepted?(answer)
+          .accept.accepted
+            %span.glyphicon.glyphicon-ok
+            %span.text= t('answer.best')
+
       .answer-cell
         .answer-body
           .answer-text= answer.body.html_safe
@@ -22,10 +25,12 @@
             = render 'answers/form', answer: answer
 
         .row.answer-details
-          - if answer.from?(current_user)
-            .controls.col-sm-6
+          .controls.col-sm-6
+            - if answer.from?(current_user)
               = link_to t('common.edit'), [:edit, @question, answer], class: 'edit', data: {answer_id: answer.id}
               = link_to t('common.delete'), answer, class: 'delete', method: :delete, data: { confirm: t("common.sure") }, remote: true
+            - if user_signed_in?
+              = link_to t('comment.add'), new_answer_comment_path(answer), class: 'add-comment'
           .started.col-sm-6.pull-right
             = timeago_tag answer.created_at, lang: I18n.locale
             %span.author
@@ -34,8 +39,6 @@
                 = answer.user.name
             %span.author-reputation
 
-        - if user_signed_in?
-          = link_to t('comment.add'), new_answer_comment_path(answer), class: 'add-comment'
           .comment-create-form
             = render 'comments/form', commentable: answer, comment: answer.comments.build, edit: true
 

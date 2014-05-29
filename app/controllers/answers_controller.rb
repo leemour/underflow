@@ -3,8 +3,9 @@ class AnswersController < ApplicationController
 
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   before_action :set_answer, only: [:accept, :edit, :update, :destroy]
-  before_action :check_permission, only: [:accept, :update, :destroy]
+  before_action :check_permission, only: [:update, :destroy]
   before_action :set_question, only: [:new, :edit, :create, :update]
+  before_action :check_accept_permission, only: [:accept]
 
   def accept
     @answer.toggle(:accepted).save
@@ -66,12 +67,16 @@ class AnswersController < ApplicationController
 
   private
 
-  def check_permission
-    if params[:action] == 'accept'
-      render_error t('errors.denied') if @answer.question.user != current_user
-    else
-      render_error t('errors.denied') if @answer.user != current_user
+  def check_accept_permission
+    render_error t('errors.denied') if @answer.question.user != current_user
+    @question = @answer.question
+    if @question.accepted_answer && @question.accepted_answer != @answer
+      render_error t('errors.unprocessable'), :unprocessable_entity
     end
+  end
+
+  def check_permission
+    render_error t('errors.denied') if @answer.user != current_user
   end
 
   def set_answer

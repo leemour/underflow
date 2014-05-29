@@ -22,6 +22,8 @@
     - if @question.from?(current_user)
       = link_to t('common.edit'), [:edit, @question], class: 'edit'
       = link_to t('common.delete'), @question, class: 'delete', method: :delete, data: { confirm: t("common.sure") }
+    - if user_signed_in?
+      = link_to t('comment.add'), new_question_comment_path(@question), class: 'add-comment'
 
   .started.col-sm-6.pull-right
     = timeago_tag @question.created_at, lang: I18n.locale
@@ -31,8 +33,6 @@
         = @question.user.name
     %span.author-reputation
 
-- if user_signed_in?
-  = link_to t('comment.add'), new_question_comment_path(@question), class: 'add-comment'
   .comment-create-form
     = render 'comments/form', commentable: @question, comment: @comment, edit: true
 

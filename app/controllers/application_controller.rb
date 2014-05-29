@@ -9,11 +9,11 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def render_error(message)
+  def render_error(message, status=:forbidden)
     respond_to do |format|
-      format.html { redirect_to root_path, alert: message, status: :forbidden }
+      format.html { redirect_to root_path, alert: message, status: status }
       format.js { render "shared/error", locals: {message: message},
-        status: :forbidden }
+        status: status }
     end
   end
 

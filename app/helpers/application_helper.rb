@@ -31,4 +31,25 @@ module ApplicationHelper
   def class_with_id(object)
     "#{object.class.to_s.underscore}-#{object.id}"
   end
+
+  # def accept_link_class(question, answer)
+  #   link_class = 'accept'
+  #   link_class += ' hidden' unless accepted_answer_or_no_answers_accepted(question, answer)
+  #   link_class += ' accepted' if question.accepted?(answer)
+  # end
+
+  # def accepted_answer_or_no_answers_accepted(question, answer)
+  #   (question.accepted_answer && question.accepted?(answer)) || !question.accepted_answer
+  # end
+
+  def accept_link_class(question, answer)
+    link_class = 'accept'
+    link_class += ' hidden' if other_than_accepted_answer(question, answer)
+    link_class += ' accepted' if question.accepted?(answer)
+    link_class
+  end
+
+  def other_than_accepted_answer(question, answer)
+    !question.accepted?(answer) && question.accepted_answer
+  end
 end
