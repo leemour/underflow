@@ -51,28 +51,42 @@ body.questions
     padding: 5px 15px
     h1
       margin-top: 0
-    .content
-      margin-bottom: 5px
     .vote-cell
       float: left
       width: 55px
-      .upvote,
-      .downvote
-        color: #bbb
-        display: block
-        font-size: 25px
-        height: 30px
-        padding: 2px 4px
-        width: 30px
-        &:hover
-          color: #4baf4b
-      .text
-        text-indent: -9999px
+    .content
+      margin-bottom: 5px
     .question-cell
       margin-left: 60px
 
   form #question_body
     min-height: 200px
+
+
+.vote-cell
+  .vote-sum
+    font-size: 20px
+    line-height: 0.9em
+    padding-left: 10px
+  .upvote,
+  .downvote
+    color: #bbb
+    display: block
+    font-size: 25px
+    height: 25px
+    padding: 0 2px
+    width: 30px
+    &:hover
+      color: #4baf4b
+    &, &:hover, &:active
+      outline: none
+  .upvote
+    margin: 0 0 4px 2px
+  .downvote
+    margin-bottom: 7px
+  .text
+    display: block
+    text-indent: -9999px
 
 .question-edit-form,
 .answer-edit-form,
@@ -115,15 +129,14 @@ body.questions
       &:hover
         color: #4baf4b
         border-color: #4baf4b
+      &, &:hover, &:active
+        outline: none
       &.accepted
         border-color: #4baf4b
         color: #fff
         background-color: #4baf4b
       &.hidden
         display: none
-      .text
-        display: block
-        text-indent: -9999px
   .answer-cell
     margin-left: 60px
 

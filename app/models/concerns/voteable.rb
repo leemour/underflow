@@ -9,7 +9,7 @@ module Voteable
     votes.create(user: user, value: -1)
   end
 
-  def rating
+  def vote_sum
     votes.sum(:value)
   end
 end

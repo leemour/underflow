@@ -25,4 +25,34 @@ describe User do
     # expect(user.profile.id).to_not eq(nil)
     expect(user.profile).to be_persisted
   end
+
+  describe '#voted_for?' do
+    subject { create(:user) }
+
+    context 'Question' do
+      let(:question) { create(:question) }
+
+      it 'returns true if User voted for it' do
+        question.vote_up(subject)
+        expect(subject.voted_for?(question)).to be_true
+      end
+
+      it "returns false if User didn't vote for it" do
+        expect(subject.voted_for?(question)).to be_false
+      end
+    end
+
+    context 'Answer' do
+      let(:answer) { create(:answer) }
+
+      it 'returns true if User voted for it' do
+        answer.vote_up(subject)
+        expect(subject.voted_for?(answer)).to be_true
+      end
+
+      it "returns false if User didn't vote for it" do
+        expect(subject.voted_for?(answer)).to be_false
+      end
+    end
+  end
 end

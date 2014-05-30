@@ -1,7 +1,7 @@
 class Question < ActiveRecord::Base
-  default_scope { order('created_at DESC') }
-
   include Voteable
+
+  default_scope { order('created_at DESC') }
 
   belongs_to :user
   has_and_belongs_to_many :tags

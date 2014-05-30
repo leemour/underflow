@@ -4,6 +4,9 @@
   = link_to [@question, :vote_up], class: 'upvote' do
     %span.glyphicon.glyphicon-chevron-up
     .text= t('vote.up')
+
+  .vote-sum= @question.vote_sum
+
   = link_to [@question, :vote_down], class: 'downvote' do
     %span.glyphicon.glyphicon-chevron-down
     .text= t('vote.down')

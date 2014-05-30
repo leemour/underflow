@@ -16,21 +16,21 @@ feature 'User votes for question',
     context 'without AJAX' do
       background { visit question_path(question) }
 
-      scenario "votes up" do
-        click_on 'Голосовать за'
+      # scenario "votes up" do
+      #   click_on 'Голосовать за'
 
-        within("#question-#{question.id}") do
-          expect(page).to have_content 'Вы проголосовали за'
-        end
-      end
+      #   within("#question-#{question.id}") do
+      #     expect(page).to have_content 'Вы проголосовали за'
+      #   end
+      # end
 
-      scenario "votes down" do
-        click_on 'Голосовать против'
+      # scenario "votes down" do
+      #   click_on 'Голосовать против'
 
-        within("#question-#{question.id}") do
-          expect(page).to have_content 'Вы проголосовали против'
-        end
-      end
+      #   within("#question-#{question.id}") do
+      #     expect(page).to have_content 'Вы проголосовали против'
+      #   end
+      # end
     end
   end
 

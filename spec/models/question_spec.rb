@@ -132,7 +132,7 @@ describe Question do
     it 'changes Question rating by +1' do
       expect {
         subject.vote_up(user)
-      }.to change(subject, :rating).by(1)
+      }.to change(subject, :vote_sum).by(1)
     end
   end
 
@@ -153,33 +153,33 @@ describe Question do
     it 'changes Question rating by -1' do
       expect {
         subject.vote_down(user)
-      }.to change(subject, :rating).by(-1)
+      }.to change(subject, :vote_sum).by(-1)
     end
   end
 
-  describe '#rating' do
+  describe '#vote_sum' do
     subject { create(:question) }
     let(:user) { create(:user) }
 
     it 'returns 0 when no votes' do
-      expect(subject.rating).to eq(0)
+      expect(subject.vote_sum).to eq(0)
     end
 
     it 'returns 1 when 1 upvote' do
       subject.vote_up(user)
-      expect(subject.rating).to eq(1)
+      expect(subject.vote_sum).to eq(1)
     end
 
     it 'returns 1 when 1 downvote' do
       subject.vote_down(user)
-      expect(subject.rating).to eq(-1)
+      expect(subject.vote_sum).to eq(-1)
     end
 
     it 'returns 1 when 1 downvote and 2 upvotes' do
       subject.vote_down(user)
       subject.vote_up(user)
       subject.vote_up(user)
-      expect(subject.rating).to eq(1)
+      expect(subject.vote_sum).to eq(1)
     end
   end
 end

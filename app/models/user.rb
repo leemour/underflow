@@ -10,6 +10,12 @@ class User < ActiveRecord::Base
   has_many :questions
   has_many :answers
   has_many :comments
+  has_many :comments
+  has_many :votes
+  has_many :voted_questions, through: :votes, source: :voteable,
+    source_type: "Question"
+  has_many :voted_answers, through: :votes, source: :voteable,
+    source_type: "Answer"
 
   accepts_nested_attributes_for :profile
 
@@ -28,4 +34,17 @@ class User < ActiveRecord::Base
   # def profile
   #   super || self.create_profile
   # end
+
+  def voted_for?(object)
+    voteables = object.class.to_s.underscore.pluralize
+    send("voted_#{voteables}").include?(object)
+  end
 end
+
+# u = FactoryGirl.create(:user)
+# q = FactoryGirl.create(:question)
+# q.vote_up(u)
+# u.voted_questions
+
+# Question.delete_all
+# User.delete_all

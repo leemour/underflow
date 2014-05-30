@@ -3,6 +3,17 @@
   - if answer.persisted?
     .answer{id: "answer-#{answer.id}", class: item_class(answer)}
       .vote-cell
+
+        = link_to [answer, :vote_up], class: 'upvote' do
+          %span.glyphicon.glyphicon-chevron-up
+          .text= t('vote.up')
+
+        .vote-sum= answer.vote_sum
+
+        = link_to [answer, :vote_down], class: 'downvote' do
+          %span.glyphicon.glyphicon-chevron-down
+          .text= t('vote.down')
+
         - if @question.user == current_user
           = link_to accept_answer_path(answer), remote: true, class: accept_link_class(@question, answer) do
             %span.glyphicon.glyphicon-ok
