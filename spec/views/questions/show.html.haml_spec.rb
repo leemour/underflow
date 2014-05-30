@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'questions/show.html.haml' do
   before { assign :answer, build(:answer) }
+  before { assign :comment, build(:comment) }
 
   it "displays Question title" do
     assign :question, create(:question, title: 'Question display title')

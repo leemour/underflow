@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :profile do
-    user
+    user        nil
     real_name   "MyString"
     website     "http://underflow.com"
     location    "Moscow"

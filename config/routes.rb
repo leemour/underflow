@@ -10,17 +10,23 @@ Rails.application.routes.draw do
     resources :comments, except: [:show, :index]
   end
 
+  concern :voteable do
+    get 'vote/up', to: 'votes#up'
+    get 'vote/down', to: 'votes#down'
+    resources :votes, only: [:index]
+  end
+
   %w[faq help].each do |page|
     get page, to: "static##{page}", as: page
   end
 
   resources :questions do
-    concerns :commentable
+    concerns :commentable, :voteable
     resources :answers, except: [:show, :index, :destroy]
   end
 
   resources :answers, only: [:destroy] do
-    concerns :commentable
+    concerns :commentable, :voteable
     get 'accept', on: :member
   end
 

@@ -30,15 +30,8 @@ feature 'User chooses best answer',
         within("#answer-#{answer1.id}") do
           expect(page).to_not have_content 'Лучший ответ'
         end
+        expect(answer2.body).to appear_before(answer1.body)
       end
-
-      # scenario "accepted answer becomes first answer", js: true do
-      #   within("#answer-#{answer2.id}") do
-      #     click_on 'Выбрать лучший ответ'
-      #   end
-      #   save_and_open_page
-      #   expect(answer2.body).to appear_before(answer1.body)
-      # end
     end
 
     context 'without AJAX' do

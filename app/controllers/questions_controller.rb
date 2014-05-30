@@ -4,7 +4,6 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   before_action :set_question, only: [:show, :edit, :update, :destroy]
   before_action :check_permission, only: [:update, :destroy]
-  # before_action :set_comment, only: [:show, :update]
 
   def by_user
     @questions = Question.where(user_id: params[:user_id])

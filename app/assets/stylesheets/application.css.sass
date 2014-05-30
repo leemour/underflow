@@ -6,7 +6,6 @@
 @import "bootstrap"
 @import "magicsuggest"
 
-
 h2
   font-size: 20px
 
@@ -49,11 +48,29 @@ body.questions
   .question
     background-color: #f5f5f5
     margin-bottom: 10px
-    padding: 5px 15px 0
+    padding: 5px 15px
     h1
       margin-top: 0
     .content
       margin-bottom: 5px
+    .vote-cell
+      float: left
+      width: 55px
+      .upvote,
+      .downvote
+        color: #bbb
+        display: block
+        font-size: 25px
+        height: 30px
+        padding: 2px 4px
+        width: 30px
+        &:hover
+          color: #4baf4b
+      .text
+        text-indent: -9999px
+    .question-cell
+      margin-left: 60px
+
   form #question_body
     min-height: 200px
 
@@ -74,15 +91,13 @@ body.questions
 
 #answers
   margin-top: 20px
-
-#answers
   h3
     margin-left: 10px
 
 .answer
   margin-bottom: 20px
   overflow: hidden
-  padding: 5px 15px 0
+  padding: 5px 15px 10px
   &.own
     background-color: #fbf9e8
   .vote-cell
@@ -97,6 +112,9 @@ body.questions
       height: 30px
       padding: 2px 4px
       width: 30px
+      &:hover
+        color: #4baf4b
+        border-color: #4baf4b
       &.accepted
         border-color: #4baf4b
         color: #fff
@@ -123,6 +141,16 @@ body.questions
   text-align: right
   .time
     margin-right: 10px
+
+.add-file
+  padding: 0 4px
+  line-height: 1.4em
+
+.controls
+  .edit,
+  .delete
+    padding: 0 4px
+    line-height: 1.4em
 
 ul.errors
   list-style: none inside
@@ -157,6 +185,12 @@ body .tags
     margin: 40px 0
     padding: 5px 0 0 30px
 
+.answer-files,
+.question-files
+  list-style: none inside
+  padding: 5px 0 0 20px
+  li
+    padding: 3px 0
 
 body.users.show
   table td:first-child

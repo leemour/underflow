@@ -91,6 +91,9 @@ ru:
     description: Описание
     excerpt: Краткое описание
     with: с тегом
+  vote:
+    up: Голосовать за
+    down: Голосовать против
 
   activerecord:
     models:

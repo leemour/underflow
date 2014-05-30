@@ -6,6 +6,7 @@ describe Question do
   it { should have_many :answers }
   it { should have_many :comments }
   it { should have_many :attachments }
+  it { should have_many :votes }
   it { should have_and_belong_to_many :tags }
 
   it { should accept_nested_attributes_for :attachments }
@@ -111,6 +112,74 @@ describe Question do
     it 'returns true if answer is not accepted' do
       answer = create(:answer, question: subject)
       expect(subject.accepted?(answer)).to be_false
+    end
+  end
+
+  describe '#vote_up' do
+    subject { create(:question) }
+    let(:user) { create(:user) }
+
+    it 'returns a Vote' do
+      expect(subject.vote_up(user)).to be_a(Vote)
+    end
+
+    it 'changes Question votes by +1' do
+      expect {
+        subject.vote_up(user)
+      }.to change(subject.votes, :count).by(1)
+    end
+
+    it 'changes Question rating by +1' do
+      expect {
+        subject.vote_up(user)
+      }.to change(subject, :rating).by(1)
+    end
+  end
+
+  describe '#vote_down' do
+    subject { create(:question) }
+    let(:user) { create(:user) }
+
+    it 'returns a Vote' do
+      expect(subject.vote_down(user)).to be_a(Vote)
+    end
+
+    it 'changes Question votes by -1' do
+      expect {
+        subject.vote_down(user)
+      }.to change(subject.votes, :count).by(1)
+    end
+
+    it 'changes Question rating by -1' do
+      expect {
+        subject.vote_down(user)
+      }.to change(subject, :rating).by(-1)
+    end
+  end
+
+  describe '#rating' do
+    subject { create(:question) }
+    let(:user) { create(:user) }
+
+    it 'returns 0 when no votes' do
+      expect(subject.rating).to eq(0)
+    end
+
+    it 'returns 1 when 1 upvote' do
+      subject.vote_up(user)
+      expect(subject.rating).to eq(1)
+    end
+
+    it 'returns 1 when 1 downvote' do
+      subject.vote_down(user)
+      expect(subject.rating).to eq(-1)
+    end
+
+    it 'returns 1 when 1 downvote and 2 upvotes' do
+      subject.vote_down(user)
+      subject.vote_up(user)
+      subject.vote_up(user)
+      expect(subject.rating).to eq(1)
     end
   end
 end

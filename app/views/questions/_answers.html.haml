@@ -1,3 +1,4 @@
+%h3= t('activerecord.models.answer', count: @question.answers.count)
 - @question.answers.accepted_first.each do |answer|
   - if answer.persisted?
     .answer{id: "answer-#{answer.id}", class: item_class(answer)}
@@ -15,10 +16,11 @@
         .answer-body
           .answer-text= answer.body.html_safe
           %ul.answer-files
-            - answer.attachments.build
             - answer.attachments.each do |attachment|
               - if attachment.persisted?
-                %li= link_to attachment.file.filename, attachment.file.url
+                %li
+                  %span.glyphicon.glyphicon-file
+                  = link_to attachment.file.filename, attachment.file.url
 
         - if answer.from?(current_user)
           .answer-edit-form
@@ -27,10 +29,8 @@
         .row.answer-details
           .controls.col-sm-6
             - if answer.from?(current_user)
-              = link_to t('common.edit'), [:edit, @question, answer], class: 'edit', data: {answer_id: answer.id}
-              = link_to t('common.delete'), answer, class: 'delete', method: :delete, data: { confirm: t("common.sure") }, remote: true
-            - if user_signed_in?
-              = link_to t('comment.add'), new_answer_comment_path(answer), class: 'add-comment'
+              = link_to t('common.edit'), [:edit, @question, answer], class: 'edit btn btn-warning btn-xs', data: {answer_id: answer.id}
+              = link_to t('common.delete'), answer, class: 'delete btn btn-danger btn-xs', method: :delete, data: { confirm: t("common.sure") }, remote: true
           .started.col-sm-6.pull-right
             = timeago_tag answer.created_at, lang: I18n.locale
             %span.author
@@ -44,4 +44,7 @@
 
         .comments
           = render 'comments/comments', commentable: answer
+
+          - if user_signed_in?
+            = link_to t('comment.add'), new_answer_comment_path(answer), class: 'add-comment btn btn-default btn-xs'
 

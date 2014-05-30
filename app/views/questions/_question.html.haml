@@ -1,40 +1,51 @@
 %h1= @question.title
 
-.question-body
-  .question-text= @question.body.html_safe
-  %ul.question-files
-    - @question.attachments.build
-    - @question.attachments.each do |attachment|
-      - if attachment.persisted?
-        %li= link_to attachment.file.filename, attachment.file.url
+.vote-cell
+  = link_to [@question, :vote_up], class: 'upvote' do
+    %span.glyphicon.glyphicon-chevron-up
+    .text= t('vote.up')
+  = link_to [@question, :vote_down], class: 'downvote' do
+    %span.glyphicon.glyphicon-chevron-down
+    .text= t('vote.down')
 
-- if @question.from?(current_user)
-  .question-edit-form
-    = render 'form'
+.question-cell
+  .question-body
+    .question-text= @question.body.html_safe
+    %ul.question-files
+      - @question.attachments.build
+      - @question.attachments.each do |attachment|
+        - if attachment.persisted?
+          %li
+            %span.glyphicon.glyphicon-file
+            = link_to attachment.file.filename, attachment.file.url
 
-.tags
-  / .tag-list= @question.tag_list
-  - @question.tags.each do |tag|
-    = link_to tag.name, tag
+  - if @question.from?(current_user)
+    .question-edit-form
+      = render 'form'
 
-.row.question-details
-  .controls.col-sm-6
-    - if @question.from?(current_user)
-      = link_to t('common.edit'), [:edit, @question], class: 'edit'
-      = link_to t('common.delete'), @question, class: 'delete', method: :delete, data: { confirm: t("common.sure") }
+  .tags
+    - @question.tags.each do |tag|
+      = link_to tag.name, tag
+
+  .row.question-details
+    .controls.col-sm-6
+      - if @question.from?(current_user)
+        = link_to t('common.edit'), [:edit, @question], class: 'edit btn btn-warning btn-xs'
+        = link_to t('common.delete'), @question, class: 'delete btn btn-danger btn-xs', method: :delete, data: { confirm: t("common.sure") }
+
+    .started.col-sm-6.pull-right
+      = timeago_tag @question.created_at, lang: I18n.locale
+      %span.author
+        = link_to @question.user do
+          = image_tag @question.user.avatar_url(:thumb), class: 'avatar'
+          = @question.user.name
+      %span.author-reputation
+
+    .comment-create-form
+      = render 'comments/form', commentable: @question, comment: @comment, edit: true
+
+  .comments
+    = render 'comments/comments', commentable: @question
+
     - if user_signed_in?
-      = link_to t('comment.add'), new_question_comment_path(@question), class: 'add-comment'
-
-  .started.col-sm-6.pull-right
-    = timeago_tag @question.created_at, lang: I18n.locale
-    %span.author
-      = link_to @question.user do
-        = image_tag @question.user.avatar_url(:thumb), class: 'avatar'
-        = @question.user.name
-    %span.author-reputation
-
-  .comment-create-form
-    = render 'comments/form', commentable: @question, comment: @comment, edit: true
-
-.comments
-  = render 'comments/comments', commentable: @question
+      = link_to t('comment.add'), new_question_comment_path(@question), class: 'add-comment btn btn-default btn-xs'

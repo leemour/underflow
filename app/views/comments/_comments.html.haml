@@ -10,8 +10,8 @@
       .row.comment-details
         - if comment.from?(current_user)
           .controls.col-sm-6
-            = link_to t('common.edit'), [:edit, commentable, comment], class: 'edit', data: {comment_id: comment.id}
-            = link_to t('common.delete'), [commentable, comment], class: 'delete', method: :delete, data: { confirm: t("common.sure") }, remote: true
+            = link_to t('common.edit'), [:edit, commentable, comment], class: 'edit btn btn-warning btn-xs', data: {comment_id: comment.id}
+            = link_to t('common.delete'), [commentable, comment], class: 'delete btn btn-danger btn-xs', method: :delete, data: { confirm: t("common.sure") }, remote: true
 
         .started.col-sm-6.pull-right
           = timeago_tag comment.created_at, lang: I18n.locale

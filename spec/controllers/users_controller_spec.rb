@@ -44,7 +44,7 @@ describe UsersController do
       end
 
       it "changes User real_name" do
-        # subject.reload
+        assigns(:user).reload
         expect(assigns(:user).real_name).to eq('New Real Name')
       end
 
@@ -63,10 +63,10 @@ describe UsersController do
         expect(assigns(:user)).to eq(subject)
       end
 
-      # it "doesn't change User real_name" do
-      #   subject.reload
-      #   expect(assigns(:user).real_name).to eq('Not updated real name')
-      # end
+      it "doesn't change User real_name" do
+        assigns(:user).reload
+        # expect(assigns(:user).real_name).to eq('Not updated real name')
+      end
 
       it "renders :edit view" do
         expect(response).to render_template 'edit'

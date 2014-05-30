@@ -1,11 +1,12 @@
 - remote = answer.persisted? if remote.nil?
+- answer.attachments.build
 
 - if answer.errors.any?
   - answer.errors.full_messages.each do |error|
     %ul.errors.answer-errors
       %li.alert.alert-danger= error
 
-= form_for [@question, answer], remote: true, data: {type: 'json'} do |f|
+= form_for [@question, answer], remote: true do |f|
   .form-group
     = f.text_area :body, class: "form-control"
 

@@ -90,6 +90,9 @@ en:
     description: Description
     excerpt: Excerpt
     with: with tag
+  vote:
+    up: Vote up
+    down: Vote down
 
   activerecord:
     models:
