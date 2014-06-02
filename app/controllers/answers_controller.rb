@@ -5,7 +5,12 @@ class AnswersController < ApplicationController
   before_action :set_answer, only: [:accept, :edit, :update, :destroy]
   before_action :check_permission, only: [:update, :destroy]
   before_action :set_question, only: [:new, :edit, :create, :update]
+  before_action :set_user, only: [:voted, :by_user]
   before_action :check_accept_permission, only: [:accept]
+
+  def voted
+    @answers = Answer.joins(:votes).where(votes: {user_id: params[:user_id]})
+  end
 
   def accept
     @answer.toggle(:accepted).save
@@ -85,6 +90,10 @@ class AnswersController < ApplicationController
 
   def set_question
     @question = Question.find(params[:question_id])
+  end
+
+  def set_user
+    @user = User.find(params[:user_id])
   end
 
   def answer_params

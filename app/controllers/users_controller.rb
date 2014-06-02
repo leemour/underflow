@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(profile_attributes: [:id, :real_name,
-      :website, :location, :birthday, :about, :avatar, :_destroy])
+    params.require(:user).permit(:avatar, profile_attributes: [:id, :real_name,
+      :website, :location, :birthday, :about, :_destroy])
   end
 end

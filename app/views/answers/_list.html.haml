@@ -1,0 +1,13 @@
+- @answers.each do |answer|
+  - if answer.persisted?
+    .answer{id: "answer-#{answer.id}", class: item_class(answer)}
+      %h2= link_to answer.question.title, "#{question_path(answer.question)}#answer-#{answer.id}"
+      .answer-body
+        .answer-text= answer.body.html_safe
+        .answer-text= answer.body.html_safe
+
+      .details
+        .started.col-sm-6.pull-right
+          = timeago_tag answer.created_at, lang: I18n.locale
+          %span.author= link_to answer.user.name, answer.user
+          %span.author-reputation

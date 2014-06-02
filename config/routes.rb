@@ -31,11 +31,13 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:index, :show, :edit, :update] do
-    get '/questions', to: 'questions#by_user', as: 'questions'
-    get '/answers', to: 'answers#by_user', as: 'answers'
+    get 'questions', to: 'questions#by_user', as: 'questions'
+    get 'answers', to: 'answers#by_user', as: 'answers'
+    get 'voted/questions', to: 'questions#voted'
+    get 'voted/answers', to: 'answers#voted'
   end
 
-  resources :tags
+  resources :tags, only: [:index, :show]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

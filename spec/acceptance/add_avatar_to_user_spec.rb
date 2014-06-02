@@ -22,7 +22,7 @@ feature 'User adds an avatar to his profile',
         Rails.root, "spec", "fixtures", "logo.png")
       click_on 'Сохранить'
 
-      expect(page.find('.avatar')['src']).to eq("/uploads/user/avatar/#{user.profile.id}/medium_logo.png")
+      expect(page.find('.avatar')['src']).to eq("/uploads/user/avatar/#{user.id}/medium_logo.png")
     end
   end
 
@@ -36,7 +36,7 @@ feature 'User adds an avatar to his profile',
 
       expect(page).to have_content("Вы не можете загружать файлы типа")
       expect(page.find('.avatar')['src']).
-        to_not eq("/uploads/user/avatar/#{user.profile.id}/medium_logo.png")
+        to_not eq("/uploads/user/avatar/#{user.id}/medium_logo.png")
     end
   end
 end

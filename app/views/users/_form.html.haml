@@ -1,17 +1,21 @@
+%ul.errors.question-errors
 - if @user.profile.errors.any?
   - @user.profile.errors.full_messages.each do |error|
-    %ul.errors.question-errors
-      %li.alert.alert-danger= error
+    %li.alert.alert-danger= error
+- if @user.errors.any?
+  - @user.errors.full_messages.each do |error|
+    %li.alert.alert-danger= error
 
 = form_for @user, role: 'form' do |f|
+  .form-group
+    = f.label :avatar
+    = f.file_field :avatar
+    = image_tag @user.avatar_url(:medium), class: 'avatar'
+
   = f.fields_for :profile do |p|
     .form-group
       = p.label :real_name
       = p.text_field :real_name, class: 'form-control'
-    .form-group
-      = p.label :avatar
-      = p.file_field :avatar
-      = image_tag @user.avatar_url(:medium), class: 'avatar'
     .form-group
       = p.label :website
       = p.text_field :website, class: 'form-control'

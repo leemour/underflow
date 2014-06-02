@@ -3,7 +3,12 @@ class QuestionsController < ApplicationController
 
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:voted, :by_user]
   before_action :check_permission, only: [:update, :destroy]
+
+  def voted
+    @questions = Question.joins(:votes).where(votes: {user_id: params[:user_id]})
+  end
 
   def by_user
     @questions = Question.where(user_id: params[:user_id])
@@ -56,7 +61,8 @@ class QuestionsController < ApplicationController
   private
 
   def set_question
-    @question = Question.find(params[:id])
+    @question = Question.includes(answers: [:comments, :attachments, :user]).
+      find(params[:id])
   end
 
   def set_comment
@@ -65,6 +71,10 @@ class QuestionsController < ApplicationController
 
   def check_permission
     render_error t('errors.denied') if @question.user != current_user
+  end
+
+  def set_user
+    @user = User.find(params[:user_id])
   end
 
   def question_params

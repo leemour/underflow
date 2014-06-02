@@ -66,6 +66,8 @@ ru:
     confirm_account: Подтвердить аккаунт
     answers: Ответы пользователя
     questions: Вопросы пользователя
+    voted_answers: "Ответы, за которые голосовал пользователь"
+    voted_questions: "Вопросы, за которые голосовал пользователь"
   question:
     one: Вопрос
     many: Вопросы
@@ -96,6 +98,7 @@ ru:
     down: Голосовать против
     upvoted: Вы проголосовали за
     downvoted: Вы проголосовали против
+    voting: Голосование
 
   activerecord:
     models:
@@ -149,6 +152,7 @@ ru:
         tag_list: Теги
       user:
         <<: *common_attrs
+        avatar: Аватар
         name: Имя
         email: E-mail
         password: Пароль
@@ -174,7 +178,6 @@ ru:
         location: Местонахождение
         birthday: День рождения
         about: О себе
-        avatar: Аватар
       answer:
         body: Текст
         user_id: Пользователь

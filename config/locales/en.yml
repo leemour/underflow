@@ -65,6 +65,8 @@ en:
     confirm_account: Confirm account
     answers: User answers
     questions: User questions
+    voted_answers: Answers voted by
+    voted_questions: Questions voted by
   question:
     one: Question
     many: Questions
