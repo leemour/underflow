@@ -3,18 +3,18 @@ class VotesController < ApplicationController
   before_action :set_voteable, only: [:up, :down]
 
   def up
-    @voteable.vote_up(current_user)
+    @vote = @voteable.vote_up(current_user)
     respond_to do |format|
       format.html { redirect_to @question }
-      format.json { render json: @voteable.vote_sum }
+      format.json { render :up_and_down }
     end
   end
 
   def down
-    @voteable.vote_down(current_user)
+    @vote = @voteable.vote_down(current_user)
     respond_to do |format|
       format.html { redirect_to @question }
-      format.json { render json: @voteable.vote_sum }
+      format.json { render :up_and_down }
     end
   end
 

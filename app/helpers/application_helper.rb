@@ -43,6 +43,22 @@ module ApplicationHelper
     !question.accepted?(answer) && question.accepted_answer
   end
 
+  def vote_class(object, vote_type)
+    if vote_type == :up
+      voted_up?(object) ? ' voted' : ''
+    elsif vote_type == :down
+      voted_down?(object) ? ' voted' : ''
+    end
+  end
+
+  def voted_up?(object)
+    current_user && current_user.upvoted?(object)
+  end
+
+  def voted_down?(object)
+    current_user && current_user.downvoted?(object)
+  end
+
   def upvote_text(object)
     current_user && current_user.upvoted?(object) ?
       t('vote.upvoted') :

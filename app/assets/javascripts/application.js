@@ -22,3 +22,4 @@
 //= require locales/jquery.timeago.ru.js
 //= require answers
 //= require_tree ./templates
+//= require votes

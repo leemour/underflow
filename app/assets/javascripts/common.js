@@ -1,19 +1,4 @@
 $(function() {
-  // AJAX form submit enable
-  // $("form").find(':submit').attr('disabled', false);
-
-  // // AJAX form submit disable
-  // $("form").submit(function() {
-  //   var button = $(":submit", this);
-  //   var oldValue = button.val();
-  //   button.val(button.data('disable_with'));
-  //   button.attr("disabled", true);
-  //   setTimeout(function() {
-  //     button.attr('disabled', false);
-  //     button.val(oldValue);
-  //   }, 3000);
-  // });
-
   Under = {
     // Show edit forms
     showQuestionForm: function(link) {

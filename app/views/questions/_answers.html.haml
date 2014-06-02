@@ -4,13 +4,13 @@
     .answer{id: "answer-#{answer.id}", class: item_class(answer)}
       .vote-cell
 
-        = link_to [answer, :vote_up], class: 'upvote' do
+        = link_to [answer, :vote_up], remote: true, data: {type: 'json'}, class: 'upvote' + vote_class(answer, :up) do
           %span.glyphicon.glyphicon-chevron-up
           .text= upvote_text(answer)
 
         .vote-sum= answer.vote_sum
 
-        = link_to [answer, :vote_down], class: 'downvote' do
+        = link_to [answer, :vote_down], remote: true, data: {type: 'json'}, class: 'downvote' + vote_class(answer, :down) do
           %span.glyphicon.glyphicon-chevron-down
           .text= downvote_text(answer)
 
