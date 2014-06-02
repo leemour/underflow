@@ -93,6 +93,8 @@ en:
   vote:
     up: Vote up
     down: Vote down
+    upvoted: You voted up
+    downvoted: You voted down
 
   activerecord:
     models:

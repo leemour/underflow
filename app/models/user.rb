@@ -31,20 +31,21 @@ class User < ActiveRecord::Base
     self.create_profile
   end
 
-  # def profile
-  #   super || self.create_profile
-  # end
-
   def voted_for?(object)
     voteables = object.class.to_s.underscore.pluralize
     send("voted_#{voteables}").include?(object)
   end
+
+
+  def upvoted?(object)
+    vote(object).try(:value) == 1
+  end
+
+  def downvoted?(object)
+    vote(object).try(:value) == -1
+  end
+
+  def vote(object)
+    votes.where(voteable_id: object.id, voteable_type: object.class).first
+  end
 end
-
-# u = FactoryGirl.create(:user)
-# q = FactoryGirl.create(:question)
-# q.vote_up(u)
-# u.voted_questions
-
-# Question.delete_all
-# User.delete_all

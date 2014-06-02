@@ -1,6 +1,4 @@
 class Profile < ActiveRecord::Base
-  include Rails.application.routes.url_helpers
-
   AVATAR_SIZE = { micro: 16, thumb: 32, medium: 128, large: 512 }
 
   belongs_to :user
@@ -18,7 +16,7 @@ class Profile < ActiveRecord::Base
 
   def gravatar_url(size)
     # default_url = "#{root_url}/images/avatar-default.jpg"
-    default_url = "http://riabit.ru/avatar-default-#{size}.jpg"
+    default_url = "http://riabit.ru/avatar-default-#{AVATAR_SIZE[size]}.jpg"
     gravatar_id = Digest::MD5.hexdigest(user.email.downcase)
     "http://gravatar.com/avatar/#{gravatar_id}.png?"\
       "s=#{AVATAR_SIZE[size]}&d=#{CGI.escape(default_url)}"

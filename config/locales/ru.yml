@@ -94,6 +94,8 @@ ru:
   vote:
     up: Голосовать за
     down: Голосовать против
+    upvoted: Вы проголосовали за
+    downvoted: Вы проголосовали против
 
   activerecord:
     models:

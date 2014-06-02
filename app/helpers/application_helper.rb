@@ -32,16 +32,6 @@ module ApplicationHelper
     "#{object.class.to_s.underscore}-#{object.id}"
   end
 
-  # def accept_link_class(question, answer)
-  #   link_class = 'accept'
-  #   link_class += ' hidden' unless accepted_answer_or_no_answers_accepted(question, answer)
-  #   link_class += ' accepted' if question.accepted?(answer)
-  # end
-
-  # def accepted_answer_or_no_answers_accepted(question, answer)
-  #   (question.accepted_answer && question.accepted?(answer)) || !question.accepted_answer
-  # end
-
   def accept_link_class(question, answer)
     link_class = 'accept'
     link_class += ' hidden' if other_than_accepted_answer(question, answer)
@@ -51,5 +41,17 @@ module ApplicationHelper
 
   def other_than_accepted_answer(question, answer)
     !question.accepted?(answer) && question.accepted_answer
+  end
+
+  def upvote_text(object)
+    current_user && current_user.upvoted?(object) ?
+      t('vote.upvoted') :
+      t('vote.up')
+  end
+
+  def downvote_text(object)
+    current_user && current_user.downvoted?(object) ?
+      t('vote.downvoted') :
+      t('vote.down')
   end
 end

@@ -177,8 +177,8 @@ describe Question do
 
     it 'returns 1 when 1 downvote and 2 upvotes' do
       subject.vote_down(user)
-      subject.vote_up(user)
-      subject.vote_up(user)
+      subject.vote_up(create(:user))
+      subject.vote_up(create(:user))
       expect(subject.vote_sum).to eq(1)
     end
   end

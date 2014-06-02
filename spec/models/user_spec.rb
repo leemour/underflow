@@ -55,4 +55,52 @@ describe User do
       end
     end
   end
+
+  describe '#vote' do
+    subject { create(:user) }
+
+    context 'Question' do
+      let(:question) { create(:question) }
+
+      it 'returns Vote' do
+        question.vote_up(subject)
+        expect(subject.vote(question)).to be_a(Vote)
+      end
+
+      it 'has value 1 when upvoted' do
+         question.vote_up(subject)
+        expect(subject.vote(question).value).to be(1)
+      end
+    end
+  end
+
+  describe '#upvoted?' do
+    subject { create(:user) }
+    let(:question) { create(:question) }
+
+    it 'returns true if User upvoted it' do
+      question.vote_up(subject)
+      expect(subject.upvoted?(question)).to be_true
+    end
+
+    it 'returns false if User downvoted it' do
+       question.vote_down(subject)
+      expect(subject.upvoted?(question)).to be_false
+    end
+  end
+
+  describe '#downvoted?' do
+    subject { create(:user) }
+    let(:answer) { create(:answer) }
+
+    it 'returns true if User upvoted it' do
+      answer.vote_down(subject)
+      expect(subject.downvoted?(answer)).to be_true
+    end
+
+    it 'returns false if User downvoted it' do
+      answer.vote_up(subject)
+      expect(subject.downvoted?(answer)).to be_false
+    end
+  end
 end

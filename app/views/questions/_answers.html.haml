@@ -6,13 +6,13 @@
 
         = link_to [answer, :vote_up], class: 'upvote' do
           %span.glyphicon.glyphicon-chevron-up
-          .text= t('vote.up')
+          .text= upvote_text(answer)
 
         .vote-sum= answer.vote_sum
 
         = link_to [answer, :vote_down], class: 'downvote' do
           %span.glyphicon.glyphicon-chevron-down
-          .text= t('vote.down')
+          .text= downvote_text(answer)
 
         - if @question.user == current_user
           = link_to accept_answer_path(answer), remote: true, class: accept_link_class(@question, answer) do

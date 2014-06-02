@@ -1,12 +1,12 @@
 class VotesController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:up, :down]
   before_action :set_voteable, only: [:up, :down]
 
   def up
     @voteable.vote_up(current_user)
     respond_to do |format|
       format.html { redirect_to @question }
-      format.js
+      format.json { render json: @voteable.vote_sum }
     end
   end
 
@@ -14,7 +14,7 @@ class VotesController < ApplicationController
     @voteable.vote_down(current_user)
     respond_to do |format|
       format.html { redirect_to @question }
-      format.js
+      format.json { render json: @voteable.vote_sum }
     end
   end
 
