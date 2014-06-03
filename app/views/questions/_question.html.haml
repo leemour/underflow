@@ -11,9 +11,9 @@
     %span.glyphicon.glyphicon-chevron-down
     .text= downvote_text(@question)
 
-  = link_to [:favor, @question], class: 'favor' + favor_class(@question) do
+  = link_to [:favor, @question], remote: true, data: {type: 'json'}, class: 'favor' + favor_class(@question) do
     %span.glyphicon.glyphicon-star
-    .text= @question.favored_by?(current_user) ? t('question.favored') : t('question.favor')
+    .text= @question.favored_by?(current_user) ? t('favorite.favored') : t('favorite.favor')
 
 .question-cell
   .question-body

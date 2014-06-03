@@ -20,6 +20,7 @@
 //= require handlebars.runtime
 //= require rails-timeago
 //= require locales/jquery.timeago.ru.js
+//= require questions
 //= require answers
 //= require_tree ./templates
 //= require votes

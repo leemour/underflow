@@ -9,6 +9,7 @@ module Favorable
     favorite = user.favorite(self)
     if favorite
       favorite.destroy
+      return false
     else
       favorites.create(user: user)
     end
