@@ -20,6 +20,9 @@ class Question < ActiveRecord::Base
 
   enum status: [:active, :locked, :flagged, :deleted, :archived]
 
+  after_create :increment_tags_counter
+  before_destroy :decrement_tags_counter
+
   def from?(user)
     user == self.user
   end
@@ -29,10 +32,19 @@ class Question < ActiveRecord::Base
   end
 
   def tag_list=(tags)
-    tags = tags.split(',') if tags.is_a? String
     new_tags = [*tags].map {|t| Tag.find_or_create_by(name: t.downcase.strip) }
-    new_tags.each {|t| self.tags << t unless self.tags.include? t }
-    self.tags.each {|t| self.tags.delete(t) unless new_tags.include? t }
+    new_tags.each do |t|
+      unless self.tags.include? t
+        self.tags << t
+        t.increment!(:questions_count)
+      end
+    end
+    self.tags.each do |t|
+      unless new_tags.include? t
+        self.tags.delete(t)
+        t.decrement!(:questions_count)
+      end
+    end
   end
 
   def accepted_answer
@@ -41,5 +53,15 @@ class Question < ActiveRecord::Base
 
   def accepted?(answer)
     accepted_answer == answer
+  end
+
+  protected
+
+  def increment_tags_counter
+    self.tags.each {|t| t.increment!(:questions_count) }
+  end
+
+  def decrement_tags_counter
+    self.tags.each {|t| t.decrement!(:questions_count) }
   end
 end

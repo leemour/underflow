@@ -51,16 +51,17 @@ describe Question do
   describe '#tag_list=' do
     subject { create(:question) }
     let!(:tag) { create(:tag, name: 'tag1', questions: [subject]) }
+    before { subject.reload }
 
     it "creates tag that doesn't exist" do
       expect {
-        subject.update(tag_list: 'tag1,tag2')
+        subject.update(tag_list: %w[tag1 tag2])
       }.to change(Tag, :count).by(1)
     end
 
     it "doesn't delete tags that exist" do
       expect {
-        subject.update(tag_list: '')
+        subject.update(tag_list: [])
       }.to_not change(Tag, :count)
     end
 
@@ -77,13 +78,13 @@ describe Question do
 
     it "adds new tags to question" do
       expect {
-        subject.update(tag_list: 'tag1,tag2')
+        subject.update(tag_list: %w[tag1 tag2])
       }.to change(subject.tags, :count).by(1)
     end
 
     it "removes already associated tags from question" do
       expect {
-        subject.update(tag_list: '')
+        subject.update(tag_list: [])
       }.to change(subject.tags, :count).by(-1)
     end
   end
