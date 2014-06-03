@@ -1,17 +1,17 @@
 %h1= @question.title
 
 .vote-cell
-  = link_to [@question, :vote_up], remote: true, data: {type: 'json'}, class: 'upvote' + vote_class(@question, :up) do
+  = link_to [@question, :vote_up], remote: true, data: {type: 'json'}, class: 'upvote' + vote_class(@question, :up), title: upvote_text(@question) do
     %span.glyphicon.glyphicon-chevron-up
     .text= upvote_text(@question)
 
   .vote-sum= @question.vote_sum
 
-  = link_to [@question, :vote_down], remote: true, data: {type: 'json'}, class: 'downvote' + vote_class(@question, :down) do
+  = link_to [@question, :vote_down], remote: true, data: {type: 'json'}, class: 'downvote' + vote_class(@question, :down), title: downvote_text(@question) do
     %span.glyphicon.glyphicon-chevron-down
     .text= downvote_text(@question)
 
-  = link_to [:favor, @question], remote: true, data: {type: 'json'}, class: 'favor' + favor_class(@question) do
+  = link_to [:favor, @question], remote: true, data: {type: 'json'}, class: 'favor' + favor_class(@question), title: @question.favored_by?(current_user) ? t('favorite.favored') : t('favorite.favor') do
     %span.glyphicon.glyphicon-star
     .text= @question.favored_by?(current_user) ? t('favorite.favored') : t('favorite.favor')
 

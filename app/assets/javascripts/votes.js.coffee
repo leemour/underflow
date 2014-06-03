@@ -13,3 +13,5 @@ $ ->
 
     $(resp.selector + ' ' + resp.action + ' .text').text(resp.text)
     $(resp.selector + ' ' + resp.other_action + ' .text').text(resp.other_text)
+    $(resp.selector + ' ' + resp.action).attr('title', resp.text)
+    $(resp.selector + ' ' + resp.other_action).attr('title', resp.other_text)

@@ -15,8 +15,21 @@ feature 'User adds question to favourites',
 
     context 'with AJAX' do
       background { visit question_path(question) }
-      # click_on 'Добавить в избранное'
 
+      it 'displays Question as favourite', js: true do
+        click_on 'Добавить в избранное'
+
+        expect(page).to have_content 'Добавлен в избранное'
+      end
+
+      it 'Adds question to User favourites', js: true do
+        click_on 'Добавить в избранное'
+
+        expect(page).to have_content 'Добавлен в избранное'
+
+        visit user_favorite_questions_path(user)
+        expect(page).to have_content question.title
+      end
     end
 
     context 'without AJAX' do

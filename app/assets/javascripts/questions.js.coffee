@@ -6,3 +6,4 @@ $ ->
     else
       $(resp.selector + ' .favor').removeClass('favored')
     $(resp.selector + ' .favor .text').text(resp.text)
+    $(resp.selector + ' .favor').attr('title', resp.text)
