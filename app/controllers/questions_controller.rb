@@ -29,7 +29,7 @@ class QuestionsController < ApplicationController
   end
 
   def index
-    @questions = Question.all
+    @questions = Question.includes(:tags).all
   end
 
   def show

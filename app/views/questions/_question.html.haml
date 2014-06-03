@@ -51,8 +51,8 @@
   .comments
     = render 'comments/comments', commentable: @question
 
-    .comment-create-form
-      = render 'comments/form', commentable: @question, comment: @comment, edit: true
+  .comment-create-form
+    = render 'comments/form', commentable: @question, comment: @comment, edit: true
 
-    - if user_signed_in?
-      = link_to t('comment.add'), new_question_comment_path(@question), class: 'add-comment btn btn-default btn-xs'
+  - if user_signed_in?
+    = link_to t('comment.add'), new_question_comment_path(@question), class: 'add-comment btn btn-default btn-xs'

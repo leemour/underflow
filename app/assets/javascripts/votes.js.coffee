@@ -1,6 +1,6 @@
 $ ->
   # Vote links
-  $('.upvote, .downvote').on 'ajax:success', (e, data, status, xhr) ->
+  $('body').on 'ajax:success', '.upvote, .downvote', (e, data, status, xhr) ->
     resp = $.parseJSON(xhr.responseText)
     $(resp.selector + ' .vote-sum').text(resp.sum)
 
