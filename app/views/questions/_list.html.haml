@@ -2,8 +2,14 @@
   .question{id: "question-#{question.id}"}
     .counters
       .votes
-      .answers
+        = question.vote_sum
+        .text= t('vote.models', count: question.vote_sum)
+      .answers{class: ('answered' if question.answers_count > 0)}
+        = question.answers_count
+        .text= t('answer.models', count: question.answers_count)
       .views
+        = question.views_count
+        .text= t('view.models', count: question.views_count)
     .content
       %h3= link_to question.title, question
       .row.details

@@ -41,10 +41,42 @@ main
   .question
     margin-bottom: 30px
     overflow: hidden
+    padding: 5px
     h3
       margin: 0
     .tags
       margin-top: 5px
+
+.question
+  .counters
+    font-size: 24px
+    text-align: center
+    width: 150px
+    .votes,
+    .answers,
+    .views,
+      float: left
+      padding: 5px 0
+      position: relative
+      top: -5px
+    .votes
+      width: 45px
+    .answers
+      color: #a73300
+      margin: 0 2px
+      width: 46px
+      &.answered
+        color: #fff
+        background-color: #8fa96e
+    .views
+      width: 55px
+      .text
+        font-size: 10px
+        line-height: 1.5em
+    .text
+      font-size: 11px
+  .content
+    margin-left: 165px
 
 body.questions
   .question

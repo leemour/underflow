@@ -6,6 +6,8 @@ class QuestionsController < ApplicationController
   before_action :set_user, only: [:favorite, :voted, :by_user]
   before_action :check_permission, only: [:update, :destroy]
 
+  impressionist actions: [:show]
+
   def favorite
     @questions = Question.joins(:favorites).where(
       favorites: {user_id: params[:user_id]})

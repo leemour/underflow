@@ -10,6 +10,8 @@ class Question < ActiveRecord::Base
   has_many :comments,    as: :commentable, dependent: :destroy
   has_many :attachments, as: :attachable,  dependent: :destroy
 
+  is_impressionable counter_cache: true, column_name: :views_count, unique: true
+
   accepts_nested_attributes_for :attachments, allow_destroy: true,
     reject_if: :all_blank
 

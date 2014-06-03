@@ -79,6 +79,12 @@ ru:
     favor: Добавить в избранное
     favored: Добавлен в избранное
   answer:
+    models:
+      zero: ответов
+      one: ответ
+      few: ответа
+      many: ответов
+      other: ответы
     edit: Редактировать ответ
     new: Новый ответ
     post: Отправить ваш ответ
@@ -98,11 +104,24 @@ ru:
     excerpt: Краткое описание
     with: с тегом
   vote:
+    models:
+      zero: голосов
+      one: голос
+      few: голоса
+      many: голосов
+      other: голоса
     up: Голосовать за
     down: Голосовать против
     upvoted: Вы проголосовали за
     downvoted: Вы проголосовали против
     voting: Голосование
+  view:
+    models:
+      zero: просмотров
+      one: просмотр
+      few: просмотра
+      many: просмотров
+      other: просмотры
 
   activerecord:
     models:

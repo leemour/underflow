@@ -19,6 +19,7 @@ gem 'mini_magick'
 gem 'remotipart', git: 'git@github.com:JangoSteve/remotipart.git'
 gem 'handlebars_assets'
 gem 'rails-timeago'
+gem 'impressionist'
 
 group :development do
   gem 'capistrano-rails'
@@ -27,6 +28,7 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'rubocop', require: false
+  # gem 'bullet'
 end
 
 group :development, :test do

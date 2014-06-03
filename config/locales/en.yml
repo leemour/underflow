@@ -77,6 +77,9 @@ en:
     favor: Add to favourites
     favored: Added to favourites
   answer:
+    models:
+      one: answer
+      other: answers
     edit: Edit answer
     new: New answer
     post: Post answer
@@ -96,10 +99,17 @@ en:
     excerpt: Excerpt
     with: with tag
   vote:
+    models:
+      one: vote
+      other: votes
     up: Vote up
     down: Vote down
     upvoted: You voted up
     downvoted: You voted down
+  view:
+    models:
+      one: view
+      other: views
 
   activerecord:
     models:
