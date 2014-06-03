@@ -1,4 +1,4 @@
-json.selector "##{@voteable.class.to_s.underscore}-#{@voteable.id}"
+json.selector class_with_id(@voteable)
 json.sum      @voteable.vote_sum
 json.voted    !!@vote
 if action_name == 'up'

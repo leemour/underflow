@@ -73,6 +73,8 @@ en:
     create: New questions
     edit: Edit question
     ask: Ask question
+    favor: Add to favourites
+    favored: Added to favourites
   answer:
     edit: Edit answer
     new: New answer

@@ -53,9 +53,6 @@ body.questions
     padding: 5px 15px
     h1
       margin-top: 0
-    .vote-cell
-      float: left
-      width: 50px
     .content
       margin-bottom: 5px
     .question-cell
@@ -65,7 +62,10 @@ body.questions
     min-height: 200px
 
 
+
 .vote-cell
+  float: left
+  width: 45px
   .vote-sum
     font-size: 20px
     line-height: 0.9em
@@ -87,6 +87,16 @@ body.questions
     margin: 0 0 4px 2px
   .downvote
     margin-bottom: 7px
+  .favor
+    color: #bbb
+    display: block
+    font-size: 22px
+    margin-left: 5px
+    margin-top: 5px
+    &:hover
+      color: #f2a12f
+    &.favored
+      color: #df8100
   .text
     display: block
     text-indent: -9999px
@@ -118,8 +128,6 @@ body.questions
   &.own
     background-color: #fbf9e8
   .vote-cell
-    float: left
-    width: 45px
     .accept
       border: 2px solid #bbb
       border-radius: 3px

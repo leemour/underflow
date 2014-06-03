@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
     source_type: "Question"
   has_many :voted_answers, through: :votes, source: :voteable,
     source_type: "Answer"
+  has_many :favorites
 
   accepts_nested_attributes_for :profile
 
@@ -50,6 +51,10 @@ class User < ActiveRecord::Base
 
   def vote(object)
     votes.where(voteable_id: object.id, voteable_type: object.class).first
+  end
+
+  def favorite(object)
+    favorites.where(favorable_id: object.id, favorable_type: object.class).first
   end
 
   def avatar_url(size=:thumb)

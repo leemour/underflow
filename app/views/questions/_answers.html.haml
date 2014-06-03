@@ -50,12 +50,12 @@
                 = answer.user.name
             %span.author-reputation
 
-          .comment-create-form
-            = render 'comments/form', commentable: answer, comment: answer.comments.build, edit: true
-
         .comments
           = render 'comments/comments', commentable: answer
 
-          - if user_signed_in?
-            = link_to t('comment.add'), new_answer_comment_path(answer), class: 'add-comment btn btn-default btn-xs'
+        .comment-create-form
+          = render 'comments/form', commentable: answer, comment: answer.comments.build, edit: true
+
+        - if user_signed_in?
+          = link_to t('comment.add'), new_answer_comment_path(answer), class: 'add-comment btn btn-default btn-xs'
 

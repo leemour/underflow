@@ -2,7 +2,7 @@
   $('#content').prepend(
     '<%= j render 'shared/flash', flash: tr(:comment, 'created') %>'
   );
-  $('#<%= class_with_id(@commentable) %> .comments').html(
+  $('<%= class_with_id(@commentable) %> .comments').html(
     '<%= j render 'comments/comments', comment: @comment,
       commentable: @commentable %>'
   );
@@ -12,7 +12,7 @@
   $('.comment-create-form .comment-errors').hide();
   $('.add-comment').show();
 <% else %>
-  $('#<%= class_with_id(@commentable) %> .comment-create-form').html(
+  $('<%= class_with_id(@commentable) %> .comment-create-form').html(
     '<%= j render 'comments/form', edit: true, comment: @comment,
       commentable: @commentable %>'
   );

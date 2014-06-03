@@ -66,6 +66,9 @@
     %h4= link_to t('activerecord.models.question.other'), [@user, :voted, :questions]
     %h4= link_to t('activerecord.models.answer.other'), [@user, :voted, :answers]
 
+    %h2= t('user.favorites')
+    %h4= link_to t('activerecord.models.question.other'), [@user, :favorite, :questions]
+
 - if @user == current_user
   .row.submit
     .col-sm-12

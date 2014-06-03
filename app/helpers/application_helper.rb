@@ -29,7 +29,7 @@ module ApplicationHelper
   end
 
   def class_with_id(object)
-    "#{object.class.to_s.underscore}-#{object.id}"
+    "##{object.class.to_s.underscore}-#{object.id}"
   end
 
   def accept_link_class(question, answer)
@@ -60,14 +60,14 @@ module ApplicationHelper
   end
 
   def upvote_text(object)
-    current_user && current_user.upvoted?(object) ?
-      t('vote.upvoted') :
-      t('vote.up')
+    voted_up?(object) ? t('vote.upvoted') : t('vote.up')
   end
 
   def downvote_text(object)
-    current_user && current_user.downvoted?(object) ?
-      t('vote.downvoted') :
-      t('vote.down')
+    voted_down?(object) ? t('vote.downvoted') : t('vote.down')
+  end
+
+  def favor_class(object)
+    current_user && current_user.favorite(object) ? ' favored' : ''
   end
 end

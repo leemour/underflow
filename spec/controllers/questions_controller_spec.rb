@@ -11,6 +11,27 @@ describe QuestionsController do
     it { should route(:delete, question_path(1)).to  'questions#destroy', id: '1'}
   end
 
+  describe "GET #favor" do
+    let(:user) { create(:user) }
+    let(:question) { create(:question) }
+
+    context 'when logged in' do
+      before { login_user }
+      before { get :favor, id: question }
+
+      it "redirects to question" do
+        expect(response).to redirect_to(question)
+      end
+    end
+
+    context 'when not logged in' do
+      it "renders :index view" do
+        get :favor, id: question
+        expect(request).to redirect_to(new_user_session_path)
+      end
+    end
+  end
+
   describe "GET #by_user" do
     let(:user) { create(:user) }
     let(:questions) { create_list(:question, 3, user: user) }

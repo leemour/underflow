@@ -7,6 +7,7 @@ describe Question do
   it { should have_many :comments }
   it { should have_many :attachments }
   it { should have_many :votes }
+  it { should have_many :favorites }
   it { should have_and_belong_to_many :tags }
 
   it { should accept_nested_attributes_for :attachments }
@@ -180,6 +181,46 @@ describe Question do
       subject.vote_up(create(:user))
       subject.vote_up(create(:user))
       expect(subject.vote_sum).to eq(1)
+    end
+  end
+
+  describe '#favor' do
+    subject { create(:question) }
+    let(:user) { create(:user) }
+
+    it 'returns a Favorite' do
+      expect(subject.favor(user)).to be_a(Favorite)
+    end
+
+    context 'if not favourite' do
+      it 'adds Question to User favourites' do
+        expect {
+          subject.favor(user)
+        }.to change(subject.favorites, :count).by(1)
+      end
+    end
+
+    context 'if already favourite' do
+      it 'removes Question from User favourites' do
+        subject.favor(user)
+        expect {
+          subject.favor(user)
+        }.to change(subject.favorites, :count).by(-1)
+      end
+    end
+  end
+
+  describe '#favored_by?' do
+    subject { create(:question) }
+    let(:user) { create(:user) }
+
+    it 'returns false if User not favoured' do
+      expect(subject.favored_by?(user)).to be_false
+    end
+
+    it 'returns true if User favoured' do
+      subject.favor(user)
+      expect(subject.favored_by?(user)).to be_true
     end
   end
 end

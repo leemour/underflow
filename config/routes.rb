@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :questions do
     concerns :commentable, :voteable
     resources :answers, except: [:show, :index, :destroy]
+    get 'favor', on: :member
   end
 
   resources :answers, only: [:destroy] do
@@ -35,6 +36,7 @@ Rails.application.routes.draw do
     get 'answers', to: 'answers#by_user', as: 'answers'
     get 'voted/questions', to: 'questions#voted'
     get 'voted/answers', to: 'answers#voted'
+    get 'favorite/questions', to: 'questions#favorite'
   end
 
   resources :tags, only: [:index, :show]

@@ -1,6 +1,10 @@
 module Voteable
   extend ActiveSupport::Concern
 
+  included do
+    has_many :votes, as: :voteable,  dependent: :destroy
+  end
+
   def vote_up(user)
     vote = user.vote(self)
     if vote

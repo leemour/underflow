@@ -4,11 +4,11 @@
   );
 
   <% if remotipart_submitted? %>
-    $('#<%= class_with_id(@commentable) %> .comments').html(
+    $('<%= class_with_id(@commentable) %> .comments').html(
       "<%= j "#{render 'comments/comments'}" %>"
     );
   <% else %>
-    $('#<%= class_with_id(@commentable) %> .comments').html(
+    $('<%= class_with_id(@commentable) %> .comments').html(
       '<%= j render 'comments/comments', commentable: @commentable %>'
     );
   <% end %>

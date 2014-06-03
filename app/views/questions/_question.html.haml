@@ -11,6 +11,10 @@
     %span.glyphicon.glyphicon-chevron-down
     .text= downvote_text(@question)
 
+  = link_to [:favor, @question], class: 'favor' + favor_class(@question) do
+    %span.glyphicon.glyphicon-star
+    .text= @question.favored_by?(current_user) ? t('question.favored') : t('question.favor')
+
 .question-cell
   .question-body
     .question-text= @question.body.html_safe
@@ -44,11 +48,11 @@
           = @question.user.name
       %span.author-reputation
 
-    .comment-create-form
-      = render 'comments/form', commentable: @question, comment: @comment, edit: true
-
   .comments
     = render 'comments/comments', commentable: @question
+
+    .comment-create-form
+      = render 'comments/form', commentable: @question, comment: @comment, edit: true
 
     - if user_signed_in?
       = link_to t('comment.add'), new_question_comment_path(@question), class: 'add-comment btn btn-default btn-xs'
