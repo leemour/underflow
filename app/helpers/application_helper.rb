@@ -19,8 +19,8 @@ module ApplicationHelper
     end
   end
 
-  def tr(model, action)
-    { notice: t("model.#{action}",
+  def tr(model, action, gender='male')
+    { notice: t("model.#{gender}.#{action}",
           model: t("activerecord.models.#{model}", count: 1)) }
   end
 

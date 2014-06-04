@@ -17,6 +17,14 @@
 
 .question-cell
   .question-body
+    .question-meta
+      %span.views-count
+        %span.glyphicon.glyphicon-eye-open
+        = @question.views_count
+      %span.created-ago
+        %span.glyphicon.glyphicon-time
+        = timeago_tag @question.updated_at, lang: I18n.locale
+
     .question-text
       = @question.body.html_safe
     %ul.question-files
@@ -36,8 +44,8 @@
       = link_to tag.name, tag
 
   .row.question-details
-    .controls.col-sm-6
-      - if @question.from?(current_user)
+    - if @question.from?(current_user)
+      .controls.col-sm-6
         = link_to t('common.edit'), [:edit, @question], class: 'edit btn btn-warning btn-xs'
         = link_to t('common.delete'), @question, class: 'delete btn btn-danger btn-xs', method: :delete, data: { confirm: t("common.sure") }
 
@@ -55,10 +63,16 @@
   .comment-create-form
     = render 'comments/form', commentable: @question, comment: @comment, edit: true
 
+  - if @question.bounty
+    .bounty
+      = t('bounty.offered', points: @question.bounty.value).html_safe
+      %br
+      = link_to t('bounty.stop'), stop_bounty_path(@question), method: 'delete'
+
   - if user_signed_in?
     = link_to t('comment.add'), new_question_comment_path(@question), class: 'add-comment btn btn-default btn-xs'
 
-  - if @question.from?(current_user)
+  - if @question.from?(current_user) && @question.bounty.nil?
     = render 'bounties/form'
 
     = link_to t('bounty.start'), '#', class: 'start-bounty btn btn-default btn-xs'

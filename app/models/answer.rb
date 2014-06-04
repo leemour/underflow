@@ -5,7 +5,7 @@ class Answer < ActiveRecord::Base
   scope :accepted_first, -> { reorder('accepted DESC, created_at ASC') }
 
   belongs_to :user
-  belongs_to :question, counter_cache: true
+  belongs_to :question, counter_cache: true, touch: true
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :attachments, as: :attachable, dependent: :destroy
 

@@ -4,9 +4,14 @@ ru:
   to_home: На главную
   help: Помощь
   model:
-    created: "%{model} успешно создан."
-    updated: "%{model} успешно обновлен."
-    deleted: "%{model} успешно удален."
+    male:
+      created: "%{model} успешно создан."
+      updated: "%{model} успешно обновлен."
+      deleted: "%{model} успешно удален."
+    female:
+      created: "%{model} успешно создана."
+      updated: "%{model} успешно обновлена."
+      deleted: "%{model} успешно удалена."
   errors:
     denied: Доступ запрещен
   time:
@@ -129,9 +134,12 @@ ru:
       other: просмотры
   bounty:
     start: Объявить награду
+    stop: Отменить награду
     create: Назначить награду
-    value: Предложение
     offer: Предложить
+    offered: >
+      За этот вопрос назначена награда в
+      <span class='bounty-value'>+%{points}</span> очков
     for_answer: вашей репутации за ответ на этот вопрос
 
   activerecord:
@@ -179,7 +187,11 @@ ru:
         many: '%{count} тегов'
         other: Теги
       bounty:
-        value: Предложение
+        zero: 0 наград
+        one: Награда
+        few: '%{count} награды'
+        many: '%{count} наград'
+        other: Награды
 
     attributes:
       question:
@@ -222,4 +234,6 @@ ru:
         file: Файл
       comment:
         body: Текст
+      bounty:
+        value: Предложение
 

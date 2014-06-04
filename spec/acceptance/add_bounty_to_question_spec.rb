@@ -16,14 +16,12 @@ feature 'User adds bounty to his question',
     scenario 'adds bounty with amount > 50' do
       visit question_path(question)
 
-      save_and_open_page
-
       click_on 'Объявить награду'
       select '100', from: 'bounty_value'
       click_on 'Назначить награду'
 
-      expect(page).to have_content 'Награда добавлена'
-      expect(page).to have_content 'Размер награды 100 очков'
+      expect(page).to have_content 'Награда успешно создана'
+      expect(page).to have_content 'назначена награда в +100 очков'
     end
   end
 
@@ -39,6 +37,8 @@ feature 'User adds bounty to his question',
   end
 
   context 'when not signed in' do
+    given(:question) { create(:question) }
+
     scenario "can't see add bounty link" do
       visit question_path(question)
 

@@ -4,9 +4,14 @@ en:
   to_home: To homepage
   Help: Help
   model:
-    created: "%{model} was successfully created."
-    updated: "%{model} was successfully updated."
-    deleted: "%{model} was successfully deleted."
+    male:
+      created: "%{model} was successfully created."
+      updated: "%{model} was successfully updated."
+      deleted: "%{model} was successfully deleted."
+    female:
+      created: "%{model} was successfully created."
+      updated: "%{model} was successfully updated."
+      deleted: "%{model} was successfully deleted."
   errors:
     denied: Access denied
   time:
@@ -112,7 +117,14 @@ en:
       other: views
   bounty:
     start: Anounce bounty
+    stop: Cancel bounty
     create: Add bounty
+    value: Value
+    offer: Offer
+    offered: >
+      This question has a bounty worth
+      <span class='bounty-value'>+%{points}</span> points
+    for_answer: of your reputation for the best answer
 
   activerecord:
     models:
@@ -137,6 +149,10 @@ en:
       tag:
         one: Tag
         other: Tags
+      bounty:
+        one: Bounty
+        other: Bounties
+
 
     attributes:
       question:
@@ -178,3 +194,5 @@ en:
         file: File
       comment:
         body: Text
+      bounty:
+        value: Value

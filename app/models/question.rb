@@ -7,7 +7,7 @@ class Question < ActiveRecord::Base
   enum status: [:active, :locked, :flagged, :deleted, :archived]
 
   belongs_to :user
-  has_one :bounty
+  has_one :bounty, dependent: :destroy
   has_and_belongs_to_many :tags
   has_many :answers, dependent: :destroy
   has_many :comments,    as: :commentable, dependent: :destroy
@@ -26,7 +26,7 @@ class Question < ActiveRecord::Base
 
   scope :unanswered, -> { where(answers_count: 0) }
   scope :popular,    -> { reorder(views_count: :desc) }
-  scope :featured,   -> { joins(:bounties).where(bounties: {winner_id: nil}).
+  scope :featured,   -> { joins(:bounty).where(bounties: {winner_id: nil}).
                           order('bounties.value') }
   scope :most_voted, -> { joins(:votes).group('questions.id').
                           reorder('SUM(votes.value) desc') }
