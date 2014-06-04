@@ -66,8 +66,9 @@
   - if @question.bounty
     .bounty
       = t('bounty.offered', points: @question.bounty.value).html_safe
-      %br
-      = link_to t('bounty.stop'), stop_bounty_path(@question), method: 'delete'
+      - if @question.from?(current_user)
+        %br
+        = link_to t('bounty.stop'), stop_bounty_path(@question), method: 'delete'
 
   - if user_signed_in?
     = link_to t('comment.add'), new_question_comment_path(@question), class: 'add-comment btn btn-default btn-xs'
