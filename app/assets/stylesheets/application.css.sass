@@ -40,8 +40,14 @@ header
       &.menu-heading
         font-size: 18px
         padding: 12px
-    #logo img
-      padding: 10px 20px 10px 0
+    #logo
+      display: block
+      background-image: url(logo.png)
+      height: 30px
+      margin: 10px 20px 10px 0
+      width: 146px
+      &:hover, &.active
+        background-position: 0 -30px
     ul.navbar-nav
       a
         color: #BBB
@@ -93,10 +99,18 @@ main
 .question-edit-form,
 .answer-edit-form,
 .comment-create-form,
-.comment-edit-form
+.comment-edit-form,
+#new_bounty
   display: none
   margin: -5px -15px 30px
   padding: 5px 15px
+
+#new_bounty
+  margin-top: 20px
+  select
+    display: inline-block
+    width: 60px
+    padding: 5px
 
 .question .edit,
 .answer .edit,

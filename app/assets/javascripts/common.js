@@ -57,6 +57,12 @@ $(function() {
       $(answer).find('.comment-edit-form').hide();
     }
     ,
+    // Show bount form
+    showBountyForm: function(link) {
+      $('.start-bounty').hide()
+      $('#new_bounty').show()
+    }
+    ,
     // Hide edit forms
     hideQuestionForm: function() {
       $('.question-body').show();
@@ -77,10 +83,16 @@ $(function() {
       $('.comment-edit-form').hide();
     }
     ,
+    hideBountyForm: function() {
+      $('.start-bounty').show()
+      $('#new_bounty').hide()
+    }
+    ,
     hideAllForms: function() {
       Under.hideQuestionForm();
       Under.hideAnswerForm();
       Under.hideCommentForm();
+      Under.hideBountyForm();
     }
     ,
     // Add extra file input field
@@ -156,5 +168,12 @@ $(function() {
   $('#answer-form').on('click', '.add-file', function(ev) {
     ev.preventDefault(); ev.stopPropagation();
     Under.addFileInput(this, '#answer-form')
+  });
+
+  // Add bounty link
+  $('.question').on('click', '.start-bounty', function(ev) {
+    ev.preventDefault(); ev.stopPropagation();
+    Under.hideAllForms();
+    Under.showBountyForm();
   });
 });

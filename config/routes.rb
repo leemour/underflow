@@ -23,7 +23,14 @@ Rails.application.routes.draw do
   resources :questions do
     concerns :commentable, :voteable
     resources :answers, except: [:show, :index, :destroy]
-    get 'favor', on: :member
+    member do
+      get 'favor'
+      resource :bounty, only: [] do
+        post 'start'
+        post 'award'
+        delete 'stop'
+      end
+    end
     collection do
       get 'unanswered', to: 'questions#index', scope: 'unanswered'
       get 'most-voted', to: 'questions#index', scope: 'most_voted'

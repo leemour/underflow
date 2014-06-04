@@ -1,4 +1,4 @@
-%h3= t('activerecord.models.answer', count: @question.answers.count)
+%h3.answers-heading= t('activerecord.models.answer', count: @question.answers.count)
 - @question.answers.accepted_first.each do |answer|
   - if answer.persisted?
     .answer{id: "answer-#{answer.id}", class: item_class(answer)}

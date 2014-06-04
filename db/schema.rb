@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140603135236) do
+ActiveRecord::Schema.define(version: 20140604121006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,15 @@ ActiveRecord::Schema.define(version: 20140603135236) do
     t.integer  "attachable_id"
     t.string   "attachable_type"
   end
+
+  create_table "bounties", force: true do |t|
+    t.integer "question_id"
+    t.integer "winner_id"
+    t.integer "value"
+  end
+
+  add_index "bounties", ["question_id"], name: "index_bounties_on_question_id", using: :btree
+  add_index "bounties", ["winner_id"], name: "index_bounties_on_winner_id", using: :btree
 
   create_table "comments", force: true do |t|
     t.integer  "commentable_id"

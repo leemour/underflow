@@ -127,6 +127,12 @@ ru:
       few: просмотра
       many: просмотров
       other: просмотры
+  bounty:
+    start: Объявить награду
+    create: Назначить награду
+    value: Предложение
+    offer: Предложить
+    for_answer: вашей репутации за ответ на этот вопрос
 
   activerecord:
     models:
@@ -172,6 +178,8 @@ ru:
         few: '%{count} тега'
         many: '%{count} тегов'
         other: Теги
+      bounty:
+        value: Предложение
 
     attributes:
       question:

@@ -1,0 +1,9 @@
+= form_for [@question, @question.build_bounty], url: start_bounty_path, id: 'bounty-form' do |f|
+  .form-group
+    = t('bounty.offer')
+    = f.select :value, nil, {}, class: "form-control" do
+      = options_for_select([50, 100, 150, 200, 250, 300, 350, 400, 450])
+    = t('bounty.for_answer')
+
+  = f.submit t('bounty.create'), data: {disable_with: t('common.processing')}, class: "btn btn-success"
+  %button.cancel.btn= t('common.cancel')

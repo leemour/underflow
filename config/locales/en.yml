@@ -110,6 +110,9 @@ en:
     models:
       one: view
       other: views
+  bounty:
+    start: Anounce bounty
+    create: Add bounty
 
   activerecord:
     models:

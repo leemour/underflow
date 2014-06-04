@@ -3,7 +3,7 @@
     .counters
       .votes
         = question.vote_sum
-        .text= t('vote.models', count: question.vote_sum)
+        .text= t('vote.models', count: question.vote_sum.abs)
       .answers{class: ('answered' if question.answers_count > 0)}
         = question.answers_count
         .text= t('answer.models', count: question.answers_count)

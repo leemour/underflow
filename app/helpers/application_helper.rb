@@ -70,4 +70,13 @@ module ApplicationHelper
   def favor_class(object)
     current_user && current_user.favorite(object) ? ' favored' : ''
   end
+
+  # def active_if(options)
+  #   merged_params = params.merge(options).delete_if { |k, v| v.nil? }
+  #   merged_params == params ? ' active' : ''
+  # end
+
+  def cp(path)
+    current_page?(path) ? " active" : ''
+  end
 end

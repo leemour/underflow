@@ -7,6 +7,7 @@ class Question < ActiveRecord::Base
   enum status: [:active, :locked, :flagged, :deleted, :archived]
 
   belongs_to :user
+  has_one :bounty
   has_and_belongs_to_many :tags
   has_many :answers, dependent: :destroy
   has_many :comments,    as: :commentable, dependent: :destroy
@@ -23,9 +24,12 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, allow_destroy: true,
     reject_if: :all_blank
 
-  # scope :popular, -> { order() }
-  scope :popular,    -> { reorder(views_count: :desc) }
   scope :unanswered, -> { where(answers_count: 0) }
+  scope :popular,    -> { reorder(views_count: :desc) }
+  scope :featured,   -> { joins(:bounties).where(bounties: {winner_id: nil}).
+                          order('bounties.value') }
+  scope :most_voted, -> { joins(:votes).group('questions.id').
+                          reorder('SUM(votes.value) desc') }
 
 
   def from?(user)

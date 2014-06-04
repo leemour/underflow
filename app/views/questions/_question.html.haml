@@ -57,3 +57,8 @@
 
   - if user_signed_in?
     = link_to t('comment.add'), new_question_comment_path(@question), class: 'add-comment btn btn-default btn-xs'
+
+  - if @question.from?(current_user)
+    = render 'bounties/form'
+
+    = link_to t('bounty.start'), '#', class: 'start-bounty btn btn-default btn-xs'
