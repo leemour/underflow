@@ -4,8 +4,8 @@
 #answers
   = render 'answers'
 
-%h2= t('answer.your')
 #answer-form
+  %h2= t('answer.your')
   = render 'answers/form', answer: @answer
 
 - unless user_signed_in?

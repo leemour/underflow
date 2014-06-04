@@ -91,6 +91,9 @@ GEM
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.2.19)
+    compass-rails (1.1.7)
+      compass (>= 0.12.2)
+      sprockets (<= 2.11.0)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
@@ -313,7 +316,7 @@ DEPENDENCIES
   capybara-webkit
   carrierwave
   coffee-rails (~> 4.0.0)
-  compass
+  compass-rails
   database_cleaner
   devise
   factory_girl_rails

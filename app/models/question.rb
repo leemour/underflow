@@ -2,7 +2,9 @@ class Question < ActiveRecord::Base
   include Voteable
   include Favorable
 
-  default_scope { order('created_at DESC') }
+  default_scope { order(created_at: :desc) }
+
+  enum status: [:active, :locked, :flagged, :deleted, :archived]
 
   belongs_to :user
   has_and_belongs_to_many :tags
@@ -10,18 +12,21 @@ class Question < ActiveRecord::Base
   has_many :comments,    as: :commentable, dependent: :destroy
   has_many :attachments, as: :attachable,  dependent: :destroy
 
+  validates :title, presence: true, length: {in: 15..60}
+  validates :body,  presence: true, length: {in: 60..6000}
+
+  after_create :increment_tags_counter
+  before_destroy :decrement_tags_counter
+
   is_impressionable counter_cache: true, column_name: :views_count, unique: true
 
   accepts_nested_attributes_for :attachments, allow_destroy: true,
     reject_if: :all_blank
 
-  validates :title, presence: true, length: {in: 15..60}
-  validates :body,  presence: true, length: {in: 60..6000}
+  # scope :popular, -> { order() }
+  scope :popular,    -> { reorder(views_count: :desc) }
+  scope :unanswered, -> { where(answers_count: 0) }
 
-  enum status: [:active, :locked, :flagged, :deleted, :archived]
-
-  after_create :increment_tags_counter
-  before_destroy :decrement_tags_counter
 
   def from?(user)
     user == self.user

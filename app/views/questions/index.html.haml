@@ -1,2 +1,12 @@
+%header
+  %h1= t('activerecord.models.question.other')
+
+  .question-nav.btn-group
+    = link_to t('question.newest'),     questions_path, class: 'btn btn-default'
+    = link_to t('question.unanswered'), unanswered_questions_path, class: 'btn btn-default'
+    = link_to t('question.popular'),    popular_questions_path, class: 'btn btn-default'
+    = link_to t('question.most_voted'), most_voted_questions_path, class: 'btn btn-default'
+    = link_to t('question.featured'),   featured_questions_path, class: 'btn btn-default'
+
 #questions
   = render 'list', questions: @questions

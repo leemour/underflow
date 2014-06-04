@@ -1,0 +1,49 @@
+#answers
+  margin-top: 20px
+  h3
+    font-size: 24px
+    margin-left: 10px
+
+.answer
+  +single-box-shadow(#ccc, 2px, 2px, 0, 0)
+  background-color: #fff
+  margin-bottom: 20px
+  overflow: hidden
+  padding: 5px 15px 10px
+  // &.own
+  //   background-color: #fbf9e8
+  .vote-cell
+    .accept
+      border: 2px solid #bbb
+      border-radius: 3px
+      color: #bbb
+      display: block
+      font-size: 18px
+      height: 30px
+      padding: 2px 4px
+      width: 30px
+      &:hover
+        color: #4baf4b
+        border-color: #4baf4b
+      &, &:hover, &:active
+        outline: none
+      &.accepted
+        border-color: #4baf4b
+        color: #fff
+        background-color: #4baf4b
+      &.hidden
+        display: none
+  .answer-cell
+    margin-left: 50px
+  .comments
+    h3
+      font-size: 16px
+      padding: 3px 8px
+
+#answer-form
+  +single-box-shadow(#ccc, 2px, 2px, 0, 0)
+  background-color: #fff
+  padding: 10px 15px
+  margin-top: 50px
+  h2
+    margin-top: 0

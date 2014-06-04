@@ -1,7 +1,7 @@
 class Answer < ActiveRecord::Base
   include Voteable
 
-  default_scope { order('created_at ASC') }
+  default_scope { order(created_at: :asc) }
   scope :accepted_first, -> { reorder('accepted DESC, created_at ASC') }
 
   belongs_to :user

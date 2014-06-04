@@ -32,6 +32,7 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.includes(:tags).all
+    @questions = @questions.send(params[:scope]) if params[:scope]
   end
 
   def show

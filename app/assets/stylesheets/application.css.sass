@@ -1,15 +1,30 @@
 /*
- *##= require_tree .
  *= require_self
+ *= depend_on _questions
+ *= depend_on _answers
  */
 
 @import "bootstrap"
+@import "compass"
 @import "magicsuggest"
+@import "questions"
+@import "answers"
 
-h2
-  font-size: 20px
-h3
-  font-size: 18px
+html
+  body
+    background-color: #f0f0f0
+  h1
+    background-color: #e9e9e9
+    border: 1px solid #ddd
+    border-radius: 3px
+    font-size: 24px
+    margin: 0 0 10px
+    padding: 5px 10px
+    position: relative
+  h2
+    font-size: 20px
+  h3
+    font-size: 18px
 
 header
   .navbar-inverse
@@ -37,71 +52,13 @@ main
   .container-fluid
     max-width: 1170px
 
-#questions
-  .question
-    margin-bottom: 30px
-    overflow: hidden
-    padding: 5px
-    h3
-      margin: 0
-    .tags
-      margin-top: 5px
-
-.question
-  .counters
-    font-size: 24px
-    text-align: center
-    width: 150px
-    .votes,
-    .answers,
-    .views,
-      float: left
-      padding: 5px 0
-      position: relative
-      top: -5px
-    .votes
-      width: 45px
-    .answers
-      color: #a73300
-      margin: 0 2px
-      width: 46px
-      &.answered
-        color: #fff
-        background-color: #8fa96e
-    .views
-      width: 55px
-      .text
-        font-size: 10px
-        line-height: 1.5em
-    .text
-      font-size: 11px
-  .content
-    margin-left: 165px
-
-body.questions
-  .question
-    background-color: #f5f5f5
-    margin-bottom: 10px
-    padding: 5px 15px
-    h1
-      margin-top: 0
-    .content
-      margin-bottom: 5px
-    .question-cell
-      margin-left: 50px
-
-  form #question_body
-    min-height: 200px
-
-
-
 .vote-cell
   float: left
-  width: 45px
+  width: 35px
   .vote-sum
     font-size: 20px
     line-height: 0.9em
-    padding-right: 15px
+    padding-right: 5px
     text-align: center
   .upvote,
   .downvote
@@ -137,7 +94,6 @@ body.questions
 .answer-edit-form,
 .comment-create-form,
 .comment-edit-form
-  border: 1px dotted #aaa
   display: none
   margin: -5px -15px 30px
   padding: 5px 15px
@@ -147,48 +103,6 @@ body.questions
 .question .delete,
 .answer .delete
   margin-right: 10px
-
-#answers
-  margin-top: 20px
-  h3
-    margin-left: 10px
-
-.answer
-  margin-bottom: 20px
-  overflow: hidden
-  padding: 5px 15px 10px
-  &.own
-    background-color: #fbf9e8
-  .vote-cell
-    .accept
-      border: 2px solid #bbb
-      border-radius: 3px
-      color: #bbb
-      display: block
-      font-size: 18px
-      height: 30px
-      padding: 2px 4px
-      width: 30px
-      &:hover
-        color: #4baf4b
-        border-color: #4baf4b
-      &, &:hover, &:active
-        outline: none
-      &.accepted
-        border-color: #4baf4b
-        color: #fff
-        background-color: #4baf4b
-      &.hidden
-        display: none
-  .answer-cell
-    margin-left: 50px
-
-#users
-  .user
-    width: 300px
-  .avatar
-    float: left
-    margin: -5px 10px 0 0
 
 .controls, .started
   font-size: 0.9em
@@ -207,6 +121,14 @@ body.questions
   .delete
     padding: 0 4px
     line-height: 1.4em
+
+
+#users
+  .user
+    width: 300px
+  .avatar
+    float: left
+    margin: -5px 10px 0 0
 
 ul.errors
   list-style: none inside
@@ -236,10 +158,28 @@ body .tags
       text-decoration: none
 
 .comments
+  margin: 30px -16px 20px 0
+  h3
+    background-color: #F9F1C7
+    border: 1px solid #F6DEAC
+    border-radius: 3px 0 0 0
+    border-right-color: #ccc
+    color: #B08842
+    margin: 0 !important
+    padding: 5px 10px
   .comment
-    border-top: 1px dotted #ddd
-    margin: 40px 0
-    padding: 5px 0 0 30px
+    border: 1px solid #ddd
+    border-top: 0 none
+    border-left: 0 none
+    padding: 15px 10px
+    .comment-user
+      float: left
+      width: 100px
+      text-align: left
+      .author
+        margin-bottom: 3px
+      time
+        font-size: 11px
 
 .answer-files,
 .question-files

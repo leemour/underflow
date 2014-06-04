@@ -75,6 +75,11 @@ ru:
     create: Новый вопрос
     edit: Редактировать вопрос
     ask: Задать вопрос
+    newest: Последние
+    unanswered: Без ответа
+    popular: Популярные
+    most_voted: Ценные
+    featured: С наградой
   favorite:
     favor: Добавить в избранное
     favored: Добавлен в избранное

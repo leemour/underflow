@@ -7,12 +7,25 @@ feature 'User views list of questions',
   I want to see a list of questions
   } do
 
-  scenario 'ordered by date newest first' do
-    question1 = create(:question, title: 'Тестовый вопрос номер 1')
-    question2 = create(:question, title: 'Тестовый вопрос номер 2')
+  context 'All questions' do
+    scenario 'ordered by date newest first' do
+      question1 = create(:question, title: 'Тестовый вопрос номер 1')
+      question2 = create(:question, title: 'Тестовый вопрос номер 2')
 
-    visit '/'
+      visit root_path
 
-    expect(question2.title).to appear_before(question1.title)
+      expect(question2.title).to appear_before(question1.title)
+    end
+  end
+
+  context 'Unanswered questions' do
+    # scenario 'ordered by date newest first' do
+    #   question1 = create(:question, title: 'Тестовый вопрос номер 1')
+    #   question2 = create(:question, title: 'Тестовый вопрос номер 2')
+
+    #   visit unanswered_questions_path
+
+    #   expect(question2.title).to appear_before(question1.title)
+    # end
   end
 end

@@ -24,6 +24,12 @@ Rails.application.routes.draw do
     concerns :commentable, :voteable
     resources :answers, except: [:show, :index, :destroy]
     get 'favor', on: :member
+    collection do
+      get 'unanswered', to: 'questions#index', scope: 'unanswered'
+      get 'most-voted', to: 'questions#index', scope: 'most_voted'
+      get 'featured',   to: 'questions#index', scope: 'featured'
+      get 'popular',    to: 'questions#index', scope: 'popular'
+    end
   end
 
   resources :answers, only: [:destroy] do
