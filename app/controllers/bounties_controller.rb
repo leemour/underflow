@@ -11,9 +11,6 @@ class BountiesController < ApplicationController
     end
   end
 
-  def award
-  end
-
   def stop
     @question.bounty.destroy
     respond_to do |format|

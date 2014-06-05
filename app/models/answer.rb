@@ -6,6 +6,7 @@ class Answer < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :question, counter_cache: true, touch: true
+  has_one :bounty, foreign_key: 'winner_id'
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :attachments, as: :attachable, dependent: :destroy
 
@@ -16,5 +17,15 @@ class Answer < ActiveRecord::Base
 
   def from?(user)
     user == self.user
+  end
+
+  def receive_bounty_from(question)
+    if question.bounty
+      question.bounty.update(winner_id: user.id)
+      question.user.reputation -= question.bounty.value
+      answer.user.reputation += question.bounty.value
+    else
+      false
+    end
   end
 end

@@ -55,6 +55,22 @@ feature 'User chooses best answer',
         expect(answer2.body).to appear_before(answer1.body)
       end
     end
+
+
+
+    # context 'when bounty set' do
+    #   background do
+    #     create(:bounty, question: question)
+    #     visit question_path(question)
+    #     within("#answer-#{answer2.id}") do
+    #       click_on 'Выбрать лучший ответ'
+    #     end
+    #   end
+
+    #   scenario "awards bounty to user" do
+
+    #   end
+    # end
   end
 
   context "when not my question in" do

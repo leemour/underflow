@@ -14,6 +14,7 @@ class AnswersController < ApplicationController
 
   def accept
     @answer.toggle(:accepted).save
+    Bounty.award_to @answer
     respond_to do |format|
       format.html { redirect_to @answer.question }
       format.js

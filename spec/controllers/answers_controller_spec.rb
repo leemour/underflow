@@ -22,6 +22,7 @@ describe AnswersController do
     context 'when Question author' do
       let(:question) { create(:question, user: @user) }
       let(:answer) { create(:answer, question: question) }
+      let(:bounty) { create(:bounty, question: question) }
       before { get :accept, id: answer }
 
       it "finds Answer to accept" do
@@ -30,6 +31,10 @@ describe AnswersController do
 
       it "toggles Answer accepted value" do
         expect(assigns(:answer).accepted).to be_true
+      end
+
+      it "awards Bounty if exists" do
+        expect(bounty.winner).to eq(answer)
       end
 
       it "redirects to Answer Question" do

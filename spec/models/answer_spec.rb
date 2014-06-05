@@ -5,6 +5,7 @@ describe Answer do
   it { should have_db_index :user_id }
   it { should belong_to :question }
   it { should have_db_index :question_id }
+  it { should have_one :bounty }
   it { should have_many :comments }
   it { should have_many :attachments }
 
