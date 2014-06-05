@@ -1,0 +1,5 @@
+$('#content').prepend(
+  '<%= j render 'shared/flash', flash: tr(:bounty, 'created', 'female') %>'
+);
+$('<%= j render 'bounties/bounty' %>').insertAfter('.comment-create-form');
+$('#new_bounty').hide();

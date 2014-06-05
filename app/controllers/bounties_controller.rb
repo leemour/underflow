@@ -8,6 +8,7 @@ class BountiesController < ApplicationController
     @question.create_bounty(bounty_params)
     respond_to do |format|
       format.html { redirect_to @question, tr(:bounty, 'created', 'female') }
+      format.js
     end
   end
 
@@ -15,6 +16,7 @@ class BountiesController < ApplicationController
     @question.bounty.destroy
     respond_to do |format|
       format.html { redirect_to @question, tr(:bounty, 'deleted', 'female') }
+      format.js
     end
   end
 

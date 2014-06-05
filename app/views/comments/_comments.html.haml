@@ -1,4 +1,4 @@
-- if commentable.comments.any?
+- if commentable.comments.any? && commentable.comments.first.persisted?
   %h3= t('activerecord.models.comment.other')
 
 - commentable.comments.each do |comment|

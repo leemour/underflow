@@ -6,7 +6,7 @@
   $('#answer-<%= @answer.id %> .accept .text').text(
     '<%= t('answer.best') %>'
   );
-  $('#answer-<%= @answer.id %>').insertAfter($("#answers h3"));
+  $('#answer-<%= @answer.id %>').insertAfter($("#answers h3").first());
   $('.answer .accept').addClass('hidden');
   $('#answer-<%= @answer.id %> .accept').removeClass('hidden');
 <% else %>

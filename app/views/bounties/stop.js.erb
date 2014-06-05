@@ -1,0 +1,10 @@
+$('#content').prepend(
+  '<%= j render 'shared/flash', flash: tr(:bounty, 'deleted', 'female') %>'
+);
+$('.bounty').remove();
+$('#new_bounty').hide();
+$('<%= j render 'bounties/form' %>').
+  insertAfter('.question .comment-create-form');
+$('<a class="start-bounty btn btn-default btn-xs" href="#">' +
+  '<%= t('bounty.start') %>' + '</a>').
+insertAfter('.question .add-comment');

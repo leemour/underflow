@@ -13,15 +13,30 @@ feature 'User adds bounty to his question',
     before { sign_in_with(user.email, user.password) }
     given(:question) { create(:question, user: user) }
 
-    scenario 'adds bounty with amount > 50' do
-      visit question_path(question)
+    context 'with AJAX' do
+      scenario 'adds bounty with amount > 50', js: true do
+        visit question_path(question)
 
-      click_on 'Объявить награду'
-      select '100', from: 'bounty_value'
-      click_on 'Назначить награду'
+        click_on 'Объявить награду'
+        select '100', from: 'bounty_value'
+        click_on 'Назначить награду'
 
-      expect(page).to have_content 'Награда успешно создана'
-      expect(page).to have_content 'назначена награда в +100 очков'
+        expect(page).to have_content 'Награда успешно создана'
+        expect(page).to have_content 'назначена награда в +100 очков'
+      end
+    end
+
+    context 'without AJAX' do
+      scenario 'adds bounty with amount > 50' do
+        visit question_path(question)
+
+        click_on 'Объявить награду'
+        select '100', from: 'bounty_value'
+        click_on 'Назначить награду'
+
+        expect(page).to have_content 'Награда успешно создана'
+        expect(page).to have_content 'назначена награда в +100 очков'
+      end
     end
   end
 
