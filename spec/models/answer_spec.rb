@@ -27,4 +27,38 @@ describe Answer do
       expect(answer).to_not be_from(user)
     end
   end
+
+  describe '#toggle_bounty_from' do
+    let(:question) { create(:question) }
+    let(:answer)   { create(:answer, question: question) }
+    let!(:bounty)  { create(:bounty, question: question) }
+
+    context 'when not received Bounty' do
+      it "adds Answer to Bounty as winner" do
+        answer.toggle_bounty_from question
+        expect(bounty.winner).to eq(answer.user)
+      end
+
+      it "adds Bounty value to user reputation" do
+        expect {
+          answer.toggle_bounty_from question
+        }.to change(answer.user, :reputation).by(bounty.value)
+      end
+    end
+
+    context 'when already received Bounty' do
+      before { answer.toggle_bounty_from question }
+
+      it "removes Answer from Bounty winner" do
+        answer.toggle_bounty_from question
+        expect(bounty.winner).to be_nil
+      end
+
+      it "adds Bounty value to user reputation" do
+        expect {
+          answer.toggle_bounty_from question
+        }.to change(answer.user, :reputation).by(-bounty.value)
+      end
+    end
+  end
 end

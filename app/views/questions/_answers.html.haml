@@ -15,7 +15,7 @@
           .text= downvote_text(answer)
 
         - if @question.user == current_user
-          = link_to accept_answer_path(answer), remote: true, class: accept_link_class(@question, answer), title: @question.accepted?(answer) ? t('answer.best') : t('answer.choose') do
+          = link_to [:accept, @question, answer], remote: true, class: accept_link_class(@question, answer), title: @question.accepted?(answer) ? t('answer.best') : t('answer.choose') do
             %span.glyphicon.glyphicon-ok
             %span.text= @question.accepted?(answer) ? t('answer.best') : t('answer.choose')
         - elsif @question.accepted?(answer)

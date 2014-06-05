@@ -28,6 +28,7 @@ en:
     made_by: Made by
     welcome: Welcome
     replace_file: Replace file
+    last_activity: Last activity
   common_attributes: &common_attrs
     created_at: Created at
     updated_at: Updated at

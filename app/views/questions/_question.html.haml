@@ -18,12 +18,16 @@
 .question-cell
   .question-body
     .question-meta
-      %span.views-count
-        %span.glyphicon.glyphicon-eye-open
-        = @question.views_count
-      %span.created-ago
-        %span.glyphicon.glyphicon-time
-        = timeago_tag @question.updated_at, lang: I18n.locale
+      %a.spoiler-btn{href: '#', data: {toggle: "collapse", target: ".meta-spoiler"}}
+        %b.caret
+      .meta-spoiler.collapse
+        %span.views-count
+          %span.glyphicon.glyphicon-eye-open
+          = @question.views_count
+        %span.created-ago
+          %span.glyphicon.glyphicon-time
+          = t('common.last_activity')
+          = timeago_tag @question.updated_at, lang: I18n.locale
 
     .question-text
       = @question.body.html_safe

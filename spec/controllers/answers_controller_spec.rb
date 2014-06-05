@@ -8,7 +8,7 @@ describe AnswersController do
     context 'when not Question author' do
       let(:question) { create(:question) }
       let(:answer) { create(:answer, question: question) }
-      before { get :accept, id: answer }
+      before { get :accept, question_id: question, id: answer }
 
       it "doesn't accept answer" do
         expect(assigns(:answer).accepted).to be_false
@@ -22,8 +22,8 @@ describe AnswersController do
     context 'when Question author' do
       let(:question) { create(:question, user: @user) }
       let(:answer) { create(:answer, question: question) }
-      let(:bounty) { create(:bounty, question: question) }
-      before { get :accept, id: answer }
+      let!(:bounty) { create(:bounty, question: question) }
+      before { get :accept, question_id: question, id: answer }
 
       it "finds Answer to accept" do
         expect(assigns(:answer)).to eq(answer)
@@ -34,7 +34,8 @@ describe AnswersController do
       end
 
       it "awards Bounty if exists" do
-        expect(bounty.winner).to eq(answer)
+        bounty.reload
+        expect(bounty.winner).to eq(answer.user)
       end
 
       it "redirects to Answer Question" do
@@ -47,7 +48,7 @@ describe AnswersController do
       let!(:accepted_answer) { create(:answer, question: question,
         accepted: true) }
       let(:answer) { create(:answer, question: question) }
-      before { get :accept, id: answer }
+      before { get :accept, question_id: question, id: answer }
 
       it "finds Answer Question" do
         expect(assigns(:question)).to eq(question)
@@ -69,7 +70,7 @@ describe AnswersController do
     context 'when Answer already accepted' do
       let(:question) { create(:question, user: @user) }
       let(:answer) { create(:answer, question: question, accepted: true) }
-      before { get :accept, id: answer }
+      before { get :accept, question_id: question, id: answer }
 
       it "toggles Answer accepted value to false" do
         expect(assigns(:answer).accepted).to be_false

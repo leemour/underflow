@@ -19,13 +19,28 @@ class Answer < ActiveRecord::Base
     user == self.user
   end
 
-  def receive_bounty_from(question)
-    if question.bounty
-      question.bounty.update(winner_id: user.id)
-      question.user.reputation -= question.bounty.value
-      answer.user.reputation += question.bounty.value
+  def toggle_bounty_from(question)
+    return false unless question.bounty
+    if self.user == question.bounty.winner # Already received bounty
+      give_bounty_back_to(question)
     else
-      false
+      receive_bounty_from(question)
     end
+  end
+
+  private
+
+  def receive_bounty_from(question)
+    bounty = question.bounty
+    bounty.update(winner_id: self.user.id)
+    question.user.reputation -= bounty.value
+    self.user.reputation     += bounty.value
+  end
+
+  def give_bounty_back_to(question)
+    bounty = question.bounty
+    bounty.update(winner_id: nil)
+    question.user.reputation += bounty.value
+    self.user.reputation     -= bounty.value
   end
 end

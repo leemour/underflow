@@ -22,12 +22,13 @@ Rails.application.routes.draw do
 
   resources :questions do
     concerns :commentable, :voteable
-    resources :answers, except: [:show, :index, :destroy]
+    resources :answers, except: [:show, :index, :destroy] do
+      get 'accept', on: :member
+    end
     member do
       get 'favor'
       resource :bounty, only: [] do
         post 'start'
-        post 'award'
         delete 'stop'
       end
     end
@@ -41,7 +42,6 @@ Rails.application.routes.draw do
 
   resources :answers, only: [:destroy] do
     concerns :commentable, :voteable
-    get 'accept', on: :member
   end
 
   resources :users, only: [:index, :show, :edit, :update] do

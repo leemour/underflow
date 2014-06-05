@@ -57,9 +57,9 @@ body.questions
   .question
     +single-box-shadow(#ccc, 2px, 2px, 0, 0)
     background-color: #fff
-    // border: 1px solid #ddd
     margin-bottom: 10px
     padding: 5px 15px 15px
+    position: relative
     h1
       background-color: transparent
       border: 0 none
@@ -94,6 +94,16 @@ body.questions
       vertical-align: baseline
       white-space: nowrap
       text-align: center
+    .spoiler-btn
+      position: absolute
+      top: 10px
+      right: 15px
+      b
+        border-left: 7px solid transparent
+        border-right: 7px solid transparent
+        border-top: 7px solid #000000
+      &:hover b
+        border-top-color: #777
 
   form #question_body
     min-height: 200px

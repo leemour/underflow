@@ -28,6 +28,7 @@ ru:
     made_by: Сделано
     welcome: Добро пожаловать
     replace_file: Заменить файл
+    last_activity: Последняя активность
   common_attributes: &common_attrs
     created_at: Создан
     updated_at: Изменен

@@ -4,7 +4,7 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   before_action :set_answer, only: [:accept, :edit, :update, :destroy]
   before_action :check_permission, only: [:update, :destroy]
-  before_action :set_question, only: [:new, :edit, :create, :update]
+  before_action :set_question, only: [:accept, :new, :edit, :create, :update]
   before_action :set_user, only: [:voted, :by_user]
   before_action :check_accept_permission, only: [:accept]
 
@@ -14,9 +14,9 @@ class AnswersController < ApplicationController
 
   def accept
     @answer.toggle(:accepted).save
-    Bounty.award_to @answer
+    @answer.receive_bounty_from @question
     respond_to do |format|
-      format.html { redirect_to @answer.question }
+      format.html { redirect_to @question }
       format.js
     end
   end
@@ -90,7 +90,7 @@ class AnswersController < ApplicationController
   end
 
   def set_question
-    @question = Question.find(params[:question_id])
+    @question = Question.find_by_id(params[:question_id])
   end
 
   def set_user
