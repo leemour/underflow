@@ -4,7 +4,7 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   before_action :set_answer, only: [:accept, :edit, :update, :destroy]
   before_action :check_permission, only: [:update, :destroy]
-  before_action :set_question, only: [:accept, :new, :edit, :create, :update]
+  before_action :set_question, only: [:accept, :new, :edit, :create, :update, :destroy]
   before_action :set_user, only: [:voted, :by_user]
   before_action :check_accept_permission, only: [:accept]
 
@@ -37,12 +37,12 @@ class AnswersController < ApplicationController
       if @answer.save
         format.html { redirect_to @question, tr(:answer, 'created') }
         format.js
-        format.json { render :create }
+        # format.json { render :create }
       else
         format.html { render :new }
         format.js
-        format.json { render json: @answer.errors.full_messages,
-          status: :unprocessable_entity }
+        # format.json { render json: @answer.errors.full_messages,
+        #   status: :unprocessable_entity }
       end
     end
   end

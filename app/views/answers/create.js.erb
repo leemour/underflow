@@ -1,11 +1,22 @@
 <% if @answer.errors.empty? %>
   $('#content').prepend(
-    '<%= j render 'shared/flash', flash: tr(:answer, 'created') %>'
+    "<%= j render 'shared/flash', flash: tr(:answer, 'created') %>"
   );
-  $('#answers').html('<%= j render 'questions/answers' %>');
-  $('#answers .answer').last().css('background-color', '#eee');
+  $('#answers .answer').last().css('background-color', '#fffff7');
   $('#answer-form #answer_body').val('');
   $('#answer-form .answer-errors').hide();
+
+  <% publish_to "/questions/#{@question.id}/answers" do %>
+    $('.answers-heading').html(
+      '<%= t('activerecord.models.answer', count: @question.answers.count) %>'
+    );
+    $('#answers').append('<%= j render 'answers/answer', answer: @answer %>');
+    $('#answer-' + <%= @answer.id %>).find('.controls').hide();
+    if ($("header .user-name:contains('<%= @answer.user.name %>')").length) {
+      $('#answer-' + <%= @answer.id %>).find('.controls').show();
+    }
+  <% end %>
+
 <% else %>
   $('#answer-form').html('<%= j render 'answers/form', answer: @answer %>');
 <% end %>

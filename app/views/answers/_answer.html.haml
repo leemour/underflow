@@ -1,0 +1,57 @@
+.answer{id: "answer-#{answer.id}", class: item_class(answer)}
+  .vote-cell
+
+    = link_to [answer, :vote_up], method: 'post', remote: true, data: {type: 'json'}, class: 'upvote' + vote_class(answer, :up), title: upvote_text(answer) do
+      %span.glyphicon.glyphicon-chevron-up
+      .text= upvote_text(answer)
+
+    .vote-sum= answer.vote_sum
+
+    = link_to [answer, :vote_down], method: 'post', remote: true, data: {type: 'json'}, class: 'downvote' + vote_class(answer, :down), title: downvote_text(answer) do
+      %span.glyphicon.glyphicon-chevron-down
+      .text= downvote_text(answer)
+
+    - if @question.user == current_user
+      = link_to [:accept, @question, answer], remote: true, method: 'patch', class: accept_link_class(@question, answer), title: @question.accepted?(answer) ? t('answer.best') : t('answer.choose') do
+        %span.glyphicon.glyphicon-ok
+        %span.text= @question.accepted?(answer) ? t('answer.best') : t('answer.choose')
+    - elsif @question.accepted?(answer)
+      .accept.accepted
+        %span.glyphicon.glyphicon-ok
+        %span.text= t('answer.best')
+
+  .answer-cell
+    .answer-body
+      .answer-text= answer.body.html_safe
+      %ul.answer-files
+        - answer.attachments.each do |attachment|
+          - if attachment.persisted?
+            %li
+              %span.glyphicon.glyphicon-file
+              = link_to attachment.file.filename, attachment.file.url
+
+    - if answer.from?(current_user)
+      .answer-edit-form
+        = render 'answers/form', answer: answer
+
+    .row.answer-details
+      .controls.col-sm-6
+        - if answer.from?(current_user)
+          = link_to t('common.edit'), [:edit, @question, answer], class: 'edit btn btn-warning btn-xs', data: {answer_id: answer.id}
+          = link_to t('common.delete'), [@question, answer], class: 'delete btn btn-danger btn-xs', method: :delete, data: { confirm: t("common.sure") }, remote: true
+      .started.col-sm-6.pull-right
+        = timeago_tag answer.created_at, lang: I18n.locale
+        %span.author
+          = link_to answer.user do
+            = image_tag answer.user.avatar_url(:thumb), class: 'avatar'
+            = answer.user.name
+        %span.author-reputation
+
+    .comments
+      = render 'comments/comments', commentable: answer
+
+    .comment-create-form
+      = render 'comments/form', commentable: answer, comment: answer.comments.build, edit: true
+
+    - if user_signed_in?
+      = link_to t('comment.add'), new_answer_comment_path(answer), class: 'add-comment btn btn-default btn-xs'
