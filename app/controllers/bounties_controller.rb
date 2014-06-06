@@ -2,9 +2,10 @@ class BountiesController < ApplicationController
   include ApplicationHelper
 
   before_action :authenticate_user!
+  before_action :set_question
   before_action :check_permissions
 
-  def start
+  def create
     @question.create_bounty(bounty_params)
     respond_to do |format|
       format.html { redirect_to @question, tr(:bounty, 'created', 'female') }
@@ -12,7 +13,7 @@ class BountiesController < ApplicationController
     end
   end
 
-  def stop
+  def destroy
     @question.bounty.destroy
     respond_to do |format|
       format.html { redirect_to @question, tr(:bounty, 'deleted', 'female') }
@@ -22,8 +23,11 @@ class BountiesController < ApplicationController
 
   protected
 
+  def set_question
+    @question = Question.find(params[:question_id])
+  end
+
   def check_permissions
-    @question = Question.find(params[:id])
     render_error t('errors.denied') if @question.user != current_user
   end
 

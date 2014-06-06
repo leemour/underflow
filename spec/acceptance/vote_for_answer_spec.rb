@@ -9,7 +9,7 @@ feature 'User votes for answer',
 
   given(:user)     { create(:user) }
   given(:question) { create(:question) }
-  given!(:answer)   { create(:answer, question: question) }
+  given!(:answer)  { create(:answer, question: question) }
 
   context 'when logged in' do
     background { sign_in_with(user.email, user.password) }

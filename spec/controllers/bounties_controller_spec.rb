@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe BountiesController do
 
-  describe "POST #start" do
+  describe "POST #create" do
     context 'when Question author' do
       before { login_user }
       let(:question) { create(:question, user: @user) }
 
       context "with AJAX" do
-        before { post :start, id: question, bounty: attributes_for(:bounty),
+        before { post :create, question_id: question, bounty: attributes_for(:bounty),
           format: :js }
 
         it "creates Bounty with value 50" do
@@ -17,12 +17,12 @@ describe BountiesController do
         end
 
         it "renders :start view" do
-          expect(response).to render_template 'start'
+          expect(response).to render_template 'create'
         end
       end
 
       context "without AJAX" do
-        before { post :start, id: question, bounty: attributes_for(:bounty) }
+        before { post :create, question_id: question, bounty: attributes_for(:bounty) }
 
         it "creates Bounty with value 50" do
           assigns(:question).reload
@@ -38,7 +38,7 @@ describe BountiesController do
     context 'when not Question author' do
       before { login_user }
       let(:question) { create(:question) }
-      before { post :start, id: question, bounty: attributes_for(:bounty) }
+      before { post :create, question_id: question, bounty: attributes_for(:bounty) }
 
       it "doesn't create bounty" do
         expect(assigns(:question).bounty).to be_nil
@@ -51,7 +51,7 @@ describe BountiesController do
 
     context 'when not logged in' do
       let(:question) { create(:question) }
-      before { post :start, id: question, bounty: attributes_for(:bounty) }
+      before { post :create, question_id: question, bounty: attributes_for(:bounty) }
 
       it "doesn't create bounty" do
         expect(assigns(:question)).to be_nil
@@ -63,12 +63,12 @@ describe BountiesController do
     end
   end
 
-  describe "DELETE #stop" do
+  describe "DELETE #destroy" do
     context 'when Question author' do
       before { login_user }
       let(:question) { create(:question, user: @user) }
       before { create(:bounty, question: question) }
-      before { delete :stop, id: question}
+      before { delete :destroy, question_id: question}
 
       it "deletes bounty from Question" do
         assigns(:question).reload
@@ -83,7 +83,7 @@ describe BountiesController do
     context 'when not Question author' do
       before { login_user }
       let(:question) { create(:question) }
-      before { delete :stop, id: question }
+      before { delete :destroy, question_id: question }
 
       it "doesn't create bounty" do
         expect(assigns(:question).bounty).to be_nil
@@ -96,7 +96,7 @@ describe BountiesController do
 
     context 'when not logged in' do
       let(:question) { create(:question) }
-      before { delete :stop, id: question }
+      before { delete :destroy, question_id: question }
 
       it "doesn't create bounty" do
         expect(assigns(:question)).to be_nil

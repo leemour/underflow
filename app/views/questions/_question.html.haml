@@ -1,13 +1,13 @@
 %h1= @question.title
 
 .vote-cell
-  = link_to [@question, :vote_up], remote: true, data: {type: 'json'}, class: 'upvote' + vote_class(@question, :up), title: upvote_text(@question) do
+  = link_to [@question, :vote_up], method: 'post', remote: true, data: {type: 'json'}, class: 'upvote' + vote_class(@question, :up), title: upvote_text(@question) do
     %span.glyphicon.glyphicon-chevron-up
     .text= upvote_text(@question)
 
   .vote-sum= @question.vote_sum
 
-  = link_to [@question, :vote_down], remote: true, data: {type: 'json'}, class: 'downvote' + vote_class(@question, :down), title: downvote_text(@question) do
+  = link_to [@question, :vote_down], method: 'post', remote: true, data: {type: 'json'}, class: 'downvote' + vote_class(@question, :down), title: downvote_text(@question) do
     %span.glyphicon.glyphicon-chevron-down
     .text= downvote_text(@question)
 

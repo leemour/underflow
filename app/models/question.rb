@@ -28,8 +28,11 @@ class Question < ActiveRecord::Base
   scope :popular,    -> { reorder(views_count: :desc) }
   scope :featured,   -> { joins(:bounty).where(bounties: {winner_id: nil}).
                           order('bounties.value') }
-  scope :most_voted, -> { joins(:votes).group('questions.id').
-                          reorder('SUM(votes.value) desc') }
+  scope :most_voted, -> { joins("LEFT OUTER JOIN votes ON "\
+                          "questions.id = votes.voteable_id AND "\
+                          "votes.voteable_type = 'Question'").
+                          group('questions.id').
+                          reorder('COALESCE(SUM(votes.value), 0) desc') }
 
 
   def from?(user)

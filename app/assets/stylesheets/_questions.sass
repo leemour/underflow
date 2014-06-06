@@ -1,109 +1,102 @@
-body.questions.index
-  header
-    clear: both
-    overflow: hidden
-  .question-nav
-    margin-bottom: 20px
-    background-color: #fff
-    border-radius: 5px
-    .btn
-      background-color: #e68200
-      border-color: #d17600
-      color: #fff
-      padding: 10px
-      &:hover
-        background-color: #e66100
-      &.active
-        background-color: #d86600
-  .question
-    margin-bottom: 20px
-    overflow: hidden
-    padding: 10px 15px 5px 5px
-    h3
-      margin: 0
-    .tags
-      margin-top: 5px
-    .counters
-      font-size: 24px
-      text-align: center
-      width: 150px
-      .votes,
-      .answers,
-      .views,
-        float: left
-        padding: 5px 0
-        position: relative
-        top: -10px
-      .votes
-        width: 45px
-      .answers
-        color: #a73300
-        margin: 0 2px
-        width: 46px
-        &.answered
-          color: #fff
-          background-color: #74b9a7
-      .views
-        width: 55px
-        .text
-          font-size: 10px
-          line-height: 1.5em
+header.questions
+  clear: both
+  overflow: hidden
+.question-nav
+  margin-bottom: 20px
+  background-color: #fff
+  border-radius: 5px
+  .btn
+    background-color: #e68200
+    border-color: #d17600
+    color: #fff
+    padding: 10px
+    &:hover
+      background-color: #e66100
+    &.active
+      background-color: #d86600
+.question
+  h3
+    margin-top: 0
+  .tags
+    margin-top: 5px
+  .counters
+    font-size: 24px
+    text-align: center
+    width: 150px
+    .votes,
+    .answers,
+    .views,
+      float: left
+      padding: 5px 0
+      position: relative
+      top: -15px
+    .votes
+      width: 45px
+    .answers
+      color: #a73300
+      margin: 0 2px
+      width: 46px
+      &.answered
+        color: #fff
+        background-color: #74b9a7
+    .views
+      width: 55px
       .text
-        font-size: 11px
-    .content
-      margin-left: 165px
+        font-size: 10px
+        line-height: 1.5em
+    .text
+      font-size: 11px
+  .content
+    margin-left: 165px
 
-body.questions
-  .question
-    +single-box-shadow(#ccc, 2px, 2px, 0, 0)
-    background-color: #fff
-    margin-bottom: 10px
-    padding: 5px 15px 15px
-    position: relative
-    h1
-      background-color: transparent
-      border: 0 none
-      padding-left: 0
-    .content
-      margin-bottom: 5px
-    .question-cell
-      margin-left: 50px
-    .question-meta
-      margin-bottom: 15px
-      .views-count,
-      .created-ago
-        margin-right: 20px
-    .question-details
-      margin-bottom: -30px
-    .bounty
-      background-color: #eee
-      border: 1px solid #dfdfdf
-      border-radius: 3px
-      margin-bottom: 20px
-      padding: 20px 15px
-    .bounty-value
-      background-color: #3071a9
-      border-radius: 4px
-      display: inline-block
-      min-width: 10px
-      padding: 5px 9px
-      font-size: 12px
-      font-weight: bold
-      color: white
-      line-height: 1
-      vertical-align: baseline
-      white-space: nowrap
-      text-align: center
-    .spoiler-btn
-      position: absolute
-      top: 10px
-      right: 15px
-      b
-        border-left: 7px solid transparent
-        border-right: 7px solid transparent
-        border-top: 7px solid #000000
-      &:hover b
-        border-top-color: #777
+.question
+  +single-box-shadow(#ccc, 2px, 2px, 0, 0)
+  background-color: #fff
+  margin-bottom: 10px
+  padding: 15px 15px 15px
+  position: relative
+  h1
+    background-color: transparent
+    border: 0 none
+    padding: 0
+  .content
+    margin-bottom: 5px
+  .question-cell
+    margin-left: 50px
+  .question-meta
+    margin-bottom: 15px
+    .views-count,
+    .created-ago
+      margin-right: 20px
+  .bounty
+    background-color: #eee
+    border: 1px solid #dfdfdf
+    border-radius: 3px
+    margin-bottom: 20px
+    padding: 20px 15px
+  .bounty-value
+    background-color: #3071a9
+    border-radius: 4px
+    display: inline-block
+    min-width: 10px
+    padding: 5px 9px
+    font-size: 12px
+    font-weight: bold
+    color: white
+    line-height: 1
+    vertical-align: baseline
+    white-space: nowrap
+    text-align: center
+  .spoiler-btn
+    position: absolute
+    top: 15px
+    right: 15px
+    b
+      border-left: 7px solid transparent
+      border-right: 7px solid transparent
+      border-top: 7px solid #000000
+    &:hover b
+      border-top-color: #777
 
   form #question_body
     min-height: 200px

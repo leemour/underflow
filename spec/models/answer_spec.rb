@@ -14,6 +14,8 @@ describe Answer do
   it { should validate_presence_of(:body) }
   it { should ensure_length_of(:body).is_at_least(30).is_at_most(6000) }
 
+  it_behaves_like "voteable"
+
   describe '#from?(user)' do
     let(:user) { create(:user) }
 
@@ -28,35 +30,47 @@ describe Answer do
     end
   end
 
-  describe '#toggle_bounty_from' do
+  describe '#toggle_accepted_from' do
     let(:question) { create(:question) }
     let(:answer)   { create(:answer, question: question) }
     let!(:bounty)  { create(:bounty, question: question) }
 
+    it 'toggles accepted from true to false' do
+      answer.update(accepted: true)
+      answer.toggle_accepted_from question
+      expect(answer.accepted).to be_false
+    end
+
+    it 'toggles accepted from false to true' do
+      answer.update(accepted: false)
+      answer.toggle_accepted_from question
+      expect(answer.accepted).to be_true
+    end
+
     context 'when not received Bounty' do
       it "adds Answer to Bounty as winner" do
-        answer.toggle_bounty_from question
+        answer.toggle_accepted_from question
         expect(bounty.winner).to eq(answer.user)
       end
 
       it "adds Bounty value to user reputation" do
         expect {
-          answer.toggle_bounty_from question
+          answer.toggle_accepted_from question
         }.to change(answer.user, :reputation).by(bounty.value)
       end
     end
 
     context 'when already received Bounty' do
-      before { answer.toggle_bounty_from question }
+      before { answer.toggle_accepted_from question }
 
       it "removes Answer from Bounty winner" do
-        answer.toggle_bounty_from question
+        answer.toggle_accepted_from question
         expect(bounty.winner).to be_nil
       end
 
       it "adds Bounty value to user reputation" do
         expect {
-          answer.toggle_bounty_from question
+          answer.toggle_accepted_from question
         }.to change(answer.user, :reputation).by(-bounty.value)
       end
     end

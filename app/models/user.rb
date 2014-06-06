@@ -42,14 +42,14 @@ class User < ActiveRecord::Base
 
 
   def upvoted?(object)
-    vote(object).try(:value) == 1
+    get_vote_for(object).try(:value) == 1
   end
 
   def downvoted?(object)
-    vote(object).try(:value) == -1
+    get_vote_for(object).try(:value) == -1
   end
 
-  def vote(object)
+  def get_vote_for(object)
     votes.where(voteable_id: object.id, voteable_type: object.class).first
   end
 

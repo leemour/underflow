@@ -23,7 +23,6 @@ describe User do
 
   it "has profile when created" do
     user = User.create!(email: '123@mai.ru', password: '12345678', name: 'hey')
-    # expect(user.profile.id).to_not eq(nil)
     expect(user.profile).to be_persisted
   end
 
@@ -57,7 +56,7 @@ describe User do
     end
   end
 
-  describe '#vote' do
+  describe '#get_vote_for' do
     subject { create(:user) }
 
     context 'Question' do
@@ -65,12 +64,12 @@ describe User do
 
       it 'returns Vote' do
         question.vote_up(subject)
-        expect(subject.vote(question)).to be_a(Vote)
+        expect(subject.get_vote_for(question)).to be_a(Vote)
       end
 
       it 'has value 1 when upvoted' do
          question.vote_up(subject)
-        expect(subject.vote(question).value).to be(1)
+        expect(subject.get_vote_for(question).value).to be(1)
       end
     end
   end

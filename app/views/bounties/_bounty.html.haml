@@ -2,4 +2,4 @@
   = t('bounty.offered', points: @question.bounty.value).html_safe
   - if @question.from?(current_user)
     %br
-    = link_to t('bounty.stop'), stop_bounty_path(@question), remote: true, method: 'delete'
+    = link_to t('bounty.stop'), [@question, :bounty], remote: true, method: 'delete'

@@ -18,6 +18,9 @@ describe Question do
   it { should ensure_length_of(:title).is_at_least(15).is_at_most(60) }
   it { should ensure_length_of(:body).is_at_least(60).is_at_most(6000) }
 
+  it_behaves_like "voteable"
+  it_behaves_like "favorable"
+
   context 'when created' do
     subject { build(:question) }
 
@@ -118,111 +121,49 @@ describe Question do
     end
   end
 
-  describe '#vote_up' do
-    subject { create(:question) }
-    let(:user) { create(:user) }
+  context 'scopes' do
+    let!(:question1) { create(:question) }
+    let!(:question2) { create(:question) }
+    let!(:question3) { create(:question) }
 
-    it 'returns a Vote' do
-      expect(subject.vote_up(user)).to be_a(Vote)
-    end
+    describe '#self.unanswered' do
+      let!(:answer1) { create(:answer, question: question1) }
 
-    it 'changes Question votes by +1' do
-      expect {
-        subject.vote_up(user)
-      }.to change(subject.votes, :count).by(1)
-    end
-
-    it 'changes Question rating by +1' do
-      expect {
-        subject.vote_up(user)
-      }.to change(subject, :vote_sum).by(1)
-    end
-  end
-
-  describe '#vote_down' do
-    subject { create(:question) }
-    let(:user) { create(:user) }
-
-    it 'returns a Vote' do
-      expect(subject.vote_down(user)).to be_a(Vote)
-    end
-
-    it 'changes Question votes by -1' do
-      expect {
-        subject.vote_down(user)
-      }.to change(subject.votes, :count).by(1)
-    end
-
-    it 'changes Question rating by -1' do
-      expect {
-        subject.vote_down(user)
-      }.to change(subject, :vote_sum).by(-1)
-    end
-  end
-
-  describe '#vote_sum' do
-    subject { create(:question) }
-    let(:user) { create(:user) }
-
-    it 'returns 0 when no votes' do
-      expect(subject.vote_sum).to eq(0)
-    end
-
-    it 'returns 1 when 1 upvote' do
-      subject.vote_up(user)
-      expect(subject.vote_sum).to eq(1)
-    end
-
-    it 'returns 1 when 1 downvote' do
-      subject.vote_down(user)
-      expect(subject.vote_sum).to eq(-1)
-    end
-
-    it 'returns 1 when 1 downvote and 2 upvotes' do
-      subject.vote_down(user)
-      subject.vote_up(create(:user))
-      subject.vote_up(create(:user))
-      expect(subject.vote_sum).to eq(1)
-    end
-  end
-
-  describe '#favor' do
-    subject { create(:question) }
-    let(:user) { create(:user) }
-
-    it 'returns a Favorite' do
-      expect(subject.favor(user)).to be_a(Favorite)
-    end
-
-    context 'if not favourite' do
-      it 'adds Question to User favourites' do
-        expect {
-          subject.favor(user)
-        }.to change(subject.favorites, :count).by(1)
+      it 'returns only Questions with Answers' do
+        expect(Question.unanswered).to match_array [question3, question2]
       end
     end
 
-    context 'if already favourite' do
-      it 'removes Question from User favourites' do
-        subject.favor(user)
-        expect {
-          subject.favor(user)
-        }.to change(subject.favorites, :count).by(-1)
+    describe '#self.popular' do
+      let!(:question1) { create(:question, views_count: 10) }
+      let!(:question2) { create(:question, views_count: 20) }
+      let!(:question3) { create(:question, views_count: 0) }
+
+      it 'returns Questions ordered by views_count' do
+        expect(Question.popular).to match_array [question2, question1, question3]
       end
     end
-  end
 
-  describe '#favored_by?' do
-    subject { create(:question) }
-    let(:user) { create(:user) }
+    describe '#self.featured' do
+      before do
+        create(:bounty, question: question1)
+        create(:bounty, question: question2, winner: question1.user)
+      end
 
-    it 'returns false if User not favoured' do
-      expect(subject.favored_by?(user)).to be_false
+      it 'returns Questions with unreceived Bounties' do
+        expect(Question.featured).to match_array [question1]
+      end
     end
 
-    it 'returns true if User favoured' do
-      subject.favor(user)
-      expect(subject.favored_by?(user)).to be_true
+    describe '#self.most_voted' do
+      before do
+        create(:vote, voteable: question1, value: -1)
+        create_pair(:vote, voteable: question2, value: 1)
+      end
+
+      it 'returns Questions ordered by vote_sum' do
+        expect(Question.most_voted).to match_array [question2, question3, question1]
+      end
     end
   end
 end

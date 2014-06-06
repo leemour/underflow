@@ -6,7 +6,7 @@ module Voteable
   end
 
   def vote_up(user)
-    vote = user.vote(self)
+    vote = user.get_vote_for(self)
     if vote
       vote.destroy if vote.value == 1
       vote.update(value: 1) if vote.value == -1
@@ -16,7 +16,7 @@ module Voteable
   end
 
   def vote_down(user)
-    vote = user.vote(self)
+    vote = user.get_vote_for(self)
     if vote
       vote.destroy if vote.value == -1
       vote.update(value: -1) if vote.value == 1

@@ -4,18 +4,18 @@
     .answer{id: "answer-#{answer.id}", class: item_class(answer)}
       .vote-cell
 
-        = link_to [answer, :vote_up], remote: true, data: {type: 'json'}, class: 'upvote' + vote_class(answer, :up), title: upvote_text(answer) do
+        = link_to [answer, :vote_up], method: 'post', remote: true, data: {type: 'json'}, class: 'upvote' + vote_class(answer, :up), title: upvote_text(answer) do
           %span.glyphicon.glyphicon-chevron-up
           .text= upvote_text(answer)
 
         .vote-sum= answer.vote_sum
 
-        = link_to [answer, :vote_down], remote: true, data: {type: 'json'}, class: 'downvote' + vote_class(answer, :down), title: downvote_text(answer) do
+        = link_to [answer, :vote_down], method: 'post', remote: true, data: {type: 'json'}, class: 'downvote' + vote_class(answer, :down), title: downvote_text(answer) do
           %span.glyphicon.glyphicon-chevron-down
           .text= downvote_text(answer)
 
         - if @question.user == current_user
-          = link_to [:accept, @question, answer], remote: true, class: accept_link_class(@question, answer), title: @question.accepted?(answer) ? t('answer.best') : t('answer.choose') do
+          = link_to [:accept, @question, answer], remote: true, method: 'patch', class: accept_link_class(@question, answer), title: @question.accepted?(answer) ? t('answer.best') : t('answer.choose') do
             %span.glyphicon.glyphicon-ok
             %span.text= @question.accepted?(answer) ? t('answer.best') : t('answer.choose')
         - elsif @question.accepted?(answer)

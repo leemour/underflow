@@ -19,6 +19,13 @@ class Answer < ActiveRecord::Base
     user == self.user
   end
 
+  def toggle_accepted_from(question)
+    toggle(:accepted).save
+    toggle_bounty_from question
+  end
+
+  private
+
   def toggle_bounty_from(question)
     return false unless question.bounty
     if self.user == question.bounty.winner # Already received bounty
@@ -27,8 +34,6 @@ class Answer < ActiveRecord::Base
       receive_bounty_from(question)
     end
   end
-
-  private
 
   def receive_bounty_from(question)
     bounty = question.bounty

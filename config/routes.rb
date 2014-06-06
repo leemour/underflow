@@ -11,8 +11,8 @@ Rails.application.routes.draw do
   end
 
   concern :voteable do
-    get 'vote/up', to: 'votes#up'
-    get 'vote/down', to: 'votes#down'
+    post 'vote/up', to: 'votes#up'
+    post 'vote/down', to: 'votes#down'
     resources :votes, only: [:index]
   end
 
@@ -23,15 +23,10 @@ Rails.application.routes.draw do
   resources :questions do
     concerns :commentable, :voteable
     resources :answers, except: [:show, :index, :destroy] do
-      get 'accept', on: :member
+      patch 'accept', on: :member
     end
-    member do
-      get 'favor'
-      resource :bounty, only: [] do
-        post 'start'
-        delete 'stop'
-      end
-    end
+    resource :bounty, only: [:create, :destroy]
+    get 'favor', on: :member
     collection do
       get 'unanswered', to: 'questions#index', scope: 'unanswered'
       get 'most-voted', to: 'questions#index', scope: 'most_voted'
