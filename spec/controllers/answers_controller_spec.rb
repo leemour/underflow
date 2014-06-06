@@ -29,8 +29,18 @@ describe AnswersController do
         expect(assigns(:answer)).to eq(answer)
       end
 
-      it "toggles Answer accepted value" do
-        expect(assigns(:answer).accepted).to be_true
+      context 'when no Answers accepted' do
+        it "toggles Answer accepted value" do
+          expect(assigns(:answer).accepted).to be_true
+        end
+      end
+
+      context 'when Answer already accepted' do
+        before { get :accept, question_id: question, id: answer }
+
+        it "toggles Answer accepted value" do
+          expect(assigns(:answer).accepted).to be_false
+        end
       end
 
       it "awards Bounty if exists" do
