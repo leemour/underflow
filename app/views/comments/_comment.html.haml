@@ -1,0 +1,20 @@
+.comment{id: "comment-#{comment.id}"}
+
+  .comment-user.started
+    .author
+      = link_to comment.user do
+        = image_tag comment.user.avatar_url(:micro), class: 'avatar'
+        = comment.user.name
+    = timeago_tag comment.created_at, lang: I18n.locale
+
+  .comment-body= comment.body
+
+  - if comment.from?(current_user)
+    .comment-edit-form
+      = render 'comments/form', comment: comment, commentable: commentable, edit: true
+
+  .comment-details
+    - if comment.from?(current_user)
+      .controls
+        = link_to t('common.edit'), [:edit, commentable, comment], class: 'edit btn btn-warning btn-xs', data: {comment_id: comment.id}
+        = link_to t('common.delete'), [commentable, comment], class: 'delete btn btn-danger btn-xs', method: :delete, data: { confirm: t("common.sure") }, remote: true

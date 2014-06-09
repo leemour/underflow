@@ -1,4 +1,7 @@
-$('#comment-<%= @comment.id %>').remove();
 $('#content').prepend(
   '<%= j render 'shared/flash', flash: tr(:comment, 'deleted') %>'
 );
+
+<% publish_to "/questions/#{@question.id}/comments" do %>
+  $('<%= class_with_id(@comment) %>').remove();
+<% end %>
