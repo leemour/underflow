@@ -2,7 +2,6 @@
   $('#content').prepend(
     "<%= j render 'shared/flash', flash: tr(:answer, 'created') %>"
   );
-  $('#answers .answer').last().css('background-color', '#fffff7');
   $('#answer-form #answer_body').val('');
   $('#answer-form .answer-errors').hide();
 
@@ -11,6 +10,7 @@
       '<%= t('activerecord.models.answer', count: @question.answers.count) %>'
     );
     $('#answers').append('<%= j render 'answers/answer', answer: @answer %>');
+    $('#answers .answer').last().css('background-color', '#fffff7');
     $('#answer-' + <%= @answer.id %>).find('.controls').hide();
     if ($("header .user-name:contains('<%= @answer.user.name %>')").length) {
       $('#answer-' + <%= @answer.id %>).find('.controls').show();

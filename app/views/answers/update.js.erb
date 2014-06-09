@@ -3,13 +3,16 @@
     '<%= j render 'shared/flash', flash: tr(:answer, 'updated') %>'
   );
 
-  <% if remotipart_submitted? %>
-    $('#answers').html("<%= j "#{render 'questions/answers'}" %>");
-  <% else %>
-    $('#answers').html('<%= j render 'questions/answers' %>');
+  <% publish_to "/questions/#{@question.id}/answers" do %>
+    $('#answer-' + <%= @answer.id %>).replaceWith(
+      '<%= j render 'answers/answer', answer: @answer %>'
+    );
+    $('#answer-' + <%= @answer.id %>).css('background-color', '#fffff7');
+    $('#answer-' + <%= @answer.id %>).find('.controls').hide();
+    if ($("header .user-name:contains('<%= @answer.user.name %>')").length) {
+      $('#answer-' + <%= @answer.id %>).find('.controls').show();
+    }
   <% end %>
-
-  $('#answer-<%= @answer.id %>').css('background-color', '#eee');
 <% else %>
   $('#answer-<%= @answer.id %> form').replaceWith(
     '<%= j render 'answers/form', answer: @answer %>'
