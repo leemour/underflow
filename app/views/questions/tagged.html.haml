@@ -1,0 +1,8 @@
+.tag-questions
+  %h1
+    = t('activerecord.models.question.other')
+    = t('tag.with')
+    = link_to @tag.name, @tag
+
+  #questions
+    = render 'list', questions: @questions

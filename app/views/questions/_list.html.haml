@@ -23,3 +23,6 @@
               = image_tag question.user.avatar_url(:thumb), class: 'avatar'
               = question.user.name
           %span.author-reputation
+
+= page_entries_info questions
+= paginate questions

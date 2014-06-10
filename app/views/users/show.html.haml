@@ -59,8 +59,14 @@
       = @user.about
 
   .col-sm-6
-    %h2= link_to t('activerecord.models.question', count: @user.questions.count), user_questions_path(@user)
-    %h2= link_to t('activerecord.models.answer', count: @user.answers.count), user_answers_path(@user)
+    %h2
+      = link_to user_questions_path(@user) do
+        = @user.questions.count
+        = t('activerecord.models.question', count: @user.questions.count)
+    %h2
+      = link_to user_answers_path(@user) do
+        = @user.answers.count
+        = t('activerecord.models.answer', count: @user.answers.count)
 
     %h2= t('vote.voting')
     %h4= link_to t('activerecord.models.question.other'), [@user, :voted, :questions]

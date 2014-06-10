@@ -3,6 +3,10 @@ Rails.application.routes.draw do
 
   root 'questions#index'
 
+  concern :pageable do
+    get 'page/:page', action: 'index', on: :collection
+  end
+
   concern :commentable do
     resources :comments, except: [:show, :index]
   end
@@ -18,18 +22,22 @@ Rails.application.routes.draw do
   end
 
   resources :questions do
-    concerns :commentable, :voteable
+    concerns :pageable, :commentable, :voteable
     resources :answers, except: [:show, :index] do
       patch 'accept', on: :member
     end
+    collection do
+      get 'unanswered(/page/:page)', to: 'questions#index', scope: 'unanswered',
+          as: 'unanswered'
+      get 'most-voted(/page/:page)', to: 'questions#index', scope: 'most_voted',
+          as: 'most_voted'
+      get 'featured(/page/:page)',   to: 'questions#index', scope: 'featured',
+          as: 'featured'
+      get 'popular(/page/:page)',    to: 'questions#index', scope: 'popular',
+          as: 'popular'
+    end
     resource :bounty, only: [:create, :destroy]
     get 'favor', on: :member
-    collection do
-      get 'unanswered', to: 'questions#index', scope: 'unanswered'
-      get 'most-voted', to: 'questions#index', scope: 'most_voted'
-      get 'featured',   to: 'questions#index', scope: 'featured'
-      get 'popular',    to: 'questions#index', scope: 'popular'
-    end
   end
 
   resources :answers, only: [] do
@@ -37,12 +45,22 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: [:index, :show, :edit, :update] do
-    get 'questions', to: 'questions#by_user', as: 'questions'
-    get 'answers', to: 'answers#by_user', as: 'answers'
-    get 'voted/questions', to: 'questions#voted'
-    get 'voted/answers', to: 'answers#voted'
-    get 'favorite/questions', to: 'questions#favorite'
+    concerns :pageable
+    get 'questions(/page/:page)',          to: 'questions#by_user',
+      as: 'questions'
+    get 'answers(/page/:page)',            to: 'answers#by_user',
+      as: 'answers'
+    get 'voted/questions(/page/:page)',    to: 'questions#voted',
+      as: 'voted_questions'
+    get 'voted/answers(/page/:page)',      to: 'answers#voted',
+      as: 'voted_answers'
+    get 'favorite/questions(/page/:page)', to: 'questions#favorite',
+      as: 'favorite_questions'
   end
 
-  resources :tags, only: [:index, :show]
+  resources :tags, only: [:index, :show] do
+    concerns :pageable
+    get 'questions(/page/:page)',          to: 'questions#tagged',
+      as: 'questions'
+  end
 end

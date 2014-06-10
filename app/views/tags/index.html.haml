@@ -5,6 +5,8 @@
     .tag
       %h2
         = link_to tag.name, tag
-        %span.count= t('activerecord.models.question', count: tag.questions_count)
+        %span.count
+          = tag.questions_count
+          = t('activerecord.models.question', count: tag.questions_count)
       .tag-excerpt= tag.excerpt
       .tag-text= tag.description

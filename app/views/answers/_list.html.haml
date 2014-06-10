@@ -11,3 +11,6 @@
           = timeago_tag answer.created_at, lang: I18n.locale
           %span.author= link_to answer.user.name, answer.user
           %span.author-reputation
+
+= page_entries_info @answers
+= paginate @answers

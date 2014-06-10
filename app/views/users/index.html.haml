@@ -6,3 +6,6 @@
       = link_to user do
         = image_tag user.avatar_url(:thumb), class: 'avatar'
       %h3= link_to user.name, user
+
+
+= paginate @users

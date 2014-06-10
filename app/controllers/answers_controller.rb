@@ -9,7 +9,9 @@ class AnswersController < ApplicationController
   before_action :check_accept_permission, only: [:accept]
 
   def voted
-    @answers = Answer.joins(:votes).where(votes: {user_id: params[:user_id]})
+    @answers = Answer.joins(:votes).
+      where(votes: {user_id: params[:user_id]}).
+      page(params[:page])
   end
 
   def accept
@@ -21,7 +23,7 @@ class AnswersController < ApplicationController
   end
 
   def by_user
-    @answers = Answer.where(user_id: params[:user_id])
+    @answers = Answer.where(user_id: params[:user_id]).page(params[:page])
   end
 
   def new

@@ -9,8 +9,9 @@ class QuestionsController < ApplicationController
   impressionist actions: [:show]
 
   def favorite
-    @questions = Question.joins(:favorites).where(
-      favorites: {user_id: params[:user_id]})
+    @questions = Question.joins(:favorites).
+      where(favorites: {user_id: params[:user_id]}).
+      page(params[:page])
   end
 
   def favor
@@ -21,17 +22,23 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def tagged
+    @tag = Tag.find(params[:tag_id])
+    @questions = @tag.questions.page(params[:page])
+  end
+
   def voted
-    @questions = Question.joins(:votes).where(
-      votes: {user_id: params[:user_id]})
+    @questions = Question.joins(:votes).
+      where(votes: {user_id: params[:user_id]}).
+      page(params[:page])
   end
 
   def by_user
-    @questions = Question.where(user_id: params[:user_id])
+    @questions = Question.where(user_id: params[:user_id]).page(params[:page])
   end
 
   def index
-    @questions = Question.includes(:tags).all
+    @questions = Question.includes(:tags).page(params[:page])
     @questions = @questions.send(params[:scope]) if params[:scope]
   end
 

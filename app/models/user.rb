@@ -31,6 +31,8 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
+  paginates_per 5
+
   def set_profile
     self.create_profile
   end

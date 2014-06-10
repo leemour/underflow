@@ -15,6 +15,8 @@ class Answer < ActiveRecord::Base
 
   validates :body, presence: true, length: {in: 30..6000}
 
+  paginates_per 5
+
   def from?(user)
     user == self.user
   end

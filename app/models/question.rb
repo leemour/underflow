@@ -19,6 +19,8 @@ class Question < ActiveRecord::Base
   after_create :increment_tags_counter
   before_destroy :decrement_tags_counter
 
+  paginates_per 5
+
   is_impressionable counter_cache: true, column_name: :views_count, unique: true
 
   accepts_nested_attributes_for :attachments, allow_destroy: true,

@@ -1,0 +1,75 @@
+en:
+  common_attributes: &common_attrs
+    created_at: Created at
+    updated_at: Updated at
+    slug: Slug
+  activerecord:
+    models:
+      question:
+        one: Question
+        other: Questions
+      user:
+        one: User
+        other: Users
+      answer:
+        one: Answer
+        other: Answers
+      profile:
+        one: Profile
+        other: Profiles
+      attachment:
+        one: Attachment
+        other: Attachments
+      comment:
+        one: Comment
+        other: Comments
+      tag:
+        one: Tag
+        other: Tags
+      bounty:
+        one: Bounty
+        other: Bounties
+
+
+    attributes:
+      question:
+        title: Title
+        body: Text
+        tag_list: Tags
+      user:
+        <<: *common_attrs
+        name: Name
+        email: Email
+        password: Password
+        password_confirmation: Password confirmation
+        current_password: Current password
+        real_name: Real name
+        website: Webiste
+        location: Location
+        birthday: Birthday
+        about: About
+        remember_me: Remember me
+        reset_password_token: Password reset token
+        reset_password_sent_at: Password reset sent at
+        remember_created_at: Remember created at
+        sign_in_count: Sign in count
+        current_sign_in_at: Current sign in at
+        last_sign_in_at: Last sign in at
+        current_sign_in_ip: Current sign in IP
+        last_sign_in_ip: Last sign in IP
+      profile:
+        real_name: Real name
+        website: Website
+        location: Location
+        birthday: Birthday
+        about: About
+      answer:
+        body: Text
+        user_id: User
+        question_id: Question
+      attachment:
+        file: File
+      comment:
+        body: Text
+      bounty:
+        value: Value

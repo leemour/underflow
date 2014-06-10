@@ -2,13 +2,16 @@
   = t('activerecord.models.tag.one')
   = @tag.name
 
-.tag-body
-  .tag-excerpt= @tag.excerpt
-  .tag-text= @tag.description
-
-.tag-questions
-  %h2
-    = t('activerecord.models.question.other')
+%h2
+  = link_to  [@tag, :questions] do
+    = @tag.questions_count
+    = t('activerecord.models.question', count: @tag.questions_count)
     = t('tag.with')
+    = @tag.name
 
-  = render 'questions/list', questions: @tag.questions
+.tag-body
+  .tag-excerpt
+    = @tag.excerpt
+  .tag-description
+    = @tag.description
+
