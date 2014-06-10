@@ -1,15 +1,13 @@
 .answer{id: "answer-#{answer.id}", class: item_class(answer)}
   .vote-cell
 
-    = link_to [answer, :vote_up], method: 'post', remote: true, data: {type: 'json'}, class: 'upvote' + vote_class(answer, :up), title: upvote_text(answer) do
-      %span.glyphicon.glyphicon-chevron-up
-      .text= upvote_text(answer)
+    = link_to_vote_for(answer, :up) do
+      .text= vote_text(answer, :up)
 
     .vote-sum= answer.vote_sum
 
-    = link_to [answer, :vote_down], method: 'post', remote: true, data: {type: 'json'}, class: 'downvote' + vote_class(answer, :down), title: downvote_text(answer) do
-      %span.glyphicon.glyphicon-chevron-down
-      .text= downvote_text(answer)
+    = link_to_vote_for(answer, :down) do
+      .text= vote_text(answer, :down)
 
     - if @question.user == current_user
       = link_to [:accept, @question, answer], remote: true, method: 'patch', class: accept_link_class(@question, answer), title: @question.accepted?(answer) ? t('answer.best') : t('answer.choose') do
@@ -39,13 +37,7 @@
         - if answer.from?(current_user)
           = link_to t('common.edit'), [:edit, @question, answer], class: 'edit btn btn-warning btn-xs', data: {answer_id: answer.id}
           = link_to t('common.delete'), [@question, answer], class: 'delete btn btn-danger btn-xs', method: :delete, data: { confirm: t("common.sure") }, remote: true
-      .started.col-sm-6.pull-right
-        = timeago_tag answer.created_at, lang: I18n.locale
-        %span.author
-          = link_to answer.user do
-            = image_tag answer.user.avatar_url(:thumb), class: 'avatar'
-            = answer.user.name
-        %span.author-reputation
+      = render 'shared/author', resource: answer
 
     .comments
       = render 'comments/comments', commentable: answer

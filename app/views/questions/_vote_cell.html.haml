@@ -1,13 +1,10 @@
-= link_to [@question, :vote_up], method: 'post', remote: true, data: {type: 'json'}, class: 'upvote' + vote_class(@question, :up), title: upvote_text(@question) do
-  %span.glyphicon.glyphicon-chevron-up
-  .text= upvote_text(@question)
+= link_to_vote_for(@question, :up) do
+  .text= vote_text(@question, :up)
 
 .vote-sum= @question.vote_sum
 
-= link_to [@question, :vote_down], method: 'post', remote: true, data: {type: 'json'}, class: 'downvote' + vote_class(@question, :down), title: downvote_text(@question) do
-  %span.glyphicon.glyphicon-chevron-down
-  .text= downvote_text(@question)
+= link_to_vote_for(@question, :down) do
+  .text= vote_text(@question, :down)
 
-= link_to [:favor, @question], remote: true, data: {type: 'json'}, class: 'favor' + favor_class(@question), title: @question.favored_by?(current_user) ? t('favorite.favored') : t('favorite.favor') do
-  %span.glyphicon.glyphicon-star
+= add_to_favorites_link(@question) do
   .text= @question.favored_by?(current_user) ? t('favorite.favored') : t('favorite.favor')

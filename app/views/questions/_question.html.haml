@@ -19,6 +19,7 @@
 
     .question-text
       = @question.body.html_safe
+
     %ul.question-files
       - @question.attachments.each do |attachment|
         - if attachment.persisted?
@@ -39,14 +40,7 @@
       .controls.col-sm-6
         = link_to t('common.edit'), [:edit, @question], class: 'edit btn btn-warning btn-xs'
         = link_to t('common.delete'), @question, class: 'delete btn btn-danger btn-xs', remote: true, method: :delete, data: { confirm: t("common.sure") }
-
-    .started.col-sm-6.pull-right
-      = timeago_tag @question.created_at, lang: I18n.locale
-      %span.author
-        = link_to @question.user do
-          = image_tag @question.user.avatar_url(:thumb), class: 'avatar'
-          = @question.user.name
-      %span.author-reputation
+    = render 'shared/author', resource: @question
 
   .comments
     = render 'comments/comments', commentable: @question

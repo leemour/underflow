@@ -37,18 +37,9 @@ class User < ActiveRecord::Base
     self.create_profile
   end
 
-  def voted_for?(object)
-    voteables = object.class.to_s.underscore.pluralize
-    send("voted_#{voteables}").include?(object)
-  end
-
-
-  def upvoted?(object)
-    get_vote_for(object).try(:value) == 1
-  end
-
-  def downvoted?(object)
-    get_vote_for(object).try(:value) == -1
+  def voted(object)
+    votes = {1 => :up,-1 => :down}
+    votes[get_vote_for(object).try(:value)]
   end
 
   def get_vote_for(object)

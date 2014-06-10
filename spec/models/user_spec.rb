@@ -26,35 +26,35 @@ describe User do
     expect(user.profile).to be_persisted
   end
 
-  describe '#voted_for?' do
-    subject { create(:user) }
+  # describe '#voted_for?' do
+  #   subject { create(:user) }
 
-    context 'Question' do
-      let(:question) { create(:question) }
+  #   context 'Question' do
+  #     let(:question) { create(:question) }
 
-      it 'returns true if User voted for it' do
-        question.vote_up(subject)
-        expect(subject.voted_for?(question)).to be_true
-      end
+  #     it 'returns true if User voted for it' do
+  #       question.vote_up(subject)
+  #       expect(subject.voted_for?(question)).to be_true
+  #     end
 
-      it "returns false if User didn't vote for it" do
-        expect(subject.voted_for?(question)).to be_false
-      end
-    end
+  #     it "returns false if User didn't vote for it" do
+  #       expect(subject.voted_for?(question)).to be_false
+  #     end
+  #   end
 
-    context 'Answer' do
-      let(:answer) { create(:answer) }
+  #   context 'Answer' do
+  #     let(:answer) { create(:answer) }
 
-      it 'returns true if User voted for it' do
-        answer.vote_up(subject)
-        expect(subject.voted_for?(answer)).to be_true
-      end
+  #     it 'returns true if User voted for it' do
+  #       answer.vote_up(subject)
+  #       expect(subject.voted_for?(answer)).to be_true
+  #     end
 
-      it "returns false if User didn't vote for it" do
-        expect(subject.voted_for?(answer)).to be_false
-      end
-    end
-  end
+  #     it "returns false if User didn't vote for it" do
+  #       expect(subject.voted_for?(answer)).to be_false
+  #     end
+  #   end
+  # end
 
   describe '#get_vote_for' do
     subject { create(:user) }
@@ -67,40 +67,29 @@ describe User do
         expect(subject.get_vote_for(question)).to be_a(Vote)
       end
 
-      it 'has value 1 when upvoted' do
+      it 'has value 1 when voted' do
          question.vote_up(subject)
         expect(subject.get_vote_for(question).value).to be(1)
       end
     end
   end
 
-  describe '#upvoted?' do
+  describe '#voted' do
     subject { create(:user) }
     let(:question) { create(:question) }
 
-    it 'returns true if User upvoted it' do
+    it 'returns :up if User voted object' do
       question.vote_up(subject)
-      expect(subject.upvoted?(question)).to be_true
+      expect(subject.voted(question)).to eq(:up)
     end
 
-    it 'returns false if User downvoted it' do
-       question.vote_down(subject)
-      expect(subject.upvoted?(question)).to be_false
-    end
-  end
-
-  describe '#downvoted?' do
-    subject { create(:user) }
-    let(:answer) { create(:answer) }
-
-    it 'returns true if User upvoted it' do
-      answer.vote_down(subject)
-      expect(subject.downvoted?(answer)).to be_true
+    it 'returns :down if User downvoted object' do
+      question.vote_down(subject)
+      expect(subject.voted(question)).to eq(:down)
     end
 
-    it 'returns false if User downvoted it' do
-      answer.vote_up(subject)
-      expect(subject.downvoted?(answer)).to be_false
+    it "returns nil if User didn't vote for object" do
+      expect(subject.voted(question)).to be_nil
     end
   end
 end

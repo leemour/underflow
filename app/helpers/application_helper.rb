@@ -47,32 +47,38 @@ module ApplicationHelper
     !question.accepted?(answer) && question.accepted_answer
   end
 
-  def vote_class(object, vote_type)
-    if vote_type == :up
-      voted_up?(object) ? ' voted' : ''
-    elsif vote_type == :down
-      voted_down?(object) ? ' voted' : ''
+  def add_to_favorites_link(object, &blk)
+    link_to [:favor, object], remote: true, data: {type: 'json'},
+      class: favor_class(object), title: object.favored_by?(current_user) ?
+        t('favorite.favored') : t('favorite.favor') do
+          blk.call
     end
   end
 
-  def voted_up?(object)
-    current_user && current_user.upvoted?(object)
-  end
-
-  def voted_down?(object)
-    current_user && current_user.downvoted?(object)
-  end
-
-  def upvote_text(object)
-    voted_up?(object) ? t('vote.upvoted') : t('vote.up')
-  end
-
-  def downvote_text(object)
-    voted_down?(object) ? t('vote.downvoted') : t('vote.down')
-  end
-
   def favor_class(object)
-    current_user && current_user.favorite(object) ? ' favored' : ''
+    klass = 'favor glyphicon glyphicon-star'
+    klass += ' favored' if current_user && current_user.favorite(object)
+    klass
+  end
+
+  def link_to_vote_for(object, vote, &blk)
+    link_to [object, :"vote_#{vote}"], method: 'post', remote: true,
+      data: {type: 'json'}, class: vote_class(object, vote),
+      title: vote_text(object, vote) do
+        blk.call
+    end
+  end
+
+  def vote_class(object, vote)
+    klass = "#{vote}vote glyphicon glyphicon-chevron-#{vote}"
+    klass += ' voted' if current_user && vote == current_user.voted(object)
+    klass
+  end
+
+  def vote_text(object, vote)
+    current_user && current_user.voted(object) == vote ?
+      t("vote.#{vote}voted") :
+      t("vote.#{vote}")
   end
 
   def cp(path)

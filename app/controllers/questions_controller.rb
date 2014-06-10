@@ -1,4 +1,4 @@
-class QuestionsController < ApplicationController
+class QuestionsController < InheritedResources::Base
   include ApplicationHelper
 
   before_action :authenticate_user!, only: [:favor, :create, :edit, :update, :destroy]
