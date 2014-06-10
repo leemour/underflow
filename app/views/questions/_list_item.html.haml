@@ -1,0 +1,24 @@
+.question{id: "question-#{question.id}"}
+  .counters
+    .votes
+      = question.vote_sum
+      .text= t('vote.models', count: question.vote_sum.abs)
+    .answers{class: ('answered' if question.answers_count > 0)}
+      = question.answers_count
+      .text= t('answer.models', count: question.answers_count)
+    .views
+      = question.views_count
+      .text= t('view.models', count: question.views_count)
+  .content
+    %h3= link_to question.title, question
+    .row.details
+      .tags.col-sm-6
+        - question.tags.each do |tag|
+          =link_to tag.name, tag
+      .started.col-sm-6
+        = timeago_tag question.created_at, lang: I18n.locale
+        %span.author
+          = link_to question.user do
+            = image_tag question.user.avatar_url(:thumb), class: 'avatar'
+            = question.user.name
+        %span.author-reputation

@@ -1,0 +1,32 @@
+<% if @question.errors.empty? %>
+  <% flash[:notice] = tr_raw(:question, 'created') %>
+  window.location.href = '<%= question_path(@question) %>'
+
+  $('#content').prepend(
+    '<%= j render 'shared/flash', flash: tr(:comment, 'created') %>'
+  );
+
+  <% publish_to '/questions' do %>
+    $('#questions').prepend(
+      '<%= j render 'questions/list_item', question: @question %>'
+    );
+    $('#questions .question').last().remove();
+    $('<%= class_with_id(@question) %>').css('background-color', '#fffff7');
+    $('<%= class_with_id(@question) %>').find('.controls').hide();
+    if ($("header .user-name:contains('<%= @question.user.name %>')").length) {
+      $('<%= class_with_id(@question) %>').find('.controls').show();
+    }
+  <% end %>
+<% else %>
+  $('#new-question-form').html(
+    '<%= j render 'questions/form', question: @question %>'
+  );
+  $('.suggest-tag').magicSuggest({
+    required: true,
+    useTabKey: true,
+    useCommaKey: true,
+    useZebraStyle: true,
+    inputCfg: {"id":'tag-suggest-input'},
+    data: <%= Tag.name_list.to_s.html_safe %>
+  });
+<% end %>

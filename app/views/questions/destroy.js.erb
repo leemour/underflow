@@ -1,0 +1,6 @@
+<% flash[:notice] = tr_raw(:question, 'deleted') %>
+window.location.href = '<%= questions_path %>'
+
+<% publish_to "/questions" do %>
+  $('<%= class_with_id(@question) %>').remove();
+<% end %>

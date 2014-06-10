@@ -29,4 +29,8 @@ class ApplicationController < ActionController::Base
   #     { host: 'localhost:3000' }
   #   end
   # end
+
+  def set_default_page
+    params[:page] ||= 1
+  end
 end

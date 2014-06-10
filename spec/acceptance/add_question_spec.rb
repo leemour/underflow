@@ -16,28 +16,56 @@ feature 'User creates question',
       click_on 'Задать вопрос'
     end
 
-    scenario 'create with valid fields' do
-      fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
-      fill_in 'question_body',
-        with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
-      within("form") do
-        click_on 'Задать вопрос'
+    context 'with AJAX' do
+      scenario 'create with valid fields', js: true do
+        fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
+        fill_in 'question_body',
+          with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
+        within("form") do
+          click_on 'Задать вопрос'
+        end
+
+        expect(page).to have_content 'Вопрос успешно создан.'
+        expect(page).to have_content 'Тестовый заголовок вопроса'
       end
 
-      expect(page).to have_content 'Вопрос успешно создан.'
-      expect(page).to have_content 'Тестовый заголовок вопроса'
+      scenario "can't create with invalid fields", js: true do
+        fill_in 'Заголовок', with: 'Коротко'
+        fill_in 'question_body',
+          with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
+        within("form") do
+          click_on 'Задать вопрос'
+        end
+
+        expect(page).to have_content 'Заголовок недостаточной длины'
+        expect(page).to_not have_content 'Коротко'
+      end
     end
 
-    scenario "can't create with invalid fields" do
-      fill_in 'Заголовок', with: 'Коротко'
-      fill_in 'question_body',
-        with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
-      within("form") do
-        click_on 'Задать вопрос'
+    context 'without AJAX' do
+      scenario 'create with valid fields' do
+        fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
+        fill_in 'question_body',
+          with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
+        within("form") do
+          click_on 'Задать вопрос'
+        end
+
+        expect(page).to have_content 'Вопрос успешно создан.'
+        expect(page).to have_content 'Тестовый заголовок вопроса'
       end
 
-      expect(page).to have_content 'Заголовок недостаточной длины'
-      expect(page).to_not have_content 'Коротко'
+      scenario "can't create with invalid fields" do
+        fill_in 'Заголовок', with: 'Коротко'
+        fill_in 'question_body',
+          with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
+        within("form") do
+          click_on 'Задать вопрос'
+        end
+
+        expect(page).to have_content 'Заголовок недостаточной длины'
+        expect(page).to_not have_content 'Коротко'
+      end
     end
   end
 

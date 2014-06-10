@@ -20,7 +20,6 @@
     .question-text
       = @question.body.html_safe
     %ul.question-files
-      - @question.attachments.build
       - @question.attachments.each do |attachment|
         - if attachment.persisted?
           %li
@@ -39,7 +38,7 @@
     - if @question.from?(current_user)
       .controls.col-sm-6
         = link_to t('common.edit'), [:edit, @question], class: 'edit btn btn-warning btn-xs'
-        = link_to t('common.delete'), @question, class: 'delete btn btn-danger btn-xs', method: :delete, data: { confirm: t("common.sure") }
+        = link_to t('common.delete'), @question, class: 'delete btn btn-danger btn-xs', remote: true, method: :delete, data: { confirm: t("common.sure") }
 
     .started.col-sm-6.pull-right
       = timeago_tag @question.created_at, lang: I18n.locale

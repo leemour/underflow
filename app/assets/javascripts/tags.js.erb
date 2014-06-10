@@ -1,14 +1,5 @@
 $(function() {
-  $('.suggest-tag').magicSuggest({
-    required: true,
-    useTabKey: true,
-    useCommaKey: true,
-    useZebraStyle: true,
-    inputCfg: {"id":'tag-suggest-input'},
-    data: <%= Tag.name_list %>
-  });
-
-  $('.question').on('click', '.question-details .edit', function(ev) {
+  function enableMagicSuggest() {
     $('.suggest-tag').magicSuggest({
       required: true,
       useTabKey: true,
@@ -17,5 +8,11 @@ $(function() {
       inputCfg: {"id":'tag-suggest-input'},
       data: <%= Tag.name_list %>
     });
+  }
+
+  enableMagicSuggest();
+
+  $('.question').on('click', '.question-details .edit', function(ev) {
+    enableMagicSuggest();
   });
 });

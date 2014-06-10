@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: [:favor, :show, :edit, :update, :destroy]
   before_action :set_user, only: [:favorite, :voted, :by_user]
   before_action :check_permission, only: [:update, :destroy]
+  before_action :set_default_page
 
   impressionist actions: [:show]
 
@@ -49,7 +50,6 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
-    @question.attachments.build
   end
 
   def edit
@@ -57,10 +57,14 @@ class QuestionsController < ApplicationController
 
   def create
     @question = current_user.questions.build(question_params)
-    if @question.save
-      redirect_to @question, tr(:question, 'created')
-    else
-      render :new
+    respond_to do |format|
+      if @question.save
+        format.html { redirect_to @question, tr(:question, 'created') }
+        format.js
+      else
+        format.html { render :new }
+        format.js
+      end
     end
   end
 
@@ -79,7 +83,10 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question.destroy
-    redirect_to questions_path, tr(:question, 'deleted')
+    respond_to do |format|
+      format.html { redirect_to questions_path, tr(:question, 'deleted') }
+      format.js
+    end
   end
 
   private

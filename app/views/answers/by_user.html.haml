@@ -1,4 +1,6 @@
-%h1= "#{t('user.answers')} #{@user.name}"
+%h1
+  = t('user.answers')
+  = link_to @user.name, @user
 
 #answers
   = render 'list'
