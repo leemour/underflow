@@ -16,5 +16,7 @@
   #registration-form
     = link_to t('user.register'), new_user_registration_path
 
+= render 'comments/form', commentable: @question, comment: @comment, edit: true
+
 = subscribe_to "/questions/#{@question.id}/answers"
 = subscribe_to "/questions/#{@question.id}/comments"

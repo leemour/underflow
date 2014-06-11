@@ -57,6 +57,14 @@ $(function() {
       $(answer).find('.comment-edit-form').hide();
     }
     ,
+    showNewCommentForm: function(object, link) {
+      var objectId = $(link).closest('.'+object).attr('id').split('-')[1];
+      $('#new_comment').insertAfter('#'+object+'-'+objectId+' .comments').show();
+      $('#new_comment').attr('action', '/'+object+'s/'+objectId+'/comments')
+      $(link).hide();
+      $('.comment-create-form').find('.comment-errors').hide();
+    }
+    ,
     // Show bount form
     showBountyForm: function(link) {
       $('.start-bounty').hide()
@@ -79,8 +87,10 @@ $(function() {
     hideCommentForm: function() {
       $('.comment-body').show();
       $('.add-comment').show();
-      $('.comment-create-form').hide();
+      // $('.comment-create-form').hide();
       $('.comment-edit-form').hide();
+      $('#new_comment').hide();
+      $('#new_comment .errors').hide();
     }
     ,
     hideBountyForm: function() {
@@ -145,13 +155,13 @@ $(function() {
   $('.question').on('click', '.add-comment', function(ev) {
     ev.preventDefault(); ev.stopPropagation();
     Under.hideAllForms();
-    Under.showQuestionCommentForm(this);
+    Under.showNewCommentForm('question', this);
   });
 
   $('#answers').on('click', '.add-comment', function(ev) {
     ev.preventDefault(); ev.stopPropagation();
     Under.hideAllForms();
-    Under.showAnswerCommentForm(this);
+    Under.showNewCommentForm('answer', this);
   });
 
   // Add file links

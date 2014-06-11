@@ -45,8 +45,8 @@
   .comments
     = render 'comments/comments', commentable: @question
 
-  .comment-create-form
-    = render 'comments/form', commentable: @question, comment: @comment, edit: true
+  / .comment-create-form
+  /   = render 'comments/form', commentable: @question, comment: @comment, edit: true
 
   - if @question.bounty
     = render 'bounties/bounty'
