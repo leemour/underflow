@@ -1,4 +1,4 @@
-<% if @comment.errors.empty? %>
+<% if resource.errors.empty? %>
   $('#content').prepend(
     '<%= j render 'shared/flash', flash: tr(:comment, 'created') %>'
   );
@@ -9,20 +9,20 @@
 
 
   <% publish_to "/questions/#{@question.id}/comments" do %>
-    $('<%= class_with_id(@commentable) %> .comments').append(
-      '<%= j render 'comments/comment', comment: @comment,
-        commentable: @commentable %>'
+    $('<%= class_with_id(parent) %> .comments').append(
+      '<%= j render 'comments/comment', comment: resource,
+        commentable: parent %>'
     );
     $('.comments .comment').last().css('background-color', '#fffff7');
-    $('<%= class_with_id(@comment) %>').find('.controls').hide();
-    if ($("header .user-name:contains('<%= @comment.user.name %>')").length) {
-      $('<%= class_with_id(@comment) %>').find('.controls').show();
+    $('<%= class_with_id(resource) %>').find('.controls').hide();
+    if ($("header .user-name:contains('<%= resource.user.name %>')").length) {
+      $('<%= class_with_id(resource) %>').find('.controls').show();
     }
   <% end %>
 
 <% else %>
-  $('<%= class_with_id(@commentable) %> #new_comment').html(
-    '<%= j render 'comments/form', edit: true, comment: @comment,
-      commentable: @commentable %>'
+  $('<%= class_with_id(parent) %> #new_comment').html(
+    '<%= j render 'comments/form', edit: true, comment: resource,
+      commentable: parent %>'
   );
 <% end %>

@@ -6,7 +6,7 @@
     %ul.errors.answer-errors
       %li.alert.alert-danger= error
 
-= form_for [@question, answer], remote: true do |f|
+= form_for [@question, answer] do |f|
   .form-group
     = f.text_area :body, class: "form-control"
 

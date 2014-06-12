@@ -190,6 +190,8 @@ describe AnswersController do
     it "finds Answer to edit" do
       expect(assigns(:answer)).to eq(subject)
     end
+
+    it { should render_template 'edit' }
   end
 
   describe 'PATCH #update' do
