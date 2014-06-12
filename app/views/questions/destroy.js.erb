@@ -2,5 +2,5 @@
 window.location.href = '<%= questions_path %>'
 
 <% publish_to "/questions" do %>
-  $('<%= class_with_id(@question) %>').remove();
+  $('<%= class_with_id(resource) %>').remove();
 <% end %>

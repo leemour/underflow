@@ -1,10 +1,6 @@
-<% if @question.errors.empty? %>
+<% if resource.errors.empty? %>
   <% flash[:notice] = tr_raw(:question, 'created') %>
   window.location.href = '<%= question_path(@question) %>'
-
-  $('#content').prepend(
-    '<%= j render 'shared/flash', flash: tr(:comment, 'created') %>'
-  );
 
   <% publish_to '/questions' do %>
     $('#questions').prepend(

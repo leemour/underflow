@@ -1,4 +1,4 @@
-<% if @question.errors.empty? %>
+<% if resource.errors.empty? %>
   $('#content').prepend(
     '<%= j render 'shared/flash',  flash: tr(:question, 'updated') %>'
   );

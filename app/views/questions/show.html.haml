@@ -1,4 +1,4 @@
-.question{id: "question-#{@question.id}"}
+.question{id: "question-#{resource.id}"}
   = render 'question'
 
 #answers
@@ -6,7 +6,7 @@
 
 #new-answer-form
   %h2= t('answer.your')
-  = render 'answers/form', answer: @answer
+  = render 'answers/form', answer: resource.answers.build
 
 - unless user_signed_in?
   #login-form
@@ -16,7 +16,7 @@
   #registration-form
     = link_to t('user.register'), new_user_registration_path
 
-= render 'comments/form', commentable: @question, comment: @comment, edit: true
+= render 'comments/form', commentable: resource, comment: resource.comments.build, edit: true
 
-= subscribe_to "/questions/#{@question.id}/answers"
-= subscribe_to "/questions/#{@question.id}/comments"
+= subscribe_to "/questions/#{resource.id}/answers"
+= subscribe_to "/questions/#{resource.id}/comments"

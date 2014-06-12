@@ -1,12 +1,12 @@
-- remote = @question.persisted? if remote.nil?
-- @question.attachments.build
+- remote = resource.persisted? if remote.nil?
+- resource.attachments.build
 
-- if @question.errors.any?
-  - @question.errors.full_messages.each do |error|
+- if resource.errors.any?
+  - resource.errors.full_messages.each do |error|
     %ul.errors.question-errors
       %li.alert.alert-danger= error
 
-= form_for @question, remote: true do |f|
+= form_for resource, remote: false do |f|
   .form-group
     = f.label :title
     = f.text_field :title, class: 'form-control'

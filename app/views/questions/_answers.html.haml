@@ -1,7 +1,7 @@
 %h3.answers-heading
-  = @question.answers.count
-  = t('activerecord.models.answer', count: @question.answers.count)
-- @question.answers.accepted_first.each do |answer|
+  = resource.answers.count
+  = t('activerecord.models.answer', count: resource.answers.count)
+- resource.answers.accepted_first.each do |answer|
   - if answer.persisted?
     = render 'answers/answer', answer: answer
 

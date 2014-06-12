@@ -1,4 +1,4 @@
-%h1= @question.title
+%h1= resource.title
 
 .vote-cell
   = render 'vote_cell'
@@ -11,50 +11,47 @@
       .meta-spoiler.collapse
         %span.views-count
           %span.glyphicon.glyphicon-eye-open
-          = @question.views_count
+          = resource.views_count
         %span.created-ago
           %span.glyphicon.glyphicon-time
           = t('common.last_activity')
-          = timeago_tag @question.updated_at, lang: I18n.locale
+          = timeago_tag resource.updated_at, lang: I18n.locale
 
     .question-text
-      = @question.body.html_safe
+      = resource.body.html_safe
 
     %ul.question-files
-      - @question.attachments.each do |attachment|
+      - resource.attachments.each do |attachment|
         - if attachment.persisted?
           %li
             %span.glyphicon.glyphicon-file
             = link_to attachment.file.filename, attachment.file.url
 
-  - if @question.from?(current_user)
+  - if resource.from?(current_user)
     .question-edit-form
       = render 'form'
 
   .tags
-    - @question.tags.each do |tag|
+    - resource.tags.each do |tag|
       = link_to tag.name, tag
 
   .row.question-details
-    - if @question.from?(current_user)
+    - if resource.from?(current_user)
       .controls.col-sm-6
-        = link_to t('common.edit'), [:edit, @question], class: 'edit btn btn-warning btn-xs'
-        = link_to t('common.delete'), @question, class: 'delete btn btn-danger btn-xs', remote: true, method: :delete, data: { confirm: t("common.sure") }
-    = render 'shared/author', resource: @question
+        = link_to t('common.edit'), [:edit, resource], class: 'edit btn btn-warning btn-xs'
+        = link_to t('common.delete'), resource, class: 'delete btn btn-danger btn-xs', remote: true, method: :delete, data: { confirm: t("common.sure") }
+    = render 'shared/author', resource: resource
 
   .comments
-    = render 'comments/comments', commentable: @question
+    = render 'comments/comments', commentable: resource
 
-  / .comment-create-form
-  /   = render 'comments/form', commentable: @question, comment: @comment, edit: true
-
-  - if @question.bounty
+  - if resource.bounty
     = render 'bounties/bounty'
 
   - if user_signed_in?
-    = link_to t('comment.add'), new_question_comment_path(@question), class: 'add-comment btn btn-default btn-xs'
+    = link_to t('comment.add'), new_question_comment_path(resource), class: 'add-comment btn btn-default btn-xs'
 
-  - if @question.from?(current_user) && @question.bounty.nil?
+  - if resource.from?(current_user) && resource.bounty.nil?
     = render 'bounties/form'
 
     = link_to t('bounty.start'), '#', class: 'start-bounty btn btn-default btn-xs'

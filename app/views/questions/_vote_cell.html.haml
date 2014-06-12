@@ -1,10 +1,10 @@
-= link_to_vote_for(@question, :up) do
-  .text= vote_text(@question, :up)
+= link_to_vote_for(resource, :up) do
+  .text= vote_text(resource, :up)
 
-.vote-sum= @question.vote_sum
+.vote-sum= resource.vote_sum
 
-= link_to_vote_for(@question, :down) do
-  .text= vote_text(@question, :down)
+= link_to_vote_for(resource, :down) do
+  .text= vote_text(resource, :down)
 
-= add_to_favorites_link(@question) do
-  .text= @question.favored_by?(current_user) ? t('favorite.favored') : t('favorite.favor')
+= add_to_favorites_link(resource) do
+  .text= resource.favored_by?(current_user) ? t('favorite.favored') : t('favorite.favor')

@@ -9,7 +9,7 @@
     = link_to t('question.featured'),   featured_questions_path, class: 'btn btn-default' + cp(featured_questions_path)
 
 #questions
-  = render 'list', questions: @questions
+  = render 'list', questions: collection
 
 
 = subscribe_to questions_with_scope_path
