@@ -16,7 +16,6 @@ class Question < ActiveRecord::Base
   validates :title, presence: true, length: {in: 15..60}
   validates :body,  presence: true, length: {in: 60..6000}
 
-  after_create :increment_tags_counter
   before_destroy :decrement_tags_counter
 
   paginates_per 5

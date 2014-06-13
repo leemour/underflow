@@ -5,28 +5,25 @@ class AnswersController < InheritedResources::Base
   belongs_to :question
 
   actions :all, :except => [ :new ]
-  custom_actions resource: :accept
+  custom_actions resource: :accept, collection: :voted
 
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   # before_action :set_answer, only: [:accept, :edit, :update, :destroy]
-  before_action :set_answer, only: [:accept]
   before_action :check_permission, only: [:update, :destroy]
   # before_action :set_question, only: [:accept, :new, :edit, :create, :update, :destroy]
   before_action :set_user, only: [:voted, :by_user]
   before_action :check_accept_permission, only: [:accept]
 
-  def voted
-    @answers = Answer.joins(:votes).
-      where(votes: {user_id: params[:user_id]}).
-      page(params[:page])
-  end
-
   def accept
-    @answer.toggle_accepted_from @question
+    resource.toggle_accepted_from parent
     respond_to do |format|
-      format.html { redirect_to @question }
+      format.html { redirect_to parent }
       format.js
     end
+  end
+
+  def voted
+    @answers = Answer.voted_by(params[:user_id]).page(params[:page])
   end
 
   def by_user
@@ -87,9 +84,8 @@ class AnswersController < InheritedResources::Base
   end
 
   def check_accept_permission
-    render_error t('errors.denied') if @answer.question.user != current_user
-    @question = @answer.question
-    if @question.accepted_answer && @question.accepted_answer != @answer
+    render_error t('errors.denied') if parent.user != current_user
+    if parent.accepted_answer && parent.accepted_answer != resource
       render_error t('errors.unprocessable'), :unprocessable_entity
     end
   end
@@ -98,9 +94,9 @@ class AnswersController < InheritedResources::Base
     render_error t('errors.denied') if resource.user != current_user
   end
 
-  def set_answer
-    @answer = Answer.find(params[:id])
-  end
+  # def set_answer
+  #   @answer = Answer.find(params[:id])
+  # end
 
   # def set_question
   #   @question = Question.find_by_id(params[:question_id])

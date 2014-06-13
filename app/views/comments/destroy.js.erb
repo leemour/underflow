@@ -3,5 +3,5 @@ $('#content').prepend(
 );
 
 <% publish_to "/questions/#{@question.id}/comments" do %>
-  $('<%= class_with_id(@comment) %>').remove();
+  $('<%= class_with_id(resource) %>').remove();
 <% end %>

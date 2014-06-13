@@ -3,6 +3,7 @@ module Voteable
 
   included do
     has_many :votes, as: :voteable,  dependent: :destroy
+    scope :voted_by, ->(user) { joins(:votes).where(votes: {user_id: user}) }
   end
 
   def vote_up(user)

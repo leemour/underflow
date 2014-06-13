@@ -6,10 +6,10 @@ namespace :counters do
     end
   end
 
-  desc "Update Answer cache counter for all Questions"
-  task tag_questions: :environment do
-    Tag.find_each do |t|
-      Tag.reset_counters(t.id, :questions)
-    end
-  end
+  # desc "Update Answer cache counter for all Questions"
+  # task tag_questions: :environment do
+  #   Tag.find_each do |t|
+  #     Tag.reset_counters(t.id, :questions)
+  #   end
+  # end
 end

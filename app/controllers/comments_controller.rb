@@ -43,7 +43,7 @@ class CommentsController < InheritedResources::Base
   # end
 
   def destroy
-    destroy!(tr(:comment, 'updated')) { @question }
+    destroy!(tr(:comment, 'deleted')) { @question }
   end
   # def destroy
   #   @comment.destroy
@@ -54,6 +54,11 @@ class CommentsController < InheritedResources::Base
   # end
 
   protected
+
+  def create_resource(object)
+    object.user = current_user
+    super
+  end
 
   # def set_comment
   #   @comment = Comment.find(params[:id])

@@ -31,9 +31,7 @@ class QuestionsController < InheritedResources::Base
   end
 
   def voted
-    @questions = Question.joins(:votes).
-      where(votes: {user_id: params[:user_id]}).
-      page(params[:page])
+    @questions = Question.voted_by(params[:user_id]).page(params[:page])
   end
 
   def by_user
@@ -109,9 +107,9 @@ class QuestionsController < InheritedResources::Base
   end
 
   def collection
-    @questions ||= end_of_association_chain.page(params[:page])
-    @questions.send(params[:scope]) if params[:scope]
-    @questions
+    @questions ||= params[:scope] ?
+      end_of_association_chain.send(params[:scope]).page(params[:page]) :
+      end_of_association_chain.page(params[:page])
   end
 
   def resource

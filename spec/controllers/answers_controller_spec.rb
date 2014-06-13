@@ -11,7 +11,8 @@ describe AnswersController do
       before { patch :accept, question_id: question, id: answer }
 
       it "doesn't accept answer" do
-        expect(assigns(:answer).accepted).to be_false
+        answer.reload
+        expect(answer.accepted).to be_false
       end
 
       it "responds with 403 status" do
@@ -181,10 +182,11 @@ describe AnswersController do
   end
 
   describe 'GET #edit' do
-    subject { create(:answer) }
+    let(:question) { create(:question) }
+    subject { create(:answer, question: question) }
     before do
       login_user
-      get :edit, id: subject, question_id: create(:question)
+      get :edit, id: subject, question_id: question
     end
 
     it "finds Answer to edit" do
@@ -266,7 +268,7 @@ describe AnswersController do
 
     context "when not user's Answer" do
       it "doesn't change @answer attributes" do
-        alien_answer = create(:answer, user: create(:user),
+        alien_answer = create(:answer, user: create(:user), question: question,
           body: 'Not updated body. Not updated body.')
 
         patch :update, id: alien_answer, question_id: question,
@@ -277,7 +279,7 @@ describe AnswersController do
       end
 
       it "responds with 403 status" do
-        alien_answer = create(:answer, user: create(:user),
+        alien_answer = create(:answer, user: create(:user), question: question,
           body: 'Not updated body. Not updated body.')
 
         patch :update, id: alien_answer, question_id: question,

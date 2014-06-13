@@ -15,17 +15,27 @@ shared_examples 'favorable' do
           subject.favor(user)
         }.to change(subject.favorites, :count).by(1)
       end
+
+      it "isn't favored by User anymore" do
+        subject.favor(user)
+        expect(subject).to be_favored_by user
+      end
     end
 
     context 'if already favourite' do
+      before { subject.favor(user) }
+
       it 'removes Object from User favourites' do
-        subject.favor(user)
         expect {
           subject.favor(user)
         }.to change(subject.favorites, :count).by(-1)
       end
+
+      it "isn't favored by User anymore" do
+        subject.favor(user)
+        expect(subject).to_not be_favored_by user
+      end
     end
-    # expect { subject.favor(user) }.to be_favored_by user
   end
 
   describe '#favored_by?' do
