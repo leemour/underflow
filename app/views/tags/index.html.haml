@@ -1,7 +1,7 @@
-%h1= t('activerecord.models.tag', count: @tags.length)
+%h1= t('activerecord.models.tag', count: collection.length)
 
 #tags
-  - @tags.each do |tag|
+  - collection.each do |tag|
     .tag
       %h2
         = link_to tag.name, tag

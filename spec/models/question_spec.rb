@@ -165,20 +165,5 @@ describe Question do
         expect(Question.most_voted).to match_array [question2, question3, question1]
       end
     end
-
-    describe '#self.voted_by' do
-      let(:user1) { create(:user)}
-      let(:user2) { create(:user)}
-      before do
-        create(:vote, voteable: question1, user: user1)
-        create(:vote, voteable: question2, user: user2)
-        create(:vote, voteable: question3, user: user1)
-      end
-
-      it 'returns Questions voted by particular User' do
-        expect(Question.voted_by(user1.id)).
-          to match_array [question1, question3]
-      end
-    end
   end
 end

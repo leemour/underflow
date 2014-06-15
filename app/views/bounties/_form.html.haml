@@ -1,4 +1,4 @@
-= form_for [@question, @question.build_bounty], url: [@question, :bounty], remote: true, id: 'bounty-form' do |f|
+= form_for [parent, parent.build_bounty], url: [parent, :bounty], remote: true, id: 'bounty-form' do |f|
   .form-group
     = t('bounty.offer')
     %span.glyphicon.glyphicon-certificate

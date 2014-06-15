@@ -9,7 +9,7 @@
     );
     $('#answer-' + <%= @answer.id %>).css('background-color', '#fffff7');
     $('#answer-' + <%= @answer.id %>).find('.controls').hide();
-    if ($("header .user-name:contains('<%= @answer.user.name %>')").length) {
+    if ($("header .user-name").data('user-id') == <%= @answer.user.id %>) {
       $('#answer-' + <%= @answer.id %>).find('.controls').show();
     }
   <% end %>

@@ -9,7 +9,7 @@
     $('#questions .question').last().remove();
     $('<%= class_with_id(@question) %>').css('background-color', '#fffff7');
     $('<%= class_with_id(@question) %>').find('.controls').hide();
-    if ($("header .user-name:contains('<%= @question.user.name %>')").length) {
+    if ($("header .user-name").data('user-id') == <%= @question.user.id %>) {
       $('<%= class_with_id(@question) %>').find('.controls').show();
     }
   <% end %>

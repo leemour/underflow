@@ -2,9 +2,10 @@ $('#content').prepend(
   '<%= j render 'shared/flash', flash: tr(:answer, 'deleted') %>'
 );
 
-<% publish_to "/questions/#{@question.id}/answers" do %>
+<% publish_to "/questions/#{parent.id}/answers" do %>
   $('.answers-heading').html(
-    '<%= t('activerecord.models.answer', count: @question.answers.count) %>'
+    '<%= parent.answers.count %> ' +
+    '<%= t('activerecord.models.answer', count: parent.answers.count) %>'
   );
-  $('#answer-<%= @answer.id %>').remove();
+  $('#answer-<%= resource.id %>').remove();
 <% end %>

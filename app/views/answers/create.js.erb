@@ -1,22 +1,23 @@
-<% if @answer.errors.empty? %>
+<% if resource.errors.empty? %>
   $('#content').prepend(
     "<%= j render 'shared/flash', flash: tr(:answer, 'created') %>"
   );
   $('#new-answer-form #answer_body').val('');
   $('#new-answer-form .answer-errors').hide();
 
-  <% publish_to "/questions/#{@question.id}/answers" do %>
+  <% publish_to "/questions/#{parent.id}/answers" do %>
     $('.answers-heading').html(
-      '<%= t('activerecord.models.answer', count: @question.answers.count) %>'
+      '<%= parent.answers.count %> ' +
+      '<%= t('activerecord.models.answer', count: parent.answers.count) %>'
     );
-    $('#answers').append('<%= j render 'answers/answer', answer: @answer %>');
+    $('#answers').append('<%= j render 'answers/answer', answer: resource %>');
     $('#answers .answer').last().css('background-color', '#fffff7');
-    $('#answer-' + <%= @answer.id %>).find('.controls').hide();
-    if ($("header .user-name:contains('<%= @answer.user.name %>')").length) {
-      $('#answer-' + <%= @answer.id %>).find('.controls').show();
+    $('#answer-' + <%= resource.id %>).find('.controls').hide();
+    if ($("header .user-name").data('user-id') == <%= resource.user.id %>) {
+      $('#answer-' + <%= resource.id %>).find('.controls').show();
     }
   <% end %>
 
 <% else %>
-  $('#new-answer-form').html('<%= j render 'answers/form', answer: @answer %>');
+  $('#new-answer-form').html('<%= j render 'answers/form', answer: resource %>');
 <% end %>

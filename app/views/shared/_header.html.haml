@@ -26,7 +26,7 @@
             %ul.nav.navbar-nav.navbar-right
               - if user_signed_in?
                 %li.dropdown
-                  = link_to '#', class: 'dropdown-toggle user-name', data: {toggle: 'dropdown'} do
+                  = link_to '#', class: 'dropdown-toggle user-name', data: {toggle: 'dropdown', user_id: current_user.id} do
                     = current_user.name
                     %b.caret
                   %ul.dropdown-menu

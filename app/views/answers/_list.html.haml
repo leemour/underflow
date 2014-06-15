@@ -1,4 +1,4 @@
-- @answers.each do |answer|
+- answers.each do |answer|
   - if answer.persisted?
     .answer{id: "answer-#{answer.id}", class: item_class(answer)}
       %h3
@@ -16,5 +16,5 @@
               = image_tag answer.user.avatar_url(:thumb), class: 'avatar'
               = answer.user.name
 
-= page_entries_info @answers
-= paginate @answers
+= page_entries_info answers
+= paginate answers

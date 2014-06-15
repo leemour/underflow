@@ -1,17 +1,17 @@
 %h1
   = t('activerecord.models.tag.one')
-  = @tag.name
+  = resource.name
 
 %h2
-  = link_to  [@tag, :questions] do
-    = @tag.questions_count
-    = t('activerecord.models.question', count: @tag.questions_count)
+  = link_to  [resource, :questions] do
+    = resource.questions_count
+    = t('activerecord.models.question', count: resource.questions_count)
     = t('tag.with')
-    = @tag.name
+    = resource.name
 
 .tag-body
   .tag-excerpt
-    = @tag.excerpt
+    = resource.excerpt
   .tag-description
-    = @tag.description
+    = resource.description
 

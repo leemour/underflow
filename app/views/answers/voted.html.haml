@@ -1,4 +1,4 @@
 %h1= "#{t('user.voted_answers')} #{@user.name}"
 
 #answers
-  = render 'list'
+  = render 'list', answers: @answers

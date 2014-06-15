@@ -18,5 +18,6 @@
 
 = render 'comments/form', commentable: resource, comment: resource.comments.build, edit: true
 
-= subscribe_to "/questions/#{resource.id}/answers"
-= subscribe_to "/questions/#{resource.id}/comments"
+= content_for :subscriptions do
+  = subscribe_to "/questions/#{resource.id}/answers"
+  = subscribe_to "/questions/#{resource.id}/comments"

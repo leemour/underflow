@@ -3,5 +3,5 @@
   = t('activerecord.models.answer', count: resource.answers.count)
 - resource.answers.accepted_first.each do |answer|
   - if answer.persisted?
-    = render 'answers/answer', answer: answer
+    = render 'answers/answer', answer: answer, parent: resource
 

@@ -3,6 +3,8 @@ module Favorable
 
   included do
     has_many :favorites, as: :favorable, dependent: :destroy
+    scope :favorite, ->(user) { joins(:favorites).
+                                 where(favorites: {user_id: user}) }
   end
 
   def favor(user)

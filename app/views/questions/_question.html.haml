@@ -46,12 +46,12 @@
     = render 'comments/comments', commentable: resource
 
   - if resource.bounty
-    = render 'bounties/bounty'
+    = render 'bounties/bounty', parent: resource
 
   - if user_signed_in?
     = link_to t('comment.add'), new_question_comment_path(resource), class: 'add-comment btn btn-default btn-xs'
 
   - if resource.from?(current_user) && resource.bounty.nil?
-    = render 'bounties/form'
+    = render 'bounties/form', parent: resource
 
     = link_to t('bounty.start'), '#', class: 'start-bounty btn btn-default btn-xs'

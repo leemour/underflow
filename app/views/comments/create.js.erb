@@ -15,7 +15,7 @@
     );
     $('.comments .comment').last().css('background-color', '#fffff7');
     $('<%= class_with_id(resource) %>').find('.controls').hide();
-    if ($("header .user-name:contains('<%= resource.user.name %>')").length) {
+    if ($("header .user-name").data('user-id') == <%= resource.user.id %>) {
       $('<%= class_with_id(resource) %>').find('.controls').show();
     }
   <% end %>

@@ -51,4 +51,25 @@ shared_examples 'favorable' do
       expect(subject).to be_favored_by(user)
     end
   end
+
+  describe 'scopes' do
+    let!(:subject1) { create(subject_class) }
+    let!(:subject2) { create(subject_class) }
+    let!(:subject3) { create(subject_class) }
+
+    describe '#self.favorite' do
+      let(:user1) { create(:user)}
+      let(:user2) { create(:user)}
+      before do
+        create(:favorite, favorable: subject1, user: user1)
+        create(:favorite, favorable: subject2, user: user2)
+        create(:favorite, favorable: subject3, user: user1)
+      end
+
+      it 'returns Objects favored by particular User' do
+        expect(described_class.favorite(user1.id)).
+          to match_array [subject1, subject3]
+      end
+    end
+  end
 end

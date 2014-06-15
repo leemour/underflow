@@ -11,5 +11,5 @@
 #questions
   = render 'list', questions: collection
 
-
-= subscribe_to questions_with_scope_path
+= content_for :subscriptions do
+  = subscribe_to questions_with_scope_path

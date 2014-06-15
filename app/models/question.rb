@@ -35,7 +35,6 @@ class Question < ActiveRecord::Base
                           group('questions.id').
                           reorder('COALESCE(SUM(votes.value), 0) desc') }
 
-
   def from?(user)
     user == self.user
   end
