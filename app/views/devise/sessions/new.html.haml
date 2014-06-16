@@ -1,17 +1,24 @@
-%h2= t('user.logging_in')
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .form-group
-    = f.label :email
-    = f.email_field :email, class: 'form-control', autofocus: true
-  .form-group
-    = f.label :password
-    = f.password_field :password, class: 'form-control', autocomplete: "off"
-  - if devise_mapping.rememberable?
-    .form-group
-      = f.check_box :remember_me
-      = f.label :remember_me
-  = f.submit t('user.log_in'), class: "btn btn-primary", data: {disable_with: t('common.processing')}
-  = link_to t('user.register'), new_registration_path(resource_name)
+%h1= t('user.logging_in')
 
-= link_to t('user.forgot_password'), new_password_path(resource_name)
+#login-form
+  - if devise_mapping.omniauthable?
+    - resource_class.omniauth_providers.each do |provider|
+      %h3
+        = link_to "#{t('user.sign_in_with')} #{provider.to_s.titleize}", user_omniauth_authorize_path(provider)
+
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    .form-group
+      = f.label :email
+      = f.email_field :email, class: 'form-control', autofocus: true
+    .form-group
+      = f.label :password
+      = f.password_field :password, class: 'form-control', autocomplete: "off"
+    - if devise_mapping.rememberable?
+      .form-group
+        = f.check_box :remember_me
+        = f.label :remember_me
+    = f.submit t('user.log_in'), class: "btn btn-primary", data: {disable_with: t('common.processing')}
+    = link_to t('user.register'), new_registration_path(resource_name)
+
+  = link_to t('user.forgot_password'), new_password_path(resource_name)
 

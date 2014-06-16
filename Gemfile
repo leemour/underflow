@@ -21,6 +21,10 @@ gem 'rails-timeago'
 gem 'impressionist'
 gem 'kaminari'
 gem 'inherited_resources'
+gem 'omniauth'
+gem 'omniauth-facebook'
+
+
 gem 'private_pub'
 gem 'thin'
 gem 'puma'

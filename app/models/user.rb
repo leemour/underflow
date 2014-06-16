@@ -4,9 +4,10 @@ class User < ActiveRecord::Base
   default_scope { order('name ASC') }
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :confirmable, :lockable, :timeoutable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
+         omniauth_providers: [:facebook]
 
   has_one :profile
   has_many :questions
@@ -19,6 +20,7 @@ class User < ActiveRecord::Base
   has_many :voted_answers, through: :votes, source: :voteable,
     source_type: "Answer"
   has_many :favorites
+  has_many :authorizations
 
   accepts_nested_attributes_for :profile
 
@@ -32,6 +34,23 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   paginates_per 5
+
+  def self.find_for_oauth(auth)
+    authorization = Authorization.where(provider: auth.provider,
+      uid: auth.uid.to_s).first
+    return authorization.user if authorization
+
+    email = auth.info[:email]
+    user = User.find_by_email(email)
+    unless user
+      password = Devise.friendly_token[0,10]
+      name = email.split('@').first
+      user = User.create! name: name, email: email, password: password,
+        password_confirmation: password
+    end
+    user.authorizations.create(provider: auth.provider, uid: auth.uid.to_s)
+    user
+  end
 
   def set_profile
     self.create_profile
