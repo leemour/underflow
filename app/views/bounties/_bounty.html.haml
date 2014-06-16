@@ -1,5 +1,11 @@
 .bounty
-  = t('bounty.offered', points: parent.bounty.value).html_safe
-  - if parent.from?(current_user)
+  - if bounty.winner
+    = t('activerecord.models.user.one')
+    = link_to bounty.winner.name, bounty.winner
+    = t('bounty.received', points: bounty.value).html_safe
+  - else
+    = t('bounty.offered', points: bounty.value).html_safe
+
+  - if bounty.question.from?(current_user)
     %br
-    = link_to t('bounty.stop'), [parent, :bounty], remote: true, method: 'delete'
+    = link_to t('bounty.stop'), [bounty.question, :bounty], remote: true, method: 'delete'

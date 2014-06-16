@@ -46,7 +46,7 @@
     = render 'comments/comments', commentable: resource
 
   - if resource.bounty
-    = render 'bounties/bounty', parent: resource
+    = render 'bounties/bounty', bounty: resource.bounty
 
   - if user_signed_in?
     = link_to t('comment.add'), new_question_comment_path(resource), class: 'add-comment btn btn-default btn-xs'

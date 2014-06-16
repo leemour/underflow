@@ -1,1 +1,4 @@
-alert("<%= raw message %>");
+// alert("<%= raw message %>");
+$('#content').prepend(
+  '<%= j render 'shared/flash', flash: {error: message} %>'
+);

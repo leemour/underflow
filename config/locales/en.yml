@@ -14,6 +14,7 @@ en:
       deleted: "%{model} was successfully deleted."
   errors:
     denied: Access denied
+    answer_already_accepted: Best answer already chosen
   time:
     ago: ago
     times: times
@@ -121,5 +122,8 @@ en:
     offered: >
       This question has a bounty worth
       <span class='bounty-value'>+%{points}</span> points
+    received: >
+      received bounty worth
+      <span class='bounty-value'>+%{points}</span> points for this question
     for_answer: of your reputation for the best answer
 

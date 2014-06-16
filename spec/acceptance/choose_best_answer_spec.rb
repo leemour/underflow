@@ -8,8 +8,9 @@ feature 'User chooses best answer',
   } do
 
   given(:user)     { create(:user) }
+  given(:user2)    { create(:user) }
   given(:question) { create(:question, user: user) }
-  given!(:answer1) { create(:answer, question: question) }
+  given!(:answer1) { create(:answer, question: question, user: user2) }
   given!(:answer2) { create(:answer, question: question,
     body: 'Second answer body, different from first answer body. Good one') }
 
@@ -56,21 +57,32 @@ feature 'User chooses best answer',
       end
     end
 
+    context 'when Question has Bounty' do
+      background do
+        create(:bounty, question: question)
+        visit question_path(question)
+      end
 
+      context 'with AJAX' do
+        scenario "awards bounty to user", js: true do
+          within("#answer-#{answer1.id}") do
+            click_on 'Выбрать лучший ответ'
+          end
 
-    # context 'when bounty set' do
-    #   background do
-    #     create(:bounty, question: question)
-    #     visit question_path(question)
-    #     within("#answer-#{answer2.id}") do
-    #       click_on 'Выбрать лучший ответ'
-    #     end
-    #   end
+          expect(page).to have_content "Пользователь #{user2.name} получил награду"
+        end
+      end
 
-    #   scenario "awards bounty to user" do
+      context 'without AJAX' do
+        scenario "awards bounty to user" do
+          within("#answer-#{answer1.id}") do
+            click_on 'Выбрать лучший ответ'
+          end
 
-    #   end
-    # end
+          expect(page).to have_content "Пользователь #{user2.name} получил награду"
+        end
+      end
+    end
   end
 
   context "when not my question in" do

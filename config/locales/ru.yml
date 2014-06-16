@@ -14,6 +14,7 @@ ru:
       deleted: "%{model} успешно удалена."
   errors:
     denied: Доступ запрещен
+    answer_already_accepted: Лучший ответ уже выбран
   time:
     ago: назад
     times: раз
@@ -137,5 +138,8 @@ ru:
     offered: >
       За этот вопрос назначена награда в
       <span class='bounty-value'>+%{points}</span> очков
+    received: >
+      получил награду
+      <span class='bounty-value'>+%{points}</span> очков за этот вопрос
     for_answer: вашей репутации за ответ на этот вопрос
 

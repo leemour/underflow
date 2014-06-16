@@ -9,6 +9,11 @@
   $('#answer-<%= @answer.id %>').insertAfter($("#answers h3").first());
   $('.answer .accept').addClass('hidden');
   $('#answer-<%= @answer.id %> .accept').removeClass('hidden');
+  <% if @answer.question.bounty %>
+    $('.question .bounty').replaceWith(
+      '<%= j render 'bounties/bounty', bounty: @answer.question.bounty %>'
+    );
+  <% end %>
 <% else %>
   $('#answer-<%= @answer.id %> .accept').removeClass('accepted');
   $('#answer-<%= @answer.id %> .accept').attr(
@@ -18,4 +23,9 @@
     '<%= t('answer.choose') %>'
   );
   $('.answer .accept').removeClass('hidden');
+  <% if @answer.question.bounty %>
+    $('.question .bounty').replaceWith(
+      '<%= j render 'bounties/bounty', bounty: @answer.question.bounty %>'
+    );
+  <% end %>
 <% end %>
