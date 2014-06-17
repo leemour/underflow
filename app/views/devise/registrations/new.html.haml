@@ -1,19 +1,21 @@
-%h2= t('user.registration')
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = devise_error_messages!
-  .form-group
-    = f.label :name
-    = f.text_field :name, class: 'form-control', autofocus: true
-  .form-group
-    = f.label :email
-    = f.email_field :email, class: 'form-control', autofocus: true
-  .form-group
-    = f.label :password
-    = f.password_field :password, class: 'form-control', autocomplete: "off"
-  .form-group
-    = f.label :password_confirmation
-    = f.password_field :password_confirmation, class: 'form-control', autocomplete: "off"
-  = f.submit t('user.register'), class: 'btn btn-primary'
-  = link_to t('user.log_in'), new_session_path(resource_name)
+%h1= t('user.registration')
 
-= link_to t('user.forgot_password'), new_password_path(resource_name)
+#registration-form
+  = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+    = devise_error_messages!
+    .form-group
+      = f.label :name
+      = f.text_field :name, class: 'form-control', autofocus: true
+    .form-group
+      = f.label :email
+      = f.email_field :email, class: 'form-control', autofocus: true
+    .form-group
+      = f.label :password
+      = f.password_field :password, class: 'form-control', autocomplete: "off"
+    .form-group
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation, class: 'form-control', autocomplete: "off"
+    = f.submit t('user.register'), class: 'btn btn-primary'
+    = link_to t('user.log_in'), new_session_path(resource_name)
+
+  = link_to t('user.forgot_password'), new_password_path(resource_name)

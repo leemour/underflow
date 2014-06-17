@@ -18,10 +18,10 @@ feature 'User creates question',
 
     context 'with AJAX' do
       scenario 'create with valid fields', js: true do
-        fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
-        fill_in 'question_body',
-          with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
-        within("form") do
+        within("#new-question-form") do
+          fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
+          fill_in 'question_body',
+            with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
           click_on 'Задать вопрос'
         end
 
@@ -30,10 +30,10 @@ feature 'User creates question',
       end
 
       scenario "can't create with invalid fields", js: true do
-        fill_in 'Заголовок', with: 'Коротко'
-        fill_in 'question_body',
-          with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
-        within("form") do
+        within("#new-question-form") do
+          fill_in 'Заголовок', with: 'Коротко'
+          fill_in 'question_body',
+            with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
           click_on 'Задать вопрос'
         end
 
@@ -44,10 +44,10 @@ feature 'User creates question',
 
     context 'without AJAX' do
       scenario 'create with valid fields' do
-        fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
-        fill_in 'question_body',
-          with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
-        within("form") do
+        within("#new-question-form") do
+          fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
+          fill_in 'question_body',
+            with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
           click_on 'Задать вопрос'
         end
 
@@ -56,10 +56,10 @@ feature 'User creates question',
       end
 
       scenario "can't create with invalid fields" do
-        fill_in 'Заголовок', with: 'Коротко'
-        fill_in 'question_body',
-          with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
-        within("form") do
+          within("#new-question-form") do
+          fill_in 'Заголовок', with: 'Коротко'
+          fill_in 'question_body',
+            with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
           click_on 'Задать вопрос'
         end
 
@@ -74,10 +74,10 @@ feature 'User creates question',
       visit questions_path
       click_on 'Задать вопрос'
 
-      fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
-      fill_in 'question_body',
-        with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
-      within("form") do
+      within("#new-question-form") do
+        fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
+        fill_in 'question_body',
+          with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
         click_on 'Задать вопрос'
       end
 

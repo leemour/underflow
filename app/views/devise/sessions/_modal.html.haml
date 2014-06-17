@@ -1,0 +1,14 @@
+#login-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", type: "button"} ×
+        %h4.modal-title= t('user.logging_in')
+
+      .modal-body
+        = render 'devise/sessions/form'
+
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", type: "button"}
+          = t('common.cancel')
+

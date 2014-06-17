@@ -23,6 +23,10 @@ class ApplicationController < ActionController::Base
   #   end
   # end
 
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
+  end
+
   protected
 
   def render_error(message, status=:forbidden)
@@ -34,7 +38,8 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << :name
+    devise_parameter_sanitizer.for(:sign_up).push :name, :email
+    devise_parameter_sanitizer.for(:sign_in) << :login
     devise_parameter_sanitizer.for(:account_update) << :name
   end
 

@@ -16,12 +16,11 @@ feature 'Add files to question',
   scenario "when creating Question" do
     visit new_question_path
 
-    fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
-    fill_in 'question_body',
-      with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
-    attach_file 'Файл', File.join(Rails.root, "spec", "spec_helper.rb")
-
-    within("form") do
+    within("#new-question-form") do
+      fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
+      fill_in 'question_body',
+        with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
+      attach_file 'Файл', File.join(Rails.root, "spec", "spec_helper.rb")
       click_on 'Задать вопрос'
     end
 

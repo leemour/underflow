@@ -186,4 +186,7 @@ $(function() {
     Under.hideAllForms();
     Under.showBountyForm();
   });
+
+  $('.login-link').hide();
+  $('.login-link.js').show();
 });

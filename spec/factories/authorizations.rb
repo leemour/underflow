@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :authorization do
-    user ""
-    provider ""
-    uid "MyString"
+    user     nil
+    provider "facebook"
+    uid      "MyString"
   end
 end

@@ -63,6 +63,7 @@ ru:
         <<: *common_attrs
         avatar: Аватар
         name: Имя
+        login: Логин
         email: E-mail
         password: Пароль
         password_confirmation: Подтверждение пароля

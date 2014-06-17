@@ -168,7 +168,8 @@ label.nested
     display: inline-block
 
 
-#login-form
+#login-form,
+#registration-form
   +single-box-shadow(#ccc, 2px, 2px, 0, 0)
   background-color: #fff
   padding: 15px
@@ -231,8 +232,10 @@ body.users.show
   .row.submit
     margin-top: 20px
 
-body.sessions,
-body.registrations
+#login-form,
+#registration-form,
+#login-modal,
+#registration-modal
   form
     .btn-primary
       margin: 5px 20px 10px 0
