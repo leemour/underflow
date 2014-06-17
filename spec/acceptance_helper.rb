@@ -2,6 +2,7 @@ require 'spec_helper'
 
 RSpec.configure do |config|
   Capybara.javascript_driver = :webkit
+  OmniAuth.config.test_mode = true
 
   config.include Acceptance::SessionHelpers, type: :feature
 

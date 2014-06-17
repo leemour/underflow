@@ -169,7 +169,10 @@ label.nested
 
 
 #login-form,
-#registration-form
+#registration-form,
+#recover-form,
+#confirm-form,
+.auth-form
   +single-box-shadow(#ccc, 2px, 2px, 0, 0)
   background-color: #fff
   padding: 15px
@@ -235,10 +238,17 @@ body.users.show
 #login-form,
 #registration-form,
 #login-modal,
-#registration-modal
+#registration-modal,
+#recover-form,
+#confirm-form,
+.auth-form
   form
     .btn-primary
       margin: 5px 20px 10px 0
+
+.login-social,
+.auth-links
+  margin: 10px 0
 
 footer
   margin-top: 30px

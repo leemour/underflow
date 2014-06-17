@@ -19,6 +19,7 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   config.include Devise::TestHelpers, type: :view
   config.include ControllerMacros, type: :controller
+  config.include MailerMacros
 
   # config.formatter = :documentation # :progress, :html, :textmate
   # config.color_enabled = true

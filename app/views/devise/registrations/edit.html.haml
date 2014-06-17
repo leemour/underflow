@@ -1,4 +1,4 @@
-%h2= "#{t('user.edit')} #{resource.class.model_name.human}"
+%h1= "#{t('user.edit')} #{resource.class.model_name.human}"
 
 = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
   = devise_error_messages!

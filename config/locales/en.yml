@@ -19,6 +19,7 @@ en:
     ago: ago
     times: times
   common:
+    hello: Hello
     delete: Delete
     edit: Edit
     back: Back
@@ -38,7 +39,15 @@ en:
     registration: Registration
     forgot_password: Forgot password?
     no_confirm_instructions: Didn't receive confirmation instructions?
+    account_locked: Your account has been locked due to an excessive number of unsuccessful sign in attempts.
+    unlock_account: Unlock account
+    click_to_unlock: 'Click the link below to unlock your account:'
     no_unlock_instructions: Didn't receive unlock instructions?
+    resend_unlock_instructions: Resend unlock instructions
+    password_change_requested: Someone has requested a link to change your password. You can do this through the link below.
+    password_instructions: Send me reset password instructions
+    ignore_unless_requested: "If you didn't request this, please ignore this email."
+    password_wont_change: Your password won't change until you access the link above and create a new one.
     sign_in_with: Sign in with
     edit: Edit
     update: Update

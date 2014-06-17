@@ -1,10 +1,12 @@
-%h2= t('user.forgot_password')
+%h1= t('user.forgot_password')
 
-= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-  = devise_error_messages!
-  .form-group
-    = f.label :email
-    = f.email_field :email, autofocus: true
-  = f.submit "Send me reset password instructions"
+#recover-form
+  = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+    = devise_error_messages!
+    .form-group
+      = f.label :email
+      = f.email_field :email, autofocus: true, class: 'form-control'
 
-= render "devise/shared/links"
+    = f.submit t('user.password_instructions'), class: "btn btn-primary", data: {disable_with: t('common.processing')}
+
+  = render "devise/shared/links"

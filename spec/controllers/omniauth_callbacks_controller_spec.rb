@@ -15,12 +15,14 @@ describe OmniauthCallbacksController do
       OmniAuth.config.add_mock :facebook, provider: :facebook,
         uid: "1234", info: {email: "ghost@nobody.com"},
         extra: { raw_info: { name: 'name' } }
-      request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
     end
 
     context "when user exists" do
       let!(:user) { create(:user, email: "ghost@nobody.com") }
-      before { get :facebook }
+      before do
+        request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
+        get :facebook
+      end
 
       it "finds user" do
         expect(assigns(:user)).to eq(user)
@@ -36,6 +38,10 @@ describe OmniauthCallbacksController do
     end
 
     context "when new user" do
+      before do
+        request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
+      end
+
       it "creates user" do
         expect { get :facebook }.to change(User,:count).by(1)
       end
@@ -45,14 +51,25 @@ describe OmniauthCallbacksController do
         expect(assigns(:user).email).to eq("ghost@nobody.com")
       end
 
-      it "signs in user" do
+      it "doesnt't sign in user" do
         get :facebook
-        expect(subject.current_user).to eq(assigns(:user))
+        expect(subject.current_user).to be_nil
       end
 
-      it 'redirects to home page' do
+      it 'redirects to sign in path' do
         get :facebook
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context "when incorrect credentials" do
+      before do
+        OmniAuth.config.mock_auth[:invalid] = :invalid_credentials
+        request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:invalid]
+      end
+
+      it "fails" do
+        # expect(response).to redirect_to root_path
       end
     end
   end

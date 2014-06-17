@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   default_scope { order('name ASC') }
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable
-  devise :database_authenticatable, :registerable,
+  # :lockable, :timeoutable
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
          omniauth_providers: [:facebook]
 
@@ -74,6 +74,10 @@ class User < ActiveRecord::Base
 
   def login
     @login || self.name || self.email
+  end
+
+  def only_if_unconfirmed
+    pending_any_confirmation {yield}
   end
 
   def voted(object)

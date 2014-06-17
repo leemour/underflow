@@ -45,9 +45,9 @@ class ApplicationController < ActionController::Base
 
   # def default_url_options
   #   if Rails.env.production?
-  #     { host: 'underflow.riabit.ru' }
+  #     { host: 'http://underflow.riabit.ru' }
   #   else
-  #     { host: 'localhost:3000' }
+  #     { host: 'http://under.dev' }
   #   end
   # end
 

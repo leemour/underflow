@@ -19,5 +19,12 @@ module Acceptance
         click_on 'Войти'
       end
     end
+
+    def sign_in_with_account(provider)
+      visit new_user_session_path
+      within '#login-form' do
+        click_on "Войти через #{provider.capitalize}"
+      end
+    end
   end
 end
