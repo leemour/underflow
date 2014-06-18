@@ -1,16 +1,16 @@
 %ul.errors.question-errors
-- if @user.profile.errors.any?
-  - @user.profile.errors.full_messages.each do |error|
+- if resource.profile.errors.any?
+  - resource.profile.errors.full_messages.each do |error|
     %li.alert.alert-danger= error
-- if @user.errors.any?
-  - @user.errors.full_messages.each do |error|
+- if resource.errors.any?
+  - resource.errors.full_messages.each do |error|
     %li.alert.alert-danger= error
 
-= form_for @user, role: 'form' do |f|
+= form_for resource, role: 'form' do |f|
   .form-group
     = f.label :avatar
     = f.file_field :avatar
-    = image_tag @user.avatar_url(:medium), class: 'avatar'
+    = image_tag resource.avatar_url(:medium), class: 'avatar'
 
   = f.fields_for :profile do |p|
     .form-group

@@ -39,7 +39,8 @@ group :development do
   gem 'binding_of_caller'
   gem 'rubocop', require: false
   gem 'letter_opener'
-  # gem 'bullet'
+  gem 'bullet'
+  gem 'rails_best_practices'
 end
 
 group :development, :test do

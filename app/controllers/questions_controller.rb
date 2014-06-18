@@ -56,8 +56,8 @@ class QuestionsController < InheritedResources::Base
 
   def collection
     @questions ||= params[:scope] ?
-      end_of_association_chain.send(params[:scope]).page(params[:page]) :
-      end_of_association_chain.page(params[:page])
+      end_of_association_chain.includes(:tags, :user).send(params[:scope]).page(params[:page]) :
+      end_of_association_chain.includes(:tags, :user).page(params[:page])
   end
 
   def resource

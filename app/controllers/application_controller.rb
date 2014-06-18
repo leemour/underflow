@@ -35,23 +35,12 @@ class ApplicationController < ActionController::Base
       format.js { render "shared/error", locals: {message: message},
         status: status }
     end
+    return
   end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up).push :name, :email
     devise_parameter_sanitizer.for(:sign_in) << :login
     devise_parameter_sanitizer.for(:account_update) << :name
-  end
-
-  # def default_url_options
-  #   if Rails.env.production?
-  #     { host: 'http://underflow.riabit.ru' }
-  #   else
-  #     { host: 'http://under.dev' }
-  #   end
-  # end
-
-  def set_default_page
-    params[:page] ||= 1
   end
 end

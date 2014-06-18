@@ -26,20 +26,20 @@
         %td= @user.location
       %tr
         %td= t('user.age')
-        %td= distance_of_time_in_words_to_now(@user.birthday) if @user.birthday
+        %td= timeago_tag @user.birthday, lang: I18n.locale if @user.birthday
 
     %h2= t('user.visits')
     %table
       %tr
         %td= t('user.member_for')
-        %td= distance_of_time_in_words_to_now(@user.created_at) if @user.created_at
+        %td= timeago_tag @user.created_at, lang: I18n.locale
       %tr
         %td= t('user.visited')
         %td= "#{@user.sign_in_count} #{t('time.times')}"
         / visited   485 days, 6 consecutive
       %tr
         %td= t('user.seen')
-        %td= time_distance_ago(@user.current_sign_in_at)
+        %td= timeago_tag @user.current_sign_in_at, lang: I18n.locale
         / seen  1 min ago
 
     %h2= t('user.stats')

@@ -39,10 +39,6 @@ class Question < ActiveRecord::Base
     user == self.user
   end
 
-  def tag_list
-    tags.pluck(:name)
-  end
-
   def tag_list=(tags)
     new_tags = [*tags].map {|t| Tag.find_or_create_by(name: t.downcase.strip) }
     new_tags.each do |t|
@@ -68,10 +64,6 @@ class Question < ActiveRecord::Base
   end
 
   protected
-
-  def increment_tags_counter
-    self.tags.each {|t| t.increment!(:questions_count) }
-  end
 
   def decrement_tags_counter
     self.tags.each {|t| t.decrement!(:questions_count) }

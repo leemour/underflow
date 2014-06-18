@@ -7,18 +7,6 @@ module ApplicationHelper
     "#{controller_name} #{action_name}"
   end
 
-  def created_ago(object)
-    unless object.created_at.blank?
-      time_ago_in_words(object.created_at) + " #{t('time.ago')}"
-    end
-  end
-
-  def time_distance_ago(time_from)
-    unless time_from.blank?
-      distance_of_time_in_words_to_now(time_from) + " #{t('time.ago')}"
-    end
-  end
-
   def tr(model, action, gender='male')
     { notice: tr_raw(model, action, gender) }
   end
@@ -133,5 +121,9 @@ module ApplicationHelper
     else
       url_string == request_uri_copy
     end
+  end
+
+  def bounty_values
+    Bounty::VALUES
   end
 end

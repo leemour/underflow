@@ -14,8 +14,7 @@ feature 'User creates account',
 
       expect(last_email.to).to include('123@mail.ru')
 
-      ctoken = last_email.body.match(/confirmation_token=\w*/)
-      visit "/users/confirmation?#{ctoken}"
+      visit "/users/confirmation?#{confirmation_token(last_email)}"
       expect(page).to have_content 'Ваша учётная запись подтверждена'
 
       sign_in_with('peter', '12345678')

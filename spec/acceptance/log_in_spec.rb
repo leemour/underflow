@@ -83,8 +83,7 @@ feature 'User logs in',
 
       # expect(last_email.to).to include('ghost@nobody.com')
 
-      # ctoken = last_email.body.match(/confirmation_token=\w*/)
-      # visit "/users/confirmation?#{ctoken}"
+      # visit "/users/confirmation?#{confirmation_token(last_email)}"
       # expect(page).to have_content 'Ваша учётная запись подтверждена'
 
       # sign_in_with_account(:twitter)
