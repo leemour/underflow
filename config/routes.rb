@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks'}
 
+  devise_scope :user do
+    get 'users/enter-email', to: 'registrations#enter_email',
+      as: 'enter_registration_email'
+    post 'users/sign_up_with_email', to: 'registrations#sign_up_with_email',
+      as: 'sign_up_with_email'
+  end
+
   root 'questions#index'
 
   concern :pageable do

@@ -1,0 +1,17 @@
+%h1= t('user.enter_email')
+
+%p= t('user.enter_email_description')
+
+#enter-email.auth-form
+  - if @user.errors.any?
+    - @user.errors.full_messages.each do |error|
+      %ul.errors.comment-errors
+        %li.alert.alert-danger= error
+
+  = form_for @user, url: sign_up_with_email_path do |f|
+    / = devise_error_messages!
+    .form-group
+      = f.label :email
+      = f.email_field :email, class: 'form-control', autofocus: true
+
+    = f.submit t('user.register'), class: 'btn btn-primary'

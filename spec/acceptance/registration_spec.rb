@@ -20,6 +20,7 @@ feature 'User creates account',
 
       sign_in_with('peter', '12345678')
       expect(page).to have_content 'Вход в систему выполнен.'
+      expect(page).to have_content 'Выйти'
     end
 
     scenario "doesn't log in without confirmation" do

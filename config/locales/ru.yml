@@ -81,6 +81,8 @@ ru:
     voted_answers: "Ответы, за которые голосовал пользователь"
     voted_questions: "Вопросы, за которые голосовал пользователь"
     favorites: Избранные
+    enter_email: Введите email
+    enter_email_description: 'Пожалуйста, введите ваш email, для окончания регистрации'
   question:
     one: Вопрос
     many: Вопросы

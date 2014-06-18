@@ -7,20 +7,19 @@ class User < ActiveRecord::Base
   # :lockable, :timeoutable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
-         omniauth_providers: [:facebook]
+         omniauth_providers: [:facebook, :twitter]
 
   has_one :profile
   has_many :questions
   has_many :answers
-  has_many :comments
   has_many :comments
   has_many :votes
   has_many :voted_questions, through: :votes, source: :voteable,
     source_type: "Question"
   has_many :voted_answers, through: :votes, source: :voteable,
     source_type: "Answer"
-  has_many :favorites
-  has_many :authorizations
+  has_many :favorites, dependent: :destroy
+  has_many :authorizations, dependent: :destroy
 
   attr_accessor :login
 
@@ -30,7 +29,8 @@ class User < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: {case_sensitive: false},
     length: {in: 3..30}
-  validates :email, length: {maximum: 254}, format: {with: Devise.email_regexp}
+  validates :email, uniqueness: { case_sensitive: false },
+    length: {maximum: 254}, format: {with: Devise.email_regexp}
 
   after_create :set_profile
 
@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
 
   paginates_per 5
 
+  # Authenticate by email or login
   def self.find_first_by_auth_conditions(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
@@ -47,21 +48,66 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.find_for_oauth(auth)
-    authorization = Authorization.where(provider: auth.provider,
-      uid: auth.uid.to_s).first
+  def self.find_for_oauth(auth, current_user=nil)
+    authorization = Authorization.find_for_oauth(auth)
     return authorization.user if authorization
 
-    email = auth.info[:email]
+    email = auth.info.email
+    return User.new unless email
+
     user = User.find_by_email(email)
-    unless user
+    if user.nil?
       password = Devise.friendly_token[0,10]
-      name = email.split('@').first
+      name = User.unique_name(auth.info.nickname)
       user = User.create! name: name, email: email, password: password,
         password_confirmation: password
     end
+
     user.authorizations.create(provider: auth.provider, uid: auth.uid.to_s)
     user
+  end
+
+  # def self.find_for_oauth(auth, current_user=nil)
+  #   authorization = Authorization.find_for_oauth(auth)
+  #   return authorization.user if authorization
+
+  #   email = auth.info.email
+  #   user = email ? User.find_by_email(email) : nil
+  #   email ||= 'please@change.me'
+
+  #   if user.nil?
+  #     password = Devise.friendly_token[0,10]
+  #     name = auth.info.nickname
+  #     i = 1
+  #     while find_by_name(name) do
+  #       name = auth.info.nickname + i.to_s
+  #       i += 1
+  #     end
+  #     user = User.new name: name, email: email, password: password,
+  #       password_confirmation: password
+  #     user.skip_confirmation! if email == 'please@change.me'
+  #     user.save!
+  #   end
+
+  #   user.authorizations.create(provider: auth.provider, uid: auth.uid.to_s)
+  #   user
+  # end
+
+  def self.build_from_email_and_session(params, session)
+    name = User.unique_name session.info.nickname
+    password = Devise.friendly_token[0,10]
+    User.new(email: params[:email],  name: name, password: password,
+      password_confirmation: password)
+  end
+
+  def self.unique_name(name)
+    unique_name = name
+    i = 2
+    while find_by_name(unique_name) do
+      unique_name = name + i.to_s
+      i += 1
+    end
+    unique_name
   end
 
   def set_profile

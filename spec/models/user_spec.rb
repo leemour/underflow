@@ -10,6 +10,7 @@ describe User do
 
   it { should validate_presence_of :name }
   it { should validate_uniqueness_of :name }
+  it { should validate_uniqueness_of :email }
   it { should ensure_length_of(:name).is_at_least(3).is_at_most(30) }
   it { should allow_value('123@mail.ru').for(:email) }
   it do
@@ -105,7 +106,7 @@ describe User do
 
     context "user doesn't exist" do
       let(:auth_params) { {provider: 'facebook', uid: '123456',
-        info: {email: '123@user.com'} } }
+        info: {email: '123@user.com', nickname: 'uzzer'} } }
 
       it "creates new user" do
         expect{
@@ -124,13 +125,53 @@ describe User do
 
       it "fills user name from email" do
         user = User.find_for_oauth(auth)
-        expect(user.name).to eq('123')
+        expect(user.name).to eq('uzzer')
       end
 
       it "creates authorization with provider & uid" do
         authorization = User.find_for_oauth(auth).authorizations.first
         expect(authorization.provider).to eq(auth.provider)
         expect(authorization.uid).to eq(auth.uid)
+      end
+    end
+  end
+
+  describe 'self#build_from_email_and_session' do
+    let(:params) { {email: '123@mail.ru'} }
+    let(:auth_params) { {info: {nickname: 'ghost'} } }
+    let(:session) { OmniAuth::AuthHash.new auth_params }
+
+    context "it returns new User" do
+      it "with email from params" do
+        user = User.build_from_email_and_session(params, session)
+        expect(user.email).to eq(params[:email])
+      end
+
+      it 'with nickname from session' do
+        user = User.build_from_email_and_session(params, session)
+        expect(user.name).to eq(session.info.nickname)
+      end
+    end
+  end
+
+  describe 'self#unique_name' do
+    it "returns name if it's unique" do
+      name = 'ghost'
+      expect(User.unique_name(name)).to eq(name)
+    end
+
+    context "name already exists" do
+      it "returns name with 2 appended if no consecutive names" do
+        name = 'ghost'
+        create(:user, name: name)
+        expect(User.unique_name(name)).to eq(name + 2.to_s)
+      end
+
+      it "returns name with next number appended if there are consecutive names" do
+        name = 'ghost'
+        create(:user, name: name)
+        create(:user, name: name + 2.to_s)
+        expect(User.unique_name(name)).to eq(name + 3.to_s)
       end
     end
   end

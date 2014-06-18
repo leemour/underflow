@@ -4,6 +4,6 @@ module MailerMacros
   end
 
   def confirmation_token(email)
-    email.body.match(/confirmation_token=(\w)/)[1]
+    email.body.match(/(confirmation_token=.+)(">|'>)/)[1]
   end
 end

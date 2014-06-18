@@ -23,6 +23,8 @@ gem 'kaminari'
 gem 'inherited_resources'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'activerecord-session_store'
 
 
 gem 'private_pub'
