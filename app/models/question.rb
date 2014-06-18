@@ -39,6 +39,10 @@ class Question < ActiveRecord::Base
     user == self.user
   end
 
+  def tag_list
+    tags.pluck(:name)
+  end
+
   def tag_list=(tags)
     new_tags = [*tags].map {|t| Tag.find_or_create_by(name: t.downcase.strip) }
     new_tags.each do |t|

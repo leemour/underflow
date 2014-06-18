@@ -42,6 +42,16 @@ describe Question do
     end
   end
 
+  describe '#tag_list' do
+    subject { create(:question) }
+    let!(:tags) { create_list(:tag, 3, questions: [subject]) }
+
+    it "returns array of Question Tag names" do
+      tag_names = tags.map(&:name)
+      expect(subject.tag_list).to match_array(tag_names)
+    end
+  end
+
   describe '#tag_list=' do
     subject { create(:question) }
     let!(:tag) { create(:tag, name: 'tag1', questions: [subject]) }
