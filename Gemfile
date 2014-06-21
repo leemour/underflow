@@ -45,6 +45,7 @@ end
 
 group :development, :test do
   gem 'spring'
+  gem 'jazz_hands'
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'guard-rspec'

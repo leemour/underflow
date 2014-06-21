@@ -2,4 +2,6 @@
   = t('user.edit')
   = link_to resource.name, resource
 
+= link_to t('user.reset_password'), reset_password_for_user_path, class: 'btn btn-warning'
+
 = render 'form'

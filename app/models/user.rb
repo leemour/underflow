@@ -67,37 +67,13 @@ class User < ActiveRecord::Base
     user
   end
 
-  # def self.find_for_oauth(auth, current_user=nil)
-  #   authorization = Authorization.find_for_oauth(auth)
-  #   return authorization.user if authorization
-
-  #   email = auth.info.email
-  #   user = email ? User.find_by_email(email) : nil
-  #   email ||= 'please@change.me'
-
-  #   if user.nil?
-  #     password = Devise.friendly_token[0,10]
-  #     name = auth.info.nickname
-  #     i = 1
-  #     while find_by_name(name) do
-  #       name = auth.info.nickname + i.to_s
-  #       i += 1
-  #     end
-  #     user = User.new name: name, email: email, password: password,
-  #       password_confirmation: password
-  #     user.skip_confirmation! if email == 'please@change.me'
-  #     user.save!
-  #   end
-
-  #   user.authorizations.create(provider: auth.provider, uid: auth.uid.to_s)
-  #   user
-  # end
-
   def self.build_from_email_and_session(params, session)
     name = User.unique_name session.info.nickname
     password = Devise.friendly_token[0,10]
-    User.new(email: params[:email],  name: name, password: password,
+    user = User.new(email: params[:email],  name: name, password: password,
       password_confirmation: password)
+    user.authorizations.build(provider: session.provider, uid: session.uid.to_s)
+    user
   end
 
   def self.unique_name(name)
@@ -108,6 +84,10 @@ class User < ActiveRecord::Base
       i += 1
     end
     unique_name
+  end
+
+  def create_authorization(auth)
+    authorizations.find_or_create_by(uid: auth.uid, provider: auth.provider)
   end
 
   def set_profile

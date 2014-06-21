@@ -1,9 +1,11 @@
-class VotesController < ApplicationController
+class VotesController < InheritedResources::Base
   before_action :authenticate_user!, only: [:up, :down]
-  before_action :set_voteable, only: [:up, :down]
+  before_action :set_question
+
+  belongs_to :question, :answer, polymorphic: true
 
   def up
-    @vote = @voteable.vote_up(current_user)
+    @vote = parent.vote_up(current_user)
     respond_to do |format|
       format.html { redirect_to @question }
       format.json { render :up_and_down }
@@ -11,7 +13,7 @@ class VotesController < ApplicationController
   end
 
   def down
-    @vote = @voteable.vote_down(current_user)
+    @vote = parent.vote_down(current_user)
     respond_to do |format|
       format.html { redirect_to @question }
       format.json { render :up_and_down }
@@ -20,9 +22,7 @@ class VotesController < ApplicationController
 
   protected
 
-  def set_voteable
-    parent ||= %w[question answer].find {|p| params.has_key? "#{p}_id"}
-    @voteable = parent.classify.constantize.find(params["#{parent}_id"])
-    @question = @voteable.is_a?(Question) ? @voteable : @voteable.question
+  def set_question
+    @question = parent.is_a?(Question) ? parent : parent.question
   end
 end

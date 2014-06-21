@@ -19,7 +19,9 @@ describe RegistrationsController do
     let(:auth_params) do
       { provider: 'twitter', uid: "12345", info: {nickname: 'ghost'} }
     end
-    let(:session) { {'devise.twitter_data' => OmniAuth::AuthHash.new(auth_params) } }
+    let(:session) do
+      {'devise.social_data' => OmniAuth::AuthHash.new(auth_params) }
+    end
 
     context 'with valid email' do
       before do
@@ -56,7 +58,7 @@ describe RegistrationsController do
       end
 
       it "doesn't create User Authorization" do
-        expect(assigns(:user).authorizations).to be_empty
+        expect(assigns(:user).authorizations.first).to_not be_persisted
       end
 
       it 'renders devise/registrations/enter_email view' do

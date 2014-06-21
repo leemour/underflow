@@ -72,23 +72,29 @@ feature 'User logs in',
     end
 
     scenario 'when user already registered with email' do
-      # create(:user, email: "ghost@nobody.com")
+      user = create(:user, email: "ghost@nobody.com")
 
-      # sign_in_with_account(:twitter)
+      sign_in_with_account(:twitter)
+      expect(page).to have_content 'Введите email'
 
-      # within '#enter-email' do
-      #   fill_in 'E-mail', with: "ghost@nobody.com"
-      #   click_on 'Зарегистрироваться'
-      # end
+      within '#enter-email' do
+        fill_in 'E-mail', with: "ghost@nobody.com"
+        click_on 'Зарегистрироваться'
+      end
+      expect(page).to have_content 'Такой E-mail уже существует'
 
-      # expect(last_email.to).to include('ghost@nobody.com')
+      within '#enter-password' do
+        fill_in 'Пароль', with: user.password
+        click_on 'Объединить профили'
+      end
+      expect(page).to have_content 'Вы успешно объединили свой профиль с профилем от Twitter'
+      expect(page).to have_content 'Выйти'
 
-      # visit "/users/confirmation?#{confirmation_token(last_email)}"
-      # expect(page).to have_content 'Ваша учётная запись подтверждена'
+      click_on 'Выйти'
 
-      # sign_in_with_account(:twitter)
-      # expect(page).to have_content 'Вход в систему выполнен с учётной записью из Twitter'
-      # expect(page).to have_content 'Выйти'
+      sign_in_with_account(:twitter)
+      expect(page).to have_content 'Вход в систему выполнен с учётной записью из Twitter'
+      expect(page).to have_content 'Выйти'
     end
 
     scenario 'when new user' do

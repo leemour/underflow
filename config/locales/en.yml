@@ -79,6 +79,15 @@ en:
     questions: User questions
     voted_answers: Answers voted by
     voted_questions: Questions voted by
+    favorites: Favorites
+    enter_email: Enter email
+    enter_email_description: Please enter your email to finish registration
+    add_profile: Add profile
+    email_exists: Email already exists
+    user_with_email_exists: User with this email already exists
+    enter_password_to_merge: Please enter password for this email to merge it with your social network profile
+    merge_accounts: Merge profiles
+    accounts_merged: You successfully added your %{provider} account to your profile
   question:
     one: Question
     many: Questions

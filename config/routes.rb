@@ -6,6 +6,8 @@ Rails.application.routes.draw do
       as: 'enter_registration_email'
     post 'users/sign_up_with_email', to: 'registrations#sign_up_with_email',
       as: 'sign_up_with_email'
+    post 'users/merge_accounts', to: 'registrations#merge_accounts',
+      as: 'merge_accounts'
   end
 
   root 'questions#index'
@@ -63,6 +65,9 @@ Rails.application.routes.draw do
       as: 'voted_answers'
     get 'favorite/questions(/page/:page)', to: 'questions#favorite',
       as: 'favorite_questions'
+
+    get '/reset-password', on: :member,     to: 'users#reset_password',
+      as: 'reset_password_for'
   end
 
   resources :tags, only: [:index, :show] do

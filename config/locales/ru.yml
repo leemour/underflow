@@ -31,6 +31,7 @@ ru:
     welcome: Добро пожаловать
     replace_file: Заменить файл
     last_activity: Последняя активность
+    incorrect: неправильный
   user:
     profile: Профиль
     log_in: Войти
@@ -83,6 +84,13 @@ ru:
     favorites: Избранные
     enter_email: Введите email
     enter_email_description: 'Пожалуйста, введите ваш email, для окончания регистрации'
+    add_profile: Привязать профиль
+    email_exists: Такой E-mail уже существует
+    user_with_email_exists: Пользователь с введенным вами E-mail уже существует
+    enter_password_to_merge: 'Чтобы привязать профиль социальной сети к этому E-mail, введите пароль'
+    merge_accounts: Объединить профили
+    accounts_merged: Вы успешно объединили свой профиль с профилем от %{provider}
+    reset_password: Сбросить пароль
   question:
     one: Вопрос
     many: Вопросы

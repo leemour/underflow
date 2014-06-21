@@ -16,7 +16,10 @@ describe UsersController do
 
   describe "GET #edit" do
     subject { create(:user) }
-    before { get :edit, id: subject }
+    before do
+      sign_in subject
+      get :edit, id: subject
+    end
 
     it "finds requested User" do
       expect(assigns :user).to eq(subject)
@@ -30,6 +33,7 @@ describe UsersController do
   describe "GET #update" do
     subject { create(:user) }
     before do
+      sign_in subject
       subject.update(profile_attributes: {real_name: 'Not updated real name'})
     end
 
@@ -71,6 +75,22 @@ describe UsersController do
       it "renders :edit view" do
         expect(response).to render_template 'edit'
       end
+    end
+  end
+
+  describe '#reset_password' do
+    subject { create(:user) }
+    before do
+      sign_in subject
+      get :reset_password, id: subject
+    end
+
+    it 'sends email to user' do
+      expect(last_email.to).to include(subject.email)
+    end
+
+    it 'sends email with password token' do
+      expect(last_email.body).to match(/reset_password_token=.+"/)
     end
   end
 end

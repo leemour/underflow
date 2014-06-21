@@ -1,0 +1,25 @@
+%h1= t('user.email_exists')
+
+#enter-password.auth-form
+  %p= t('user.user_with_email_exists')
+  %p= t('user.enter_password_to_merge')
+  %p
+    %strong
+      = t('ar.attributes.user.email')
+    = @user.email
+
+  - if @user.errors.any?
+    - @user.errors.full_messages.each do |error|
+      %ul.errors.comment-errors
+        %li.alert.alert-danger= error
+
+  = form_for :user, url: merge_accounts_path do |f|
+    / = devise_error_messages!
+    = f.hidden_field :email, value: @user.email
+    .form-group
+      = f.label :password
+      = f.password_field :password, class: 'form-control', autofocus: true, autocomplete: "off"
+
+    = f.submit t('user.merge_accounts'), class: 'btn btn-primary'
+
+  = link_to t('user.forgot_password'), new_password_path(resource_name)

@@ -138,7 +138,8 @@ describe User do
 
   describe 'self#build_from_email_and_session' do
     let(:params) { {email: '123@mail.ru'} }
-    let(:auth_params) { {info: {nickname: 'ghost'} } }
+    let(:auth_params) { { uid: '1234', provider: 'facebook',
+      info: {nickname: 'ghost'} } }
     let(:session) { OmniAuth::AuthHash.new auth_params }
 
     context "it returns new User" do
@@ -150,6 +151,22 @@ describe User do
       it 'with nickname from session' do
         user = User.build_from_email_and_session(params, session)
         expect(user.name).to eq(session.info.nickname)
+      end
+
+      it 'builds User Authorization with uid & provider' do
+        user = User.build_from_email_and_session(params, session)
+        authorization = user.authorizations.first
+        expect(authorization.uid).to eq(session.uid)
+        expect(authorization.provider).to eq(session.provider)
+      end
+
+      it 'saves Authorization after User save' do
+        user = User.build_from_email_and_session(params, session)
+        user.save
+        authorization = user.authorizations.first
+        expect(authorization).to be_persisted
+        expect(authorization.uid).to eq(session.uid)
+        expect(authorization.provider).to eq(session.provider)
       end
     end
   end
@@ -173,6 +190,20 @@ describe User do
         create(:user, name: name + 2.to_s)
         expect(User.unique_name(name)).to eq(name + 3.to_s)
       end
+    end
+  end
+
+  describe 'self#create_authorization' do
+    subject { create(:user) }
+    let(:auth_params) { { uid: '1234', provider: 'facebook',
+      info: {nickname: 'ghost'} } }
+    let(:session) { OmniAuth::AuthHash.new auth_params }
+
+    it 'creates new authorization for User with provider & uid' do
+      subject.create_authorization(session)
+      authorization = subject.authorizations.first
+      expect(authorization.uid).to eq(auth_params[:uid])
+      expect(authorization.provider).to eq(auth_params[:provider])
     end
   end
 end

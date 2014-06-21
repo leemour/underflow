@@ -34,6 +34,11 @@ class QuestionsController < InheritedResources::Base
     @questions = Question.where(user_id: params[:user_id]).page(params[:page])
   end
 
+  def show
+    @question ||= end_of_association_chain.includes(
+      answers: [:comments, :attachments, :user]).find(params[:id])
+  end
+
   def create
     create!(tr(:question, 'created'))
   end
@@ -60,10 +65,10 @@ class QuestionsController < InheritedResources::Base
       end_of_association_chain.includes(:tags, :user).page(params[:page])
   end
 
-  def resource
-    @question ||= end_of_association_chain.includes(
-      answers: [:comments, :attachments, :user]).find(params[:id])
-  end
+  # def resource
+  #   @question ||= end_of_association_chain.includes(
+  #     answers: [:comments, :attachments, :user]).find(params[:id])
+  # end
 
   def check_permission
     render_error t('errors.denied') if resource.user != current_user
