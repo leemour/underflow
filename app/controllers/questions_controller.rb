@@ -4,14 +4,12 @@ class QuestionsController < InheritedResources::Base
   respond_to :html, :js, :json
 
   before_action :authenticate_user!, only: [:favor, :create, :edit, :update, :destroy]
-  before_action :set_user, only: [:favorite, :voted, :by_user]
+  before_action :set_user, only: [:favorited, :voted, :by_user]
   before_action :check_permission, only: [:update, :destroy]
 
   impressionist actions: [:show]
 
-  def favorite
-    @questions = Question.favorite(params[:user_id]).page(params[:page])
-  end
+  load_and_authorize_resource except: :index
 
   def favor
     @favored = resource.favor(current_user)
@@ -19,6 +17,10 @@ class QuestionsController < InheritedResources::Base
       format.html { redirect_to resource }
       format.json
     end
+  end
+
+  def favorited
+    @questions = Question.favorited(params[:user_id]).page(params[:page])
   end
 
   def tagged
@@ -65,10 +67,10 @@ class QuestionsController < InheritedResources::Base
       end_of_association_chain.includes(:tags, :user).page(params[:page])
   end
 
-  # def resource
-  #   @question ||= end_of_association_chain.includes(
-  #     answers: [:comments, :attachments, :user]).find(params[:id])
-  # end
+  def resource
+    @question ||= end_of_association_chain.includes(
+      answers: [:comments, :attachments, :user]).find(params[:id])
+  end
 
   def check_permission
     render_error t('errors.denied') if resource.user != current_user

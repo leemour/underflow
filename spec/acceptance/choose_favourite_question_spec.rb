@@ -27,7 +27,7 @@ feature 'User adds question to favourites',
 
         expect(page).to have_content 'Добавлен в избранное'
 
-        visit user_favorite_questions_path(user)
+        visit user_favorited_questions_path(user)
         expect(page).to have_content question.title
       end
     end
@@ -44,7 +44,7 @@ feature 'User adds question to favourites',
       it 'Adds question to User favourites' do
         click_on 'Добавить в избранное'
 
-        visit user_favorite_questions_path(user)
+        visit user_favorited_questions_path(user)
 
         expect(page).to have_content question.title
       end

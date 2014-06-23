@@ -1,0 +1,20 @@
+ru:
+  unauthorized:
+    general: Access denied
+    manage:
+      all: "You do not have access to %{action} %{subject}!"
+    accept:
+      answer: Best answer already accepted.
+    create:
+      question: You need to register to create %{subject}
+      answer: You need to register to create %{subject}
+      comment: You need to register to create %{subject}
+    update:
+      question: You can only edit your own %{subject}
+      answer: You can only edit your own %{subject}
+      comment: You can only edit your own %{subject}
+      user: You can only edit your own %{subject}
+    destroy:
+      question: You can only delete your own %{subject}
+      answer: You can only delete your own %{subject}
+      comment: You can only delete your own %{subject}

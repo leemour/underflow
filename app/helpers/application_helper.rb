@@ -3,6 +3,11 @@ module ApplicationHelper
     "Underflow"
   end
 
+  def title(text)
+    return app_name if text.empty?
+    "#{text} | #{app_name}"
+  end
+
   def body_class
     "#{controller_name} #{action_name}"
   end
@@ -45,7 +50,7 @@ module ApplicationHelper
 
   def favor_class(object)
     klass = 'favor glyphicon glyphicon-star'
-    klass += ' favored' if current_user && current_user.favorite(object)
+    klass += ' favored' if current_user && current_user.favorited(object)
     klass
   end
 

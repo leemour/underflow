@@ -15,6 +15,15 @@ ru:
   errors:
     denied: Доступ запрещен
     answer_already_accepted: Лучший ответ уже выбран
+    '403':
+      title: Ошибка 403
+      description: Доступ запрещен
+    '404':
+      title: Ошибка 404
+      description: Страница не найдена
+    '500':
+      title: Ошибка 500
+      description: Внутренняя ошибка сервера
   time:
     ago: назад
     times: раз
@@ -32,6 +41,7 @@ ru:
     replace_file: Заменить файл
     last_activity: Последняя активность
     incorrect: неправильный
+    new: Новый
   user:
     profile: Профиль
     log_in: Войти

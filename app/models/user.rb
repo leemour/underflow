@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
     votes.where(voteable_id: object.id, voteable_type: object.class).first
   end
 
-  def favorite(object)
+  def favorited(object)
     favorites.where(favorable_id: object.id, favorable_type: object.class).first
   end
 

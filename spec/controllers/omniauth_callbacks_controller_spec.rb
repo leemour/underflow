@@ -6,10 +6,6 @@ describe OmniauthCallbacksController do
     OmniAuth.config.test_mode = true
   end
 
-  # def stub_env_for_omniauth(provider)
-  #   request.env["omniauth.auth"] = OmniAuth.config.mock_auth[provider]
-  # end
-
   describe '#facebook' do
     before do
       OmniAuth.config.add_mock :facebook, provider: :facebook,

@@ -73,8 +73,8 @@ describe AnswersController do
         expect(assigns(:answer).accepted).to be_false
       end
 
-      it "responds with 422 status" do
-        expect(response.status).to eq(422)
+      it "responds with 403 status" do
+        expect(response.status).to eq(403)
       end
     end
 
@@ -95,15 +95,38 @@ describe AnswersController do
 
   describe "GET #by_user" do
     let(:user) { create(:user) }
-    let(:answers) { create_list(:answer, 3, user: user) }
+    let(:question) { create(:question) }
+    let(:answer) { create(:answer, question: question) }
+    let(:answers) { create_list(:answer, 3, user: user, question: question) }
     before { get :by_user, user_id: user }
 
     it "assigns user Answers to @answers" do
       expect(assigns(:answers)).to match_array(answers)
     end
 
-    it "renders :index view" do
+    it "renders :by_user view" do
       expect(response).to render_template 'by_user'
+    end
+  end
+
+  describe "GET #voted" do
+    let(:user) { create(:user) }
+    let(:answer1) { create(:answer) }
+    let(:answer2) { create(:answer) }
+    let(:answer3) { create(:answer) }
+
+    before do
+      create(:vote, voteable: answer1, user: user)
+      create(:vote, voteable: answer2, user: user)
+      get :voted, user_id: user
+    end
+
+    it "assigns user Questions to @questions" do
+      expect(assigns(:answers)).to match_array [answer1, answer2]
+    end
+
+    it "renders :voted view" do
+      expect(response).to render_template 'voted'
     end
   end
 
@@ -183,17 +206,39 @@ describe AnswersController do
 
   describe 'GET #edit' do
     let(:question) { create(:question) }
-    subject { create(:answer, question: question) }
-    before do
-      login_user
-      get :edit, id: subject, question_id: question
+
+    context 'when Answer owner' do
+      subject { create(:answer, question: question, user: @user) }
+      before do
+        login_user
+        get :edit, id: subject, question_id: question
+      end
+
+      it "finds Answer to edit" do
+        expect(assigns(:answer)).to eq(subject)
+      end
+
+      it { should render_template 'edit' }
     end
 
-    it "finds Answer to edit" do
-      expect(assigns(:answer)).to eq(subject)
+    context 'when not Answer owner' do
+      subject { create(:answer, question: question) }
+      before do
+        login_user
+        get :edit, id: subject, question_id: question
+      end
+
+      it { should render_template 'static/error' }
     end
 
-    it { should render_template 'edit' }
+    context 'when not logged in' do
+      subject { create(:answer, question: question) }
+      before { get :edit, id: subject, question_id: question }
+
+      it "redirects to log in page" do
+        expect(request).to redirect_to(new_user_session_path)
+      end
+    end
   end
 
   describe 'PATCH #update' do
@@ -291,7 +336,7 @@ describe AnswersController do
     end
   end
 
-  describe "DELETE destroy" do
+  describe "DELETE #destroy" do
     before { login_user }
     let(:question) { create(:question) }
     let!(:answer) { create(:answer, user: @user, question: question) }
@@ -330,8 +375,7 @@ describe AnswersController do
     end
 
     context "when not user's Answer" do
-      let!(:alien_answer) { create(:answer, user: create(:user),
-        question: question) }
+      let!(:alien_answer) { create(:answer, question: question) }
 
       it "doesn't delete Answer from DB" do
         expect {

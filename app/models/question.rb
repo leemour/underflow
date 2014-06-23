@@ -35,6 +35,10 @@ class Question < ActiveRecord::Base
                           group('questions.id').
                           reorder('COALESCE(SUM(votes.value), 0) desc') }
 
+  def self.favorited(user_id)
+    joins(:favorites).where(favorites: {user_id: user_id})
+  end
+
   def from?(user)
     user == self.user
   end

@@ -8,7 +8,7 @@ module Favorable
   end
 
   def favor(user)
-    favorite = user.favorite(self)
+    favorite = user.favorited(self)
     if favorite
       favorite.destroy
       return false

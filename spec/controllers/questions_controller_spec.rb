@@ -32,6 +32,64 @@ describe QuestionsController do
     end
   end
 
+  describe "GET #favorited" do
+    let(:user) { create(:user) }
+    let(:questions) { create_list(:question, 3) }
+    before do
+      questions.each do |question|
+        create(:favorite, favorable: question, user: user)
+      end
+      get :favorited, user_id: user
+    end
+
+    it "assigns user Questions to @questions" do
+      expect(assigns(:questions)).to match_array(questions)
+    end
+
+    it "renders :favorited view" do
+      expect(response).to render_template 'favorited'
+    end
+  end
+
+  describe "GET #tagged" do
+    let(:tag1) { create(:tag) }
+    let(:tag2) { create(:tag) }
+    let(:question1) { create(:question, tag_list: [tag1.name]) }
+    let(:question2) { create(:question, tag_list: [tag1.name, tag2.name]) }
+    let(:question3) { create(:question, tag_list: [tag2.name]) }
+
+    before { get :tagged, tag_id: tag1 }
+
+    it "assigns user Questions to @questions" do
+      expect(assigns(:questions)).to match_array [question1, question2]
+    end
+
+    it "renders :tagged view" do
+      expect(response).to render_template 'tagged'
+    end
+  end
+
+  describe "GET #voted" do
+    let(:user) { create(:user) }
+    let(:question1) { create(:question) }
+    let(:question2) { create(:question) }
+    let(:question3) { create(:question) }
+
+    before do
+      create(:vote, voteable: question1, user: user)
+      create(:vote, voteable: question2, user: user)
+      get :voted, user_id: user
+    end
+
+    it "assigns user Questions to @questions" do
+      expect(assigns(:questions)).to match_array [question1, question2]
+    end
+
+    it "renders :voted view" do
+      expect(response).to render_template 'voted'
+    end
+  end
+
   describe "GET #by_user" do
     let(:user) { create(:user) }
     let(:questions) { create_list(:question, 3, user: user) }
@@ -88,7 +146,7 @@ describe QuestionsController do
   end
 
   describe "GET #edit" do
-    subject { create(:question) }
+    subject { create(:question, user: @user) }
     before do
       login_user
       get :edit, id: subject

@@ -7,7 +7,7 @@
     %meta{ name: 'description', content: '' }/
     %meta{ name: 'keywords',    content: '' }/
     = csrf_meta_tags
-    %title #{app_name}
+    %title= title(yield :title)
     =favicon_link_tag 'favicon.ico'
     %link{:href => '//webfonts.ru/import/clearsans.css', rel: :stylesheet}
     =stylesheet_link_tag 'application', media: 'all'

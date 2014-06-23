@@ -28,7 +28,18 @@ describe Question do
     it { should_not be_deleted }
   end
 
-  describe '#from?(user)' do
+  describe '#favorited' do
+    let(:user) { create(:user) }
+    let(:question1) { create(:question) }
+    let(:question2) { create(:question) }
+    before { create(:favorite, favorable: question2, user: user)}
+
+    it 'returns Questions favored by User' do
+      expect(Question.favorited(user.id)).to match_array [question2]
+    end
+  end
+
+  describe '#from?' do
     let(:user) { create(:user) }
 
     it 'returns true when user is the author' do

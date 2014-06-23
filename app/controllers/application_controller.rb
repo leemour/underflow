@@ -27,13 +27,19 @@ class ApplicationController < ActionController::Base
     @devise_mapping ||= Devise.mappings[:user]
   end
 
+  rescue_from CanCan::AccessDenied do |exception|
+    render_error t('errors.denied')
+  end
+
   protected
 
-  def render_error(message, status=:forbidden)
+  def render_error(message, status=403)
+    @message = message
+    @status = status
     respond_to do |format|
-      format.html { redirect_to root_path, alert: message, status: status }
-      format.js { render "shared/error", locals: {message: message},
-        status: status }
+      format.html { render "static/error", status: status }
+      format.js { render "static/error", status: status }
+      format.json { render json: {message: @message}, status: status }
     end
     return
   end

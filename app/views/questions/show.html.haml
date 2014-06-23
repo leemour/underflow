@@ -1,3 +1,7 @@
+- content_for :title do
+  = t('activerecord.models.question.one')
+  = resource.title
+
 .question{id: "question-#{resource.id}"}
   = render 'question'
 

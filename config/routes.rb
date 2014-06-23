@@ -63,8 +63,8 @@ Rails.application.routes.draw do
       as: 'voted_questions'
     get 'voted/answers(/page/:page)',      to: 'answers#voted',
       as: 'voted_answers'
-    get 'favorite/questions(/page/:page)', to: 'questions#favorite',
-      as: 'favorite_questions'
+    get 'favorited/questions(/page/:page)', to: 'questions#favorited',
+      as: 'favorited_questions'
 
     get '/reset-password', on: :member,     to: 'users#reset_password',
       as: 'reset_password_for'

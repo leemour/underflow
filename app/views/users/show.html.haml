@@ -1,8 +1,12 @@
+- content_for :title do
+  = t('activerecord.models.user.one')
+  = resource.name
+
 %h1
   = t('activerecord.models.user.one')
-  = @user.name
+  = resource.name
 
-= image_tag @user.avatar_url(:medium), class: 'avatar'
+= image_tag resource.avatar_url(:medium), class: 'avatar'
 
 .row
   .col-sm-6
@@ -10,72 +14,72 @@
     %table
       %tr
         %td= t('activerecord.attributes.user.real_name')
-        %td= @user.real_name
-      - if @user == current_user
+        %td= resource.real_name
+      - if resource == current_user
         %tr
           %td= t('activerecord.attributes.user.email')
-          %td= @user.email
+          %td= resource.email
 
     %h2= t('user.bio')
     %table
       %tr
         %td= t('activerecord.attributes.user.website')
-        %td= @user.website
+        %td= resource.website
       %tr
         %td= t('activerecord.attributes.user.location')
-        %td= @user.location
+        %td= resource.location
       %tr
         %td= t('user.age')
-        %td= timeago_tag @user.birthday, lang: I18n.locale if @user.birthday
+        %td= timeago_tag resource.birthday, lang: I18n.locale if resource.birthday
 
     %h2= t('user.visits')
     %table
       %tr
         %td= t('user.member_for')
-        %td= timeago_tag @user.created_at, lang: I18n.locale
+        %td= timeago_tag resource.created_at, lang: I18n.locale
       %tr
         %td= t('user.visited')
-        %td= "#{@user.sign_in_count} #{t('time.times')}"
+        %td= "#{resource.sign_in_count} #{t('time.times')}"
         / visited   485 days, 6 consecutive
       %tr
         %td= t('user.seen')
-        %td= timeago_tag @user.current_sign_in_at, lang: I18n.locale
+        %td= timeago_tag resource.current_sign_in_at, lang: I18n.locale
         / seen  1 min ago
 
     %h2= t('user.stats')
     %table
       %tr
         %td= t('user.profile_views')
-        %td= distance_of_time_in_words(@user.created_at, Time.now)
+        %td= distance_of_time_in_words(resource.created_at, Time.now)
         / profile views   46
       %tr
         %td= t('user.helpful_flags')
-        %td= distance_of_time_in_words(@user.created_at, Time.now)
+        %td= distance_of_time_in_words(resource.created_at, Time.now)
         / helpful flags   1
 
   .col-sm-6
     %h3= t('activerecord.attributes.user.about')
     .about
-      = @user.about
+      = resource.about
 
   .col-sm-6
     %h2
-      = link_to user_questions_path(@user) do
-        = @user.questions.count
-        = t('activerecord.models.question', count: @user.questions.count)
+      = link_to user_questions_path(resource) do
+        = resource.questions.count
+        = t('activerecord.models.question', count: resource.questions.count)
     %h2
-      = link_to user_answers_path(@user) do
-        = @user.answers.count
-        = t('activerecord.models.answer', count: @user.answers.count)
+      = link_to user_answers_path(resource) do
+        = resource.answers.count
+        = t('activerecord.models.answer', count: resource.answers.count)
 
     %h2= t('vote.voting')
-    %h4= link_to t('activerecord.models.question.other'), [@user, :voted, :questions]
-    %h4= link_to t('activerecord.models.answer.other'), [@user, :voted, :answers]
+    %h4= link_to t('activerecord.models.question.other'), [resource, :voted, :questions]
+    %h4= link_to t('activerecord.models.answer.other'), [resource, :voted, :answers]
 
     %h2= t('user.favorites')
-    %h4= link_to t('activerecord.models.question.other'), [@user, :favorite, :questions]
+    %h4= link_to t('activerecord.models.question.other'), [resource, :favorited, :questions]
 
-- if @user == current_user
+- if resource == current_user
   .row.submit
     .col-sm-12
-      = link_to t('common.edit'), edit_user_path(@user), class: 'btn btn-primary'
+      = link_to t('common.edit'), edit_user_path(resource), class: 'btn btn-primary'

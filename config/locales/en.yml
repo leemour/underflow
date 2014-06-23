@@ -15,6 +15,15 @@ en:
   errors:
     denied: Access denied
     answer_already_accepted: Best answer already chosen
+    '403':
+      title: Error 403
+      description: Access denied
+    '404':
+      title: Error 404
+      description: Page not found
+    '500':
+      title: Error 500
+      description: Internal server error
   time:
     ago: ago
     times: times
