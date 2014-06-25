@@ -10,8 +10,8 @@ class BountiesController < InheritedResources::Base
   # before_action :check_accepted_answer
   # before_action :check_permissions
 
-  # load_resource :question
-  load_and_authorize_resource# through: :question
+  load_resource :question
+  load_and_authorize_resource through: :question
 
   def create
     create!(tr(:bounty, 'created', 'female')) { parent }

@@ -6,7 +6,7 @@
     %ul.errors.question-errors
       %li.alert.alert-danger= error
 
-= form_for resource, remote: false do |f|
+= form_for resource, remote: true do |f|
   .form-group
     = f.label :title
     = f.text_field :title, class: 'form-control'

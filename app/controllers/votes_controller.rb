@@ -4,7 +4,10 @@ class VotesController < InheritedResources::Base
 
   belongs_to :question, :answer, polymorphic: true
 
-  # load_and_authorize_resource
+  # load_resource :question
+  # load_resource :answer
+  # load_and_authorize_resource :vote, :through => [:question, :answer]
+  # authorize_resource
 
   def up
     @vote = parent.vote_up(current_user)

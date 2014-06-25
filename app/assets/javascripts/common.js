@@ -6,13 +6,13 @@ $(function() {
       var questionTitle = $(question).find('h1').text();
       var questionText = $(question).find('.question-text');
       questionText = questionText.text().replace(/^\s{3,}|\s{3,}$/gm,'');
-      $(question).find('.question-edit-form #question_title').val(questionTitle);
-      $(question).find('.question-edit-form textarea').val(questionText);
+      $(question).find('#question-edit-form #question_title').val(questionTitle);
+      $(question).find('#question-edit-form textarea').val(questionText);
       $(question).find('.question-body').hide();
       $(question).find('.question .controls').hide();
       $('.comments .controls').show();
       $(question).find('.question-errors').hide();
-      $(question).find('.question-edit-form').show();
+      $(question).find('#question-edit-form').show();
     }
     ,
     showAnswerForm: function(link) {
@@ -75,7 +75,7 @@ $(function() {
     hideQuestionForm: function() {
       $('.question-body').show();
       $('.controls').show();
-      $('.question-edit-form').hide();
+      $('#question-edit-form').hide();
     }
     ,
     hideAnswerForm: function() {

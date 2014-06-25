@@ -8,7 +8,7 @@ class UsersController < InheritedResources::Base
   before_action :authenticate_user!, only: [:edit, :update, :reset_password]
   # before_action :check_permission, only: [:edit, :update, :reset_password]
 
-  load_and_authorize_resource
+  load_and_authorize_resource except: :index
 
   def update
     update! tr(:profile, 'updated') { resource }

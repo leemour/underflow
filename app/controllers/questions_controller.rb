@@ -3,13 +3,13 @@ class QuestionsController < InheritedResources::Base
 
   respond_to :html, :js, :json
 
-  before_action :authenticate_user!, only: [:favor, :create, :edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:favor, :create, :edit, :update, :destroy, :new]
   before_action :set_user, only: [:favorited, :voted, :by_user]
   before_action :check_permission, only: [:update, :destroy]
 
   impressionist actions: [:show]
 
-  load_and_authorize_resource except: :index
+  load_and_authorize_resource except: [:index, :new]
 
   def favor
     @favored = resource.favor(current_user)

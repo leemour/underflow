@@ -73,16 +73,7 @@ feature 'User creates question',
     scenario "can't create question" do
       visit questions_path
       click_on 'Задать вопрос'
-
-      within("#new-question-form") do
-        fill_in 'Заголовок', with: 'Тестовый заголовок вопроса'
-        fill_in 'question_body',
-          with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
-        click_on 'Задать вопрос'
-      end
-
-      expect(page).to have_content 'Вам необходимо войти в систему или зарегистрироваться.'
-      expect(page).to_not have_content 'Тестовый заголовок вопроса'
+      expect(page).to have_content 'Вам необходимо войти в систему или зарегистрироваться'
     end
   end
 end

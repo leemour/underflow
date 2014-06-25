@@ -58,7 +58,7 @@ feature 'User manages his question',
           click_on 'Редактировать'
           fill_in 'question_body',
             with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
-          within("#edit-question-form") do
+          within("#question-edit-form") do
             click_on 'Задать вопрос'
           end
           expect(page).to have_content 'Вопрос успешно обновлен.'
@@ -68,7 +68,7 @@ feature 'User manages his question',
         scenario 'with incorrect attributes', js: true do
           click_on 'Редактировать'
           fill_in 'question_body', with: ''
-          within("#edit-question-form") do
+          within("#question-edit-form") do
             click_on 'Задать вопрос'
           end
           expect(page).to have_content 'Текст недостаточной длины'
@@ -80,7 +80,7 @@ feature 'User manages his question',
       feature 'edits question' do
         scenario 'with correct attributes' do
           click_on 'Редактировать'
-          within("#edit-question-form") do
+          within("#question-edit-form") do
             fill_in 'question_body',
               with: 'Это коварный вопрос. Это коварный вопрос. Это коварный вопрос. '
             click_on 'Задать вопрос'
@@ -91,7 +91,7 @@ feature 'User manages his question',
 
         scenario 'with incorrect attributes' do
           click_on 'Редактировать'
-          within("#edit-question-form") do
+          within("#question-edit-form") do
             fill_in 'question_body', with: ''
             click_on 'Задать вопрос'
           end
