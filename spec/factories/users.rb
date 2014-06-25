@@ -7,6 +7,9 @@ FactoryGirl.define do
     password              '12345678'
     password_confirmation '12345678'
 
-    after(:create) { |user| user.confirm! }
+    after(:build) do |u|
+      u.skip_confirmation_notification!
+      u.confirm!
+    end
   end
 end

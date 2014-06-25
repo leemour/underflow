@@ -26,6 +26,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'activerecord-session_store'
 gem 'cancancan'
+gem 'rails-observers'
 
 
 gem 'private_pub'

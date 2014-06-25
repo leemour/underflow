@@ -21,5 +21,7 @@ module Underflow
     config.i18n.default_locale = :ru
 
     config.sass.preferred_syntax = :sass
+
+    config.active_record.observers = :reputation_observer
   end
 end
