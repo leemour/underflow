@@ -6,8 +6,7 @@ class ReputationObserver < ActiveRecord::Observer
     when 'Answer'
       Reputation.created_answer(record)
     when 'Vote'
-      action = record.value == 1 ? :vote_up : :vote_down
-      Reputation.voted(record, action)
+      Reputation.voted(record)
     end
   end
 

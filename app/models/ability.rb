@@ -24,13 +24,12 @@ class Ability
         (question.accepted_answer.nil? || question.accepted?(answer))
     end
 
-    can [:create, :destroy], Bounty do |bounty|
-      bounty.question.user_id == user.id && bounty.question.accepted_answer.nil?
-    end
+    can [:create, :destroy], Bounty, question: { user_id: user.id }
 
     can [:reset_password, :edit, :update], User, id: user.id
-    can [:up, :down], Vote
-    cannot [:up, :down], Vote, voteable: { user_id: user.id }
+    can [:up, :down], Vote do |vote|
+      vote.voteable.user_id != user.id
+    end
   end
 
   private

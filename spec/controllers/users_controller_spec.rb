@@ -151,7 +151,9 @@ describe UsersController do
       end
 
       it "doesn't send email to user" do
-        # expect(last_email.to).to_not include(subject.email)
+        # puts ActionMailer::Base.deliveries.last.subject
+        expect(last_email.subject).to eq('Инструкции по восстановлению пароля')
+        expect(last_email.to).to_not include(subject.email)
       end
 
       it 'renders :error view' do

@@ -3,10 +3,6 @@ require 'spec_helper'
 describe ReputationObserver do
   subject { ReputationObserver.instance }
 
-  # it 'observers Question' do
-  #   expect(Question.observers).to include ReputationObserver
-  # end
-
   context 'when Answer created' do
     it "calls Reputation.created_answer" do
       answer = build(:answer)
@@ -19,7 +15,7 @@ describe ReputationObserver do
     context 'when upvote' do
       it "calls Reputation.voted" do
         vote = build(:vote, voteable: create(:question), value: 1)
-        expect(Reputation).to receive(:voted).with(vote, :vote_up)
+        expect(Reputation).to receive(:voted).with(vote)
         vote.save!
       end
     end
@@ -27,7 +23,7 @@ describe ReputationObserver do
     context 'when downvote' do
       it "calls Reputation.voted" do
         vote = build(:vote, voteable: create(:question), value: -1)
-        expect(Reputation).to receive(:voted).with(vote, :vote_down)
+        expect(Reputation).to receive(:voted).with(vote)
         vote.save!
       end
     end

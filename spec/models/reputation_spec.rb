@@ -19,7 +19,7 @@ describe Reputation do
       context 'first answer direct call' do
         it 'increases User reputation by 2' do
           answer = build(:answer, user: user, question: question)
-          question.stub(:answers).and_return([answer])
+          allow(question).to receive(:answers).and_return([answer])
           expect {
             Reputation.created_answer(answer)
           }.to change(user, :reputation).by(2)

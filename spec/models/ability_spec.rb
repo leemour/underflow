@@ -42,17 +42,74 @@ describe Ability do
       it { should_not be_able_to :destroy, other_resource, user_id: user.id }
     end
 
-    [:voted, :tagged, :favorited, :by_user, :favor].each do |operate|
-      it { should be_able_to operate, Question }
+    context 'Question' do
+      [:voted, :tagged, :favorited, :by_user, :favor].each do |operate|
+        it { should be_able_to operate, Question }
+      end
     end
 
-    [:voted, :by_user].each do |operate|
-      it { should be_able_to operate, Answer }
-    end
-    it { should be_able_to :accept, Answer, question: { user_id: user.id } }
+    context 'Answer' do
+      [:voted, :by_user].each do |operate|
+        it { should be_able_to operate, Answer }
+      end
 
-    [:reset_password, :edit, :update].each do |operate|
-      it { should be_able_to operate, user, id: user.id }
+      context 'accept' do
+        let(:question) { create(:question, user: user) }
+        let(:alien_question) { create(:question) }
+        let(:answer) { create(:answer, question: question) }
+        let(:alien_answer) { create(:answer, question: alien_question) }
+
+        it { should be_able_to :accept, Answer, question: { user_id: user.id } }
+        it { should be_able_to :accept, answer }
+        it { should_not be_able_to :accept, alien_answer }
+
+        context 'accepted Answer' do
+          let!(:accepted_answer) { create(:answer, question: question,
+          accepted: true) }
+          let!(:not_accepted_answer) { create(:answer, question: question) }
+
+          it { should be_able_to :accept, accepted_answer }
+          it { should_not be_able_to :accept, not_accepted_answer }
+        end
+      end
+    end
+
+    context 'Bounty' do
+      context 'own Question' do
+        let(:question) { create(:question, user: user) }
+        let(:bounty) { create(:bounty, question: question) }
+
+        [:create, :destroy].each do |operate|
+          it { should be_able_to operate, bounty }
+        end
+      end
+
+      context 'other user Question' do
+        let(:question) { create(:question) }
+        let(:bounty) { create(:bounty, question: question) }
+
+        [:create, :destroy].each do |operate|
+          it { should_not be_able_to operate, bounty }
+        end
+      end
+    end
+
+    context 'User' do
+      [:reset_password, :edit, :update].each do |operate|
+        it { should be_able_to operate, user, id: user.id }
+      end
+    end
+
+    context 'Vote' do
+      let(:question) { create(:question, user: user) }
+      let(:alien_question) { create(:question) }
+      let(:vote) { create(:vote, voteable: question)}
+      let(:alien_vote) { create(:vote, voteable: alien_question)}
+
+      [:up, :down].each do |operate|
+        it { should_not be_able_to operate, vote }
+        it { should be_able_to operate, alien_vote }
+      end
     end
   end
 end

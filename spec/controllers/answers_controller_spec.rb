@@ -121,8 +121,8 @@ describe AnswersController do
       get :voted, user_id: user
     end
 
-    it "assigns user Questions to @questions" do
-      expect(assigns(:answers)).to match_array [answer1, answer2]
+    it "assigns user Answers to @answers" do
+      expect(assigns(:answers)).to eq Answer.voted_by(user.id)
     end
 
     it "renders :voted view" do

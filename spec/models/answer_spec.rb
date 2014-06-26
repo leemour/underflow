@@ -34,6 +34,7 @@ describe Answer do
     let(:question) { create(:question) }
     let(:answer)   { create(:answer, question: question) }
     let!(:bounty)  { create(:bounty, question: question) }
+    before { ActiveRecord::Base.observers.disable :all }
 
     it 'toggles accepted from true to false' do
       answer.update(accepted: true)

@@ -1,15 +1,13 @@
 class RegistrationsController < Devise::RegistrationsController
+  before_action :set_user_and_check_email, only: :sign_up_with_email
+
+
   def enter_email
     @user = User.new
     render 'devise/registrations/enter_email'
   end
 
   def sign_up_with_email
-    data = session['devise.social_data']
-    @user = User.build_from_email_and_session(user_params, data)
-    if User.find_by_email(@user.email)
-      render('devise/registrations/merge_accounts') && return
-    end
     if @user.save
       if @user.active_for_authentication?
         set_flash_message :notice, :signed_up if is_flashing_format?
@@ -40,6 +38,14 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   protected
+
+  def set_user_and_check_email
+    data = session['devise.social_data']
+    @user = User.build_from_email_and_session(user_params, data)
+    if User.find_by_email(@user.email)
+      render('devise/registrations/merge_accounts') && return
+    end
+  end
 
   def user_params
     params.require(:user).permit(:email, :password)

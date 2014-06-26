@@ -7,7 +7,7 @@ class BountiesController < InheritedResources::Base
   actions :create, :destroy
 
   before_action :authenticate_user!
-  # before_action :check_accepted_answer
+  before_action :check_accepted_answer
   # before_action :check_permissions
 
   load_resource :question
@@ -23,9 +23,9 @@ class BountiesController < InheritedResources::Base
 
   protected
 
-  # def check_accepted_answer
-  #   render_error t('errors.answer_already_accepted') if parent.accepted_answer
-  # end
+  def check_accepted_answer
+    render_error t('errors.answer_already_accepted') if parent.accepted_answer
+  end
 
   # def check_permissions
   #   render_error t('errors.denied') if parent.user != current_user

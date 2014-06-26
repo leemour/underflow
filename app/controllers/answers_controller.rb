@@ -2,7 +2,7 @@ class AnswersController < InheritedResources::Base
   include ApplicationHelper
 
   respond_to :html, :js
-  belongs_to :question
+  belongs_to :question, optional: true
   actions :all, except: :new
   custom_actions resource: :accept, collection: :voted
 
@@ -22,8 +22,7 @@ class AnswersController < InheritedResources::Base
   end
 
   def voted
-    @answers = Answer.voted_by(params[:user_id]).
-      includes(:user).page(params[:page])
+    @answers = Answer.voted_by(params[:user_id])
   end
 
   def by_user
