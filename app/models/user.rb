@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   AVATAR_SIZE = { micro: 16, thumb: 32, medium: 128, large: 512 }
 
-  default_scope { order('name ASC') }
+  default_scope { order('reputation ASC, created_at DESC') }
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable

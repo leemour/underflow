@@ -27,6 +27,7 @@ gem 'omniauth-twitter'
 gem 'activerecord-session_store'
 gem 'cancancan'
 gem 'rails-observers'
+gem 'doorkeeper'
 
 
 gem 'private_pub'
@@ -63,6 +64,7 @@ end
 group :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner'
+  gem 'json_spec'
   gem 'rb-inotify', :require => false
   #gem 'rb-fsevent', :require => false
   #gem 'rb-fchange', :require => false

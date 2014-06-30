@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  use_doorkeeper
+
+  namespace :api do
+    namespace :v1 do
+      resources :users do
+        get 'me', on: :collection
+      end
+    end
+  end
+
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks'}
 
   devise_scope :user do
