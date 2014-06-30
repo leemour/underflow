@@ -1,7 +1,9 @@
 .started.col-sm-6.pull-right
   = timeago_tag resource.created_at, lang: I18n.locale
-  %span.author
-    = link_to resource.user do
-      = image_tag resource.user.avatar_url(:thumb), class: 'avatar'
-      = resource.user.name
-  %span.author-reputation
+  .author
+    = link_to resource.user, class: 'avatar' do
+      = image_tag resource.user.avatar_url(:thumb)
+    .user-details
+      = link_to resource.user.name, resource.user, class: 'user-name'
+      .user-reputation
+        = resource.user.reputation

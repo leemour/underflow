@@ -8,6 +8,7 @@ class BountiesController < InheritedResources::Base
 
   before_action :authenticate_user!
   before_action :check_accepted_answer
+  before_action :check_existing_bounty, only: :create
   # before_action :check_permissions
 
   load_resource :question
@@ -22,6 +23,10 @@ class BountiesController < InheritedResources::Base
   end
 
   protected
+
+  def check_existing_bounty
+    render_error t('errors.bounty_already_exists') if parent.bounty
+  end
 
   def check_accepted_answer
     render_error t('errors.answer_already_accepted') if parent.accepted_answer

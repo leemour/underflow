@@ -27,6 +27,7 @@
               - if user_signed_in?
                 %li.dropdown
                   = link_to '#', class: 'dropdown-toggle user-name', data: {toggle: 'dropdown', user_id: current_user.id} do
+                    = image_tag current_user.avatar_url(:micro)
                     = current_user.name
                     %b.caret
                   %ul.dropdown-menu

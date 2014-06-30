@@ -2,9 +2,13 @@
 
   .comment-user.started
     .author
-      = link_to comment.user do
-        = image_tag comment.user.avatar_url(:micro), class: 'avatar'
-        = comment.user.name
+      = link_to comment.user, class: 'avatar' do
+        = image_tag comment.user.avatar_url(:micro)
+      .user-details
+        = link_to resource.user.name, resource.user, class: 'user-name'
+        .user-reputation
+          = resource.user.reputation
+
     = timeago_tag comment.created_at, lang: I18n.locale
 
   .comment-body

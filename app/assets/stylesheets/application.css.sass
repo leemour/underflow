@@ -1,7 +1,5 @@
 /*
  *= require_self
- *= depend_on _questions
- *= depend_on _answers
  */
 
 @import "bootstrap"
@@ -154,6 +152,21 @@ main
     float: left
     margin: -5px 10px 0 0
 
+#user
+  .user-basic-details
+    clear: both
+    overflow: hidden
+    h3
+      margin: 0 0 10px
+    .avatar
+      float: left
+      margin-right: 30px
+    .user-reputation
+      float: left
+      font-weight: bold
+      p
+        margin: 0
+
 ul.errors
   list-style: none inside
   padding-left: 0
@@ -217,6 +230,42 @@ body .tags
         font-size: 11px
     .comment-body
       overflow: hidden
+
+
+.question .started,
+.answer .started
+  overflow: hidden
+  time
+    font-size: 14px
+    position: relative
+    top: -1px
+    vertical-align: top
+  .author
+    display: inline-block
+    max-width: 150px
+    .avatar img
+      float: left
+      margin: 0 10px 0 5px
+    .user-details
+      float: left
+    .user-name
+      position: relative
+      top: -3px
+    .user-reputation
+      font-weight: bold
+      text-align: left
+
+.comments .comment .started
+  .author
+    .avatar img
+      margin-left: 0 !important
+    .user-reputation
+      font-size: 10px
+      position: relative
+      top: -5px
+  time
+    position: relative
+    top: -8px
 
 .answer-files,
 .question-files

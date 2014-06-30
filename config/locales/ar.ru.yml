@@ -82,6 +82,7 @@ ru:
         last_sign_in_at: Последний вход в
         current_sign_in_ip: Текущий вход с IP
         last_sign_in_ip: Последний вход с IP
+        reputation: Репутация
       profile:
         real_name: Полное имя
         website: Сайт
