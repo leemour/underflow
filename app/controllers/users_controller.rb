@@ -6,7 +6,6 @@ class UsersController < InheritedResources::Base
   custom_actions resource: :reset_password
 
   before_action :authenticate_user!, only: [:edit, :update, :reset_password]
-  # before_action :check_permission, only: [:edit, :update, :reset_password]
 
   load_and_authorize_resource except: :index
 
@@ -24,10 +23,6 @@ class UsersController < InheritedResources::Base
   def collection
     @users ||= end_of_association_chain.page(params[:page])
   end
-
-  # def check_permission
-  #   render_error t('errors.denied') if resource != current_user
-  # end
 
   def user_params
     params.require(:user).permit(:avatar, profile_attributes: [:id, :real_name,

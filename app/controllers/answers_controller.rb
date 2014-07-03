@@ -7,9 +7,7 @@ class AnswersController < InheritedResources::Base
   custom_actions resource: :accept, collection: :voted
 
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
-  # before_action :check_permission, only: [:update, :destroy]
   before_action :set_user, only: [:voted, :by_user]
-  # before_action :check_accept_permission, only: [:accept]
 
   load_and_authorize_resource except: [:by_user, :voted]
 
@@ -48,17 +46,6 @@ class AnswersController < InheritedResources::Base
     object.user = current_user
     super
   end
-
-  # def check_accept_permission
-  #   render_error t('errors.denied') if parent.user != current_user
-  #   if parent.accepted_answer && parent.accepted_answer != resource
-  #     render_error t('errors.unprocessable'), :unprocessable_entity
-  #   end
-  # end
-
-  # def check_permission
-  #   render_error t('errors.denied') if resource.user != current_user
-  # end
 
   def set_user
     @user = User.find(params[:user_id])

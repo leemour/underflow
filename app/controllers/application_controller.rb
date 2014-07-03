@@ -7,22 +7,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :resource, :resource_name, :devise_mapping
 
-
-  # alias_method :devise_current_user, :current_user
-  # def current_user
-  #   @current_user ||= devise_current_user
-  #   @current_user ||= guest_user
-  # end
-
-  # def guest_user
-  #   guest = OpenStruct.new
-  #   guest.instance_eval do
-  #     def method_missing(meth, *args, &blk)
-  #       nil
-  #     end
-  #   end
-  # end
-
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
   end
