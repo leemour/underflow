@@ -71,27 +71,48 @@ describe 'Users API' do
         expect(response.status).to eq(200)
       end
 
-      %w[id email created_at updated_at].each do |attr|
-        it "first User contains #{attr}" do
-          expect(response.body).to be_json_eql(
-            me.send(attr.to_sym).to_json).at_path("0/#{attr}")
+      context 'contains' do
+        # %w[id name email avatar created_at updated_at].each do |attr|
+        %w[id name email created_at updated_at].each do |attr|
+          it "first User contains #{attr}" do
+            expect(response.body).to be_json_eql(
+              me.send(attr.to_sym).to_json).at_path("0/#{attr}")
+          end
         end
       end
 
-      %w[id email created_at updated_at].each do |attr|
+      %w[id name email created_at updated_at].each do |attr|
         it "second User contains #{attr}" do
           expect(response.body).to be_json_eql(
             user.send(attr.to_sym).to_json).at_path("1/#{attr}")
         end
       end
 
-      %w[password encrypted_password admin].each do |attr|
-        it "first User doesn't contain #{attr}" do
-          expect(response.body).to_not have_json_path("0/#{attr}")
+      context 'with Profile' do
+        %w[real_name location website birthday about].each do |attr|
+          it "first User contains #{attr}" do
+            expect(response.body).to be_json_eql(
+              me.send(attr.to_sym).to_json).at_path("0/profile/#{attr}")
+          end
         end
 
-        it "second User doesn't contain #{attr}" do
-          expect(response.body).to_not have_json_path("1/#{attr}")
+        %w[real_name location website birthday about].each do |attr|
+          it "second User contains #{attr}" do
+            expect(response.body).to be_json_eql(
+              user.send(attr.to_sym).to_json).at_path("1/profile/#{attr}")
+          end
+        end
+      end
+
+      context "doesn't contain" do
+        %w[password encrypted_password admin].each do |attr|
+          it "first User doesn't contain #{attr}" do
+            expect(response.body).to_not have_json_path("0/#{attr}")
+          end
+
+          it "second User doesn't contain #{attr}" do
+            expect(response.body).to_not have_json_path("1/#{attr}")
+          end
         end
       end
     end
