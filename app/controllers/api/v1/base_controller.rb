@@ -1,4 +1,4 @@
-class Api::V1::ApiController < InheritedResources::Base
+class Api::V1::BaseController < InheritedResources::Base
   doorkeeper_for :all
 
   respond_to :json

@@ -28,6 +28,10 @@ gem 'activerecord-session_store'
 gem 'cancancan'
 gem 'rails-observers'
 gem 'doorkeeper'
+gem 'redis-throttle', git: 'git@github.com:andreareginato/redis-throttle.git'
+gem 'active_model_serializers'
+gem 'oj'
+gem 'oj_mimic_json'
 
 
 gem 'private_pub'

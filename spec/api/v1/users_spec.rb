@@ -3,14 +3,12 @@ require 'spec_helper'
 describe 'Users API' do
   describe 'Resource Owner Profile' do
     context 'unauthorized' do
-      it 'responds with 401 status' do
+      it 'responds with 401 status if no access token' do
         get '/api/v1/users/me', format: :json
         expect(response.status).to eq(401)
       end
-    end
 
-    context 'invalid access token' do
-      it 'responds with 401 status' do
+      it 'responds with 401 status if invalid access token' do
         get '/api/v1/users/me', format: :json, access_token: 'abc'
         expect(response.status).to eq(401)
       end
@@ -44,14 +42,12 @@ describe 'Users API' do
 
   describe 'All User profiles' do
     context 'unauthorized' do
-      it 'responds with 401 status' do
+      it 'responds with 401 status if no access token' do
         get '/api/v1/users', format: :json
         expect(response.status).to eq(401)
       end
-    end
 
-    context 'invalid access token' do
-      it 'responds with 401 status' do
+      it 'responds with 401 status if invalid access token' do
         get '/api/v1/users', format: :json, access_token: 'abc'
         expect(response.status).to eq(401)
       end

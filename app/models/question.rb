@@ -35,6 +35,10 @@ class Question < ActiveRecord::Base
                           group('questions.id').
                           reorder('COALESCE(SUM(votes.value), 0) desc') }
 
+  def self.last_timestamp
+    reorder('created_at DESC').limit(1).first.created_at
+  end
+
   def self.favorited(user_id)
     joins(:favorites).where(favorites: {user_id: user_id})
   end

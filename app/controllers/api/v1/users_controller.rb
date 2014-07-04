@@ -1,4 +1,4 @@
-class Api::V1::UsersController < Api::V1::ApiController
+class Api::V1::UsersController < Api::V1::BaseController
   defaults resource_class: User
 
   def me

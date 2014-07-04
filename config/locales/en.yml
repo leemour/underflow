@@ -16,6 +16,7 @@ en:
     denied: Access denied
     answer_already_accepted: Best answer already chosen
     bounty_already_exists: Bounty already exists
+    admin_only: Access allowed only for admininstrators
     '403':
       title: Error 403
       description: Access denied

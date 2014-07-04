@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :users do
         get 'me', on: :collection
       end
+      resources :questions, only: [:index, :show]
     end
   end
 

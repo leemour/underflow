@@ -16,6 +16,7 @@ ru:
     denied: Доступ запрещен
     answer_already_accepted: Лучший ответ уже выбран
     bounty_already_exists: Награда уже объявлена
+    admin_only: Доступ разрешен только администраторам
     '403':
       title: Ошибка 403
       description: Доступ запрещен
