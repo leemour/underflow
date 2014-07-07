@@ -20,6 +20,7 @@ describe Question do
 
   it_behaves_like "voteable"
   it_behaves_like "favorable"
+  it_behaves_like "timestampable"
 
   context 'when created' do
     subject { build(:question) }
@@ -28,7 +29,7 @@ describe Question do
     it { should_not be_deleted }
   end
 
-  describe '#favorited' do
+  describe 'self#favorited' do
     let(:user) { create(:user) }
     let(:question1) { create(:question) }
     let(:question2) { create(:question) }

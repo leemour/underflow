@@ -1,5 +1,6 @@
 class Answer < ActiveRecord::Base
   include Voteable
+  include Timestampable
 
   default_scope { order(created_at: :asc) }
   scope :accepted_first, -> { reorder('accepted DESC, created_at ASC') }

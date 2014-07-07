@@ -25,16 +25,20 @@ describe 'Users API' do
         expect(response.status).to eq(200)
       end
 
+      # subject { me }
+
+      # it_includes_attributes %w[name email]
+
       %w[id email created_at updated_at].each do |attr|
         it "contains User #{attr}" do
           expect(response.body).to be_json_eql(
-            me.send(attr.to_sym).to_json).at_path(attr)
+            me.send(attr.to_sym).to_json).at_path("user/#{attr}")
         end
       end
 
       %w[password encrypted_password admin].each do |attr|
         it "doesn't contain User #{attr}" do
-          expect(response.body).to_not have_json_path(attr)
+          expect(response.body).to_not have_json_path("user/#{attr}")
         end
       end
     end
@@ -62,25 +66,29 @@ describe 'Users API' do
       end
 
       it 'responds with 200 status' do
-        expect(response.body).to be_json_eql(
-            me.email.to_json).at_path("0/email")
         expect(response.status).to eq(200)
       end
 
       context 'contains' do
-        # %w[id name email avatar created_at updated_at].each do |attr|
         %w[id name email created_at updated_at].each do |attr|
           it "first User contains #{attr}" do
             expect(response.body).to be_json_eql(
-              me.send(attr.to_sym).to_json).at_path("0/#{attr}")
+              me.send(attr.to_sym).to_json).at_path("users/0/#{attr}")
           end
         end
+
+        # it "first User contains avatar" do
+        #   # expect(me.avatar.to_json).to eq 0
+        #   expect(response.body).to be_json_eql(
+        #     me.avatar.to_json).at_path("0/avatar")
+        # end
       end
+
 
       %w[id name email created_at updated_at].each do |attr|
         it "second User contains #{attr}" do
           expect(response.body).to be_json_eql(
-            user.send(attr.to_sym).to_json).at_path("1/#{attr}")
+            user.send(attr.to_sym).to_json).at_path("users/1/#{attr}")
         end
       end
 
@@ -88,14 +96,14 @@ describe 'Users API' do
         %w[real_name location website birthday about].each do |attr|
           it "first User contains #{attr}" do
             expect(response.body).to be_json_eql(
-              me.send(attr.to_sym).to_json).at_path("0/profile/#{attr}")
+              me.send(attr.to_sym).to_json).at_path("users/0/profile/#{attr}")
           end
         end
 
         %w[real_name location website birthday about].each do |attr|
           it "second User contains #{attr}" do
             expect(response.body).to be_json_eql(
-              user.send(attr.to_sym).to_json).at_path("1/profile/#{attr}")
+              user.send(attr.to_sym).to_json).at_path("users/1/profile/#{attr}")
           end
         end
       end
@@ -103,11 +111,11 @@ describe 'Users API' do
       context "doesn't contain" do
         %w[password encrypted_password admin].each do |attr|
           it "first User doesn't contain #{attr}" do
-            expect(response.body).to_not have_json_path("0/#{attr}")
+            expect(response.body).to_not have_json_path("users/0/#{attr}")
           end
 
           it "second User doesn't contain #{attr}" do
-            expect(response.body).to_not have_json_path("1/#{attr}")
+            expect(response.body).to_not have_json_path("users/1/#{attr}")
           end
         end
       end

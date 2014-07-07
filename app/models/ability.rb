@@ -17,7 +17,6 @@ class Ability
     can :modify, [Question, Answer, Comment], user_id: user.id
     can [:voted, :tagged, :favorited, :by_user, :favor], Question
 
-    can [:voted, :by_user], Answer
     can :accept, Answer do |answer|
       question = answer.question
       question.user_id == user.id &&
@@ -41,5 +40,6 @@ class Ability
   def guest_abilities
     can :read, :all
     can [:voted, :tagged, :favorited, :by_user, :favor], Question
+    can [:voted, :by_user], Answer
   end
 end

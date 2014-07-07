@@ -15,6 +15,7 @@ describe Answer do
   it { should ensure_length_of(:body).is_at_least(30).is_at_most(6000) }
 
   it_behaves_like "voteable"
+  it_behaves_like "timestampable"
 
   describe '#from?(user)' do
     let(:user) { create(:user) }

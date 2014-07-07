@@ -1,6 +1,7 @@
 class Question < ActiveRecord::Base
   include Voteable
   include Favorable
+  include Timestampable
 
   default_scope { order(created_at: :desc) }
 
@@ -34,10 +35,6 @@ class Question < ActiveRecord::Base
                           "votes.voteable_type = 'Question'").
                           group('questions.id').
                           reorder('COALESCE(SUM(votes.value), 0) desc') }
-
-  def self.last_timestamp
-    reorder('created_at DESC').limit(1).first.created_at
-  end
 
   def self.favorited(user_id)
     joins(:favorites).where(favorites: {user_id: user_id})

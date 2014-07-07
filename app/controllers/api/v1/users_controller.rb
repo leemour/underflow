@@ -1,12 +1,10 @@
 class Api::V1::UsersController < Api::V1::BaseController
-  defaults resource_class: User
-
   def me
-    respond_with current_resource_owner.to_json(except: :admin)
+    respond_with current_resource_owner
   end
 
   def index
-    respond_with collection.to_json(except: :admin, include: :profile)
+    respond_with collection#.to_json(except: :admin, include: :profile)
   end
 
   protected

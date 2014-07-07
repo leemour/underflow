@@ -52,8 +52,9 @@ describe UsersController do
   describe "PATCH #update" do
     subject do
       user = create(:user)
-      user.update(profile_attributes: { real_name: 'Not updated real name'})
-      user
+    end
+    before do
+      subject.profile.update(real_name: 'Not updated real name')
     end
 
     context 'when this User' do
@@ -91,7 +92,7 @@ describe UsersController do
 
         it "doesn't change User real_name" do
           subject.reload
-          # expect(subject.real_name).to eq('Not updated real name')
+          expect(subject.real_name).to eq('Not updated real name')
         end
 
         it "renders :edit view" do

@@ -123,12 +123,18 @@ describe 'Questions API' do
             at_path("question/attachments")
         end
 
-        %w[id file created_at updated_at].each do |attr|
-          it "Answer contains #{attr}" do
+        %w[id created_at updated_at].each do |attr|
+          it "contains #{attr}" do
             expect(response.body).to be_json_eql(
               attachment.send(attr.to_sym).to_json).
                 at_path("question/attachments/0/#{attr}")
           end
+        end
+
+        it "with url" do
+          expect(response.body).to be_json_eql(
+            attachment.file.url.to_json).
+              at_path("question/attachments/0/file/url")
         end
       end
     end

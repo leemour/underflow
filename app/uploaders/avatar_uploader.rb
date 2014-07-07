@@ -28,4 +28,9 @@ class AvatarUploader < CarrierWave::Uploader::Base
   def extension_white_list
     %w(jpg jpeg gif png)
   end
+
+  def to_json(options={})
+    options.merge(root: false)
+    super(options)
+  end
 end

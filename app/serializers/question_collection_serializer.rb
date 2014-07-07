@@ -1,4 +1,4 @@
-class QuestionIndexSerializer < ActiveModel::Serializer
+class QuestionCollectionSerializer < ActiveModel::Serializer
   attributes :id, :title, :body, :updated_at, :created_at, :short_title
   has_many :answers
 

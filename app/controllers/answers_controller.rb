@@ -9,7 +9,7 @@ class AnswersController < InheritedResources::Base
   before_action :authenticate_user!, only: [:create, :edit, :update, :destroy]
   before_action :set_user, only: [:voted, :by_user]
 
-  load_and_authorize_resource except: [:by_user, :voted]
+  load_and_authorize_resource
 
   def accept
     resource.toggle_accepted_from parent
