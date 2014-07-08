@@ -1,6 +1,8 @@
 class Api::V1::AnswersController < Api::V1::BaseController
   belongs_to :question, parent_class: Question, optional: true
-  actions :all, except: [:new, :edit, :update, :destroy]
+  actions :all, except: [:new, :edit]
+
+  load_and_authorize_resource
 
   def index
     respond_with collection, meta: { timestamp: Answer.last_timestamp }

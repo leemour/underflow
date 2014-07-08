@@ -1,6 +1,147 @@
 require 'spec_helper'
 
 describe 'Questions API' do
+  describe 'PATCH #update' do
+    context 'unauthorized' do
+      it 'responds with 401 status if no access token' do
+        patch '/api/v1/questions/1', format: :json,
+          question: attributes_for(:question)
+        expect(response.status).to eq(401)
+      end
+
+      it 'responds with 401 status if invalid access token' do
+        patch '/api/v1/questions/1', format: :json, access_token: 'abc',
+          question: attributes_for(:question)
+        expect(response.status).to eq(401)
+      end
+    end
+
+    context 'authorized' do
+      let(:me) { create(:user) }
+      let(:access_token) { create(:access_token, resource_owner_id: me.id) }
+      subject { create(:question, title: 'Not updated title', user: me) }
+
+      context "with valid attributes" do
+        before do
+          patch api_v1_question_path(subject), format: :json,
+            question: attributes_for(:question, title: 'Updated title!!'),
+            access_token: access_token.token
+        end
+
+        it "finds Question for update" do
+          expect(assigns(:question)).to eq(subject)
+        end
+
+        it "changes @question title" do
+          subject.reload
+          expect(subject.title).to eq('Updated title!!')
+        end
+
+        it "responds with 204 status" do
+          expect(response.status).to eq(204)
+        end
+      end
+
+      context "with invalid attributes" do
+        before do
+          patch api_v1_question_path(subject), format: :json,
+            question: attributes_for(:question, title: 'Too short'),
+            access_token: access_token.token
+        end
+
+        it "finds Question for update" do
+          expect(assigns(:question)).to eq(subject)
+        end
+
+        it "doesn't change @question attributes" do
+          subject.reload
+          expect(subject.title).to eq('Not updated title')
+        end
+
+        it "responds with 422 status" do
+          expect(response.status).to eq(422)
+        end
+      end
+
+      context "when not user's Question" do
+        let!(:alien_question) { create(:question, title: 'Not updated title') }
+        before do
+          patch api_v1_question_path(alien_question), format: :json,
+            question: attributes_for(:question, title: 'Not allowed to change'),
+            access_token: access_token.token
+        end
+
+        it "doesn't change @question attributes" do
+          alien_question.reload
+          expect(alien_question.title).to eq('Not updated title')
+        end
+
+        it "responds with 403 status" do
+          expect(response.status).to eq(403)
+        end
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    context 'unauthorized' do
+      it 'responds with 401 status if no access token' do
+        delete '/api/v1/questions/1', format: :json
+        expect(response.status).to eq(401)
+      end
+
+      it 'responds with 401 status if invalid access token' do
+        delete '/api/v1/questions/1', format: :json, access_token: 'abc'
+        expect(response.status).to eq(401)
+      end
+    end
+
+    context 'authorized' do
+      let(:me) { create(:user) }
+      let(:access_token) { create(:access_token, resource_owner_id: me.id) }
+
+      context 'when own Question' do
+        let!(:question) { create(:question, user: me) }
+
+        it "finds Question to delete" do
+          delete api_v1_question_path(question), format: :json,
+            access_token: access_token.token
+          expect(assigns(:question)).to eq(question)
+        end
+
+        it "deletes the Question from DB" do
+          expect {
+            delete api_v1_question_path(question), format: :json,
+              access_token: access_token.token
+          }.to change(me.questions, :count).by(-1)
+        end
+
+        it "responds with 204 status" do
+          delete api_v1_question_path(question), format: :json,
+              access_token: access_token.token
+          expect(response.status).to be(204)
+        end
+      end
+
+      context "when not user's Question" do
+        let!(:alien_question) { create(:question) }
+
+        it "doesn't delete Question from DB" do
+          expect {
+            delete api_v1_question_path(alien_question), format: :json,
+              access_token: access_token.token
+          }.to_not change(Question, :count)
+        end
+
+        it "responds with 403 status" do
+          delete api_v1_question_path(alien_question), format: :json,
+              access_token: access_token.token
+          expect(response.status).to eq(403)
+        end
+      end
+    end
+  end
+
   describe 'POST #create' do
     context 'unauthorized' do
       it 'responds with 401 status if no access token' do

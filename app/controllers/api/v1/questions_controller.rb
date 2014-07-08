@@ -1,5 +1,7 @@
 class Api::V1::QuestionsController < Api::V1::BaseController
-  actions :all, except: [:new, :edit, :update, :destroy]
+  actions :all, except: [:new, :edit]
+
+  load_and_authorize_resource except: [:index]
 
   def index
     respond_with collection, each_serializer: QuestionCollectionSerializer,

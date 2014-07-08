@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # API
   use_doorkeeper
 
   namespace :api do
@@ -7,12 +8,13 @@ Rails.application.routes.draw do
         get 'me', on: :collection
       end
 
-      resources :questions, only: [:index, :show, :create] do
-        resources :answers, only: [:index, :show, :create]
+      resources :questions, except: [:new, :edit] do
+        resources :answers, except: [:new, :edit]
       end
     end
   end
 
+  # Main app
   devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks'}
 
   devise_scope :user do

@@ -275,27 +275,45 @@ describe QuestionsController do
     end
   end
 
-  describe "DELETE destroy" do
-    before { login_user }
-    let!(:question) { create(:question, user: @user) }
+  describe "DELETE #destroy" do
+    context 'when not logged in' do
+      let!(:question) { create(:question) }
 
-    it "finds Question to delete" do
-      delete :destroy, id: question
-      expect(assigns(:question)).to eq(question)
-    end
+      it "doesn't delete Question from DB" do
+        expect {
+          delete :destroy, id: question
+        }.to_not change(Question, :count)
+      end
 
-    it "deletes the Question from DB" do
-      expect {
+      it "redirects to login path" do
         delete :destroy, id: question
-      }.to change(@user.questions, :count).by(-1)
+        expect(response).to redirect_to new_user_session_path
+      end
     end
 
-    it "redirects to question index" do
-      delete :destroy, id: question
-      expect(response).to redirect_to questions_path
+    context 'when own Question' do
+      before { login_user }
+      let!(:question) { create(:question, user: @user) }
+
+      it "finds Question to delete" do
+        delete :destroy, id: question
+        expect(assigns(:question)).to eq(question)
+      end
+
+      it "deletes the Question from DB" do
+        expect {
+          delete :destroy, id: question
+        }.to change(@user.questions, :count).by(-1)
+      end
+
+      it "redirects to question index" do
+        delete :destroy, id: question
+        expect(response).to redirect_to questions_path
+      end
     end
 
     context "when not user's Question" do
+      before { login_user }
       let!(:alien_question) { create(:question, user: create(:user)) }
 
       it "doesn't delete Question from DB" do

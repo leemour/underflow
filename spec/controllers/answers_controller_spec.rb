@@ -337,11 +337,27 @@ describe AnswersController do
   end
 
   describe "DELETE #destroy" do
-    before { login_user }
-    let(:question) { create(:question) }
-    let!(:answer) { create(:answer, user: @user, question: question) }
+    context 'when not logged in' do
+      let(:question) { create(:question) }
+      let!(:answer) { create(:answer) }
+
+      it "doesn't delete Answer from DB" do
+        expect {
+          delete :destroy, id: answer, question_id: question
+        }.to_not change(Answer, :count)
+      end
+
+      it "redirects to login path" do
+        delete :destroy, id: answer, question_id: question
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
 
     context "when user's Answer" do
+      before { login_user }
+      let(:question) { create(:question) }
+      let!(:answer) { create(:answer, user: @user, question: question) }
       context "with AJAX" do
         it "deletes the requested Answer" do
           expect {
@@ -375,6 +391,8 @@ describe AnswersController do
     end
 
     context "when not user's Answer" do
+      before { login_user }
+      let(:question) { create(:question) }
       let!(:alien_answer) { create(:answer, question: question) }
 
       it "doesn't delete Answer from DB" do
