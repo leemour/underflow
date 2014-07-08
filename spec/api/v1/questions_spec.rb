@@ -1,6 +1,67 @@
 require 'spec_helper'
 
 describe 'Questions API' do
+  describe 'POST #create' do
+    context 'unauthorized' do
+      it 'responds with 401 status if no access token' do
+        post '/api/v1/questions', format: :json,
+          question: attributes_for(:question)
+        expect(response.status).to eq(401)
+      end
+
+      it 'responds with 401 status if invalid access token' do
+        post '/api/v1/questions', format: :json, access_token: 'abc',
+          question: attributes_for(:question)
+        expect(response.status).to eq(401)
+      end
+    end
+
+    context 'authorized' do
+      let(:question) { create(:question) }
+      let(:me) { create(:user) }
+      let(:access_token) { create(:access_token, resource_owner_id: me.id) }
+
+      context 'with invalid attributes' do
+        it "responds with 422 status" do
+          post api_v1_questions_path, format: :json,
+            question: {body: ''}, access_token: access_token.token
+          expect(response.status).to eq(422)
+        end
+
+        it "doesn't create new Question" do
+          expect {
+            post api_v1_questions_path, format: :json,
+              question: {body: ''}, access_token: access_token.token
+          }.to_not change(Question, :count)
+        end
+      end
+
+      context 'with valid attributes' do
+        it 'responds with 201 status' do
+          post api_v1_questions_path, format: :json,
+            question: attributes_for(:question),
+            access_token: access_token.token
+          expect(response.status).to eq(201)
+        end
+
+        it "creates new Question" do
+          expect {
+            post api_v1_questions_path, format: :json,
+              question: attributes_for(:question),
+              access_token: access_token.token
+          }.to change(Question, :count).by(1)
+        end
+
+        it 'new Question is from current_user' do
+          post api_v1_questions_path, format: :json,
+              question: attributes_for(:question),
+              access_token: access_token.token
+          expect(Question.last.user).to eq(me)
+        end
+      end
+    end
+  end
+
   describe 'GET #index' do
     context 'unauthorized' do
       it 'responds with 401 status if no access token' do
