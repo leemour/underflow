@@ -2,19 +2,7 @@ require 'spec_helper'
 
 describe 'Answers API' do
   describe 'PATCH #update' do
-    context 'unauthorized' do
-      it 'responds with 401 status if no access token' do
-        patch '/api/v1/questions/1/answers/1', format: :json,
-          answer: attributes_for(:answer)
-        expect(response.status).to eq(401)
-      end
-
-      it 'responds with 401 status if invalid access token' do
-        patch '/api/v1/questions/1/answers/1', format: :json,
-          access_token: 'abc', answer: attributes_for(:answer)
-        expect(response.status).to eq(401)
-      end
-    end
+    it_behaves_like 'API authenticatable'
 
     context 'authorized' do
       let(:me) { create(:user) }
@@ -88,21 +76,15 @@ describe 'Answers API' do
         end
       end
     end
+
+    def do_request(options = {})
+      patch '/api/v1/questions/1/answers/1', { format: :json,
+        answer: attributes_for(:answer) }.merge(options)
+    end
   end
 
   describe 'DELETE #destroy' do
-    context 'unauthorized' do
-      it 'responds with 401 status if no access token' do
-        delete '/api/v1/questions/1/answers/1', format: :json
-        expect(response.status).to eq(401)
-      end
-
-      it 'responds with 401 status if invalid access token' do
-        delete '/api/v1/questions/1/answers/1', format: :json,
-          access_token: 'abc'
-        expect(response.status).to eq(401)
-      end
-    end
+    it_behaves_like 'API authenticatable'
 
     context 'authorized' do
       let(:me) { create(:user) }
@@ -149,22 +131,14 @@ describe 'Answers API' do
         end
       end
     end
+
+    def do_request(options = {})
+      delete '/api/v1/questions/1/answers/1', { format: :json }.merge(options)
+    end
   end
 
   describe 'POST #create' do
-    context 'unauthorized' do
-      it 'responds with 401 status if no access token' do
-        post '/api/v1/questions/1/answers', format: :json,
-          answer: attributes_for(:answer), question_id: 1
-        expect(response.status).to eq(401)
-      end
-
-      it 'responds with 401 status if invalid access token' do
-        post '/api/v1/questions/1/answers', format: :json, access_token: 'abc',
-          answer: attributes_for(:answer), question_id: 1
-        expect(response.status).to eq(401)
-      end
-    end
+    it_behaves_like 'API authenticatable'
 
     context 'authorized' do
       let(:question) { create(:question) }
@@ -212,20 +186,15 @@ describe 'Answers API' do
         end
       end
     end
+
+    def do_request(options = {})
+      post '/api/v1/questions/1/answers', { format: :json ,
+        answer: attributes_for(:answer)}.merge(options)
+    end
   end
 
   describe 'GET #index' do
-    context 'unauthorized' do
-      it 'responds with 401 status if no access token' do
-        get '/api/v1/questions/1/answers', format: :json
-        expect(response.status).to eq(401)
-      end
-
-      it 'responds with 401 status if invalid access token' do
-        get '/api/v1/questions/1/answers', format: :json, access_token: 'abc'
-        expect(response.status).to eq(401)
-      end
-    end
+    it_behaves_like 'API authenticatable'
 
     context 'authorized' do
       let!(:question) { create(:question) }
@@ -275,20 +244,14 @@ describe 'Answers API' do
         end
       end
     end
+
+    def do_request(options = {})
+      get '/api/v1/questions/1/answers', { format: :json }.merge(options)
+    end
   end
 
   describe 'GET #show' do
-    context 'unauthorized' do
-      it 'responds with 401 status if no access token' do
-        get '/api/v1/questions/1/answers/1', format: :json
-        expect(response.status).to eq(401)
-      end
-
-      it 'responds with 401 status if invalid access token' do
-        get '/api/v1/questions/1/answers/1', format: :json, access_token: 'abc'
-        expect(response.status).to eq(401)
-      end
-    end
+    it_behaves_like 'API authenticatable'
 
     context 'authorized' do
       let!(:question) { create(:question) }
@@ -350,6 +313,10 @@ describe 'Answers API' do
               at_path("answer/attachments/0/file/url")
         end
       end
+    end
+
+    def do_request(options = {})
+      get '/api/v1/questions/1/answers/1', { format: :json }.merge(options)
     end
   end
 end

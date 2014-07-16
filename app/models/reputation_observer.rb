@@ -10,8 +10,8 @@ class ReputationObserver < ActiveRecord::Observer
     end
   end
 
-  def before_save(record)
-    if record.is_a?(Answer) && !record.new_record?
+  def before_update(record)
+    if record.is_a?(Answer)
       old = Answer.find(record.id)
       if record.accepted? && old && !old.accepted?
         Reputation.accepted_answer(record, true)

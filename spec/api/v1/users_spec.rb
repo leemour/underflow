@@ -77,11 +77,10 @@ describe 'Users API' do
           end
         end
 
-        # it "first User contains avatar" do
-        #   # expect(me.avatar.to_json).to eq 0
-        #   expect(response.body).to be_json_eql(
-        #     me.avatar.to_json).at_path("0/avatar")
-        # end
+        it "first User contains avatar" do
+          expect(response.body).to be_json_eql(
+            me.avatar.to_json).at_path("users/0/avatar")
+        end
       end
 
 
