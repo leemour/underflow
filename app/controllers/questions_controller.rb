@@ -3,15 +3,21 @@ class QuestionsController < InheritedResources::Base
 
   respond_to :html, :js, :json
 
-  before_action :authenticate_user!, only: [:favor, :create, :edit, :update, :destroy, :new]
+  before_action :authenticate_user!, only: [:favor, :create, :edit, :update,
+    :destroy, :new, :subscribe]
   before_action :set_user, only: [:favorited, :voted, :by_user]
-  before_action :check_permission, only: [:update, :destroy]
+  # before_action :check_permission, only: [:update, :destroy]
 
   impressionist actions: [:show]
 
   load_and_authorize_resource except: [:index, :new]
 
   def subscribe
+    resource.subscribe(current_user)
+    respond_to do |format|
+      format.html { redirect_to resource }
+      format.js
+    end
   end
 
   def favor
@@ -75,9 +81,9 @@ class QuestionsController < InheritedResources::Base
       answers: [:comments, :attachments, :user]).find(params[:id])
   end
 
-  def check_permission
-    render_error t('errors.denied') if resource.user != current_user
-  end
+  # def check_permission
+  #   render_error t('errors.denied') if resource.user != current_user
+  # end
 
   def set_user
     @user = User.find(params[:user_id])

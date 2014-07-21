@@ -13,6 +13,9 @@ class Question < ActiveRecord::Base
   has_many :answers, dependent: :destroy
   has_many :comments,    as: :commentable, dependent: :destroy
   has_many :attachments, as: :attachable,  dependent: :destroy
+  has_many :subscriptions, as: :subscribable,  dependent: :destroy
+  has_many :subscribers, through: :subscriptions, source: :user,
+    class_name: User
 
   validates :title, presence: true, length: {in: 15..60}
   validates :body,  presence: true, length: {in: 60..6000}
@@ -70,6 +73,12 @@ class Question < ActiveRecord::Base
 
   def accepted?(answer)
     accepted_answer == answer
+  end
+
+  def subscribe(user)
+    subscription = Subscription.new(user: user, subscribable: self)
+    subscription.save!
+    subscription
   end
 
   protected

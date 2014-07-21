@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
          omniauth_providers: [:facebook, :twitter]
 
-  has_one :profile
+  has_one :profile, dependent: :destroy
   has_many :questions
   has_many :answers
   has_many :comments

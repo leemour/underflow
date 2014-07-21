@@ -11,6 +11,43 @@ describe QuestionsController do
     it { should route(:delete, question_path(1)).to  'questions#destroy', id: '1'}
   end
 
+  describe "GET #subscribe" do
+    let!(:question) { create(:question) }
+
+    context 'when not logged in' do
+      it "doesn't create new Subscription" do
+        expect {
+          get :subscribe, id: question
+        }.to_not change(Subscription, :count)
+      end
+
+      it "redirects to login path" do
+        delete :subscribe, id: question
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'when logged in' do
+      before { login_user }
+
+      it "finds Question to delete" do
+        get :subscribe, id: question
+        expect(assigns(:question)).to eq(question)
+      end
+
+      it "creates new Subscription" do
+        expect {
+          get :subscribe, id: question
+        }.to change(question.subscriptions, :count).by(1)
+      end
+
+      it "redirects to question index" do
+        get :subscribe, id: question
+        expect(response).to redirect_to question_path(question)
+      end
+    end
+  end
+
   describe "GET #favor" do
     let(:user) { create(:user) }
     let(:question) { create(:question) }

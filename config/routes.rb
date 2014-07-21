@@ -71,6 +71,7 @@ Rails.application.routes.draw do
     end
     resource :bounty, only: [:create, :destroy]
     get 'favor', on: :member
+    get 'subscribe', on: :member
   end
 
   resources :answers, only: [] do

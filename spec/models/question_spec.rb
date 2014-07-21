@@ -9,6 +9,8 @@ describe Question do
   it { should have_many :attachments }
   it { should have_many :votes }
   it { should have_many :favorites }
+  it { should have_many :subscriptions }
+  it { should have_many :subscribers }
   it { should have_and_belong_to_many :tags }
 
   it { should accept_nested_attributes_for :attachments }
@@ -130,6 +132,26 @@ describe Question do
     it 'returns true if answer is not accepted' do
       answer = create(:answer, question: subject)
       expect(subject.accepted?(answer)).to be_false
+    end
+  end
+
+  describe '#subscribe' do
+    let(:user) { create(:user) }
+    subject { create(:question) }
+
+    it "returns subscription" do
+      subscription = subject.subscribe(user)
+      expect(subscription).to be_a Subscription
+    end
+
+    it 'subscribes user to Question' do
+      subscription = subject.subscribe(user)
+      expect(subscription.user).to eq(user)
+    end
+
+    it 'subscribes user to this Question' do
+      subscription = subject.subscribe(user)
+      expect(subscription.subscribable).to eq(subject)
     end
   end
 
