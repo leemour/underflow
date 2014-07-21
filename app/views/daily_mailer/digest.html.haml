@@ -1,0 +1,11 @@
+!!! 5
+%html{lang: I18n.locale}
+  %head
+  %body
+    %p= @greeting
+    %p= @description
+
+    %ul
+      - @questions.each do |question|
+        %li= link_to question.title, question
+

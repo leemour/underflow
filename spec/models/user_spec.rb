@@ -136,7 +136,7 @@ describe User do
     end
   end
 
-  describe 'self#build_from_email_and_session' do
+  describe '.build_from_email_and_session' do
     let(:params) { {email: '123@mail.ru'} }
     let(:auth_params) { { uid: '1234', provider: 'facebook',
       info: {nickname: 'ghost'} } }
@@ -171,7 +171,7 @@ describe User do
     end
   end
 
-  describe 'self#unique_name' do
+  describe '.unique_name' do
     it "returns name if it's unique" do
       name = 'ghost'
       expect(User.unique_name(name)).to eq(name)
@@ -193,7 +193,7 @@ describe User do
     end
   end
 
-  describe 'self#create_authorization' do
+  describe '.create_authorization' do
     subject { create(:user) }
     let(:auth_params) { { uid: '1234', provider: 'facebook',
       info: {nickname: 'ghost'} } }
@@ -204,6 +204,18 @@ describe User do
       authorization = subject.authorizations.first
       expect(authorization.uid).to eq(auth_params[:uid])
       expect(authorization.provider).to eq(auth_params[:provider])
+    end
+  end
+
+  describe ".send daily digest" do
+    let(:users) { create_list(:user, 2) }
+
+    it "sends daily digest to all Users" do
+      users.each do |user|
+        expect(DailyMailer).to receive(:digest).with(user).
+          and_call_original
+      end
+      User.send_daily_digest
     end
   end
 end

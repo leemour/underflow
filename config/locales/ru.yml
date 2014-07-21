@@ -44,6 +44,8 @@ ru:
     last_activity: Последняя активность
     incorrect: неправильный
     new: Новый
+  daily_mailer:
+    description: Вопросы за последние 24 часа
   user:
     profile: Профиль
     log_in: Войти

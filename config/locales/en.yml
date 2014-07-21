@@ -42,6 +42,8 @@ en:
     welcome: Welcome
     replace_file: Replace file
     last_activity: Last activity
+  daily_mailer:
+    description: Questions asked within last 24 hours
   user:
     profile: Profile
     log_in: Sign in
