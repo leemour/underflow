@@ -87,8 +87,8 @@ class User < ActiveRecord::Base
   end
 
   def self.send_daily_digest
-    find_each do |user|
-      DailyMailer.delay.digest(user)
+    select(:id).find_each do |user|
+      DailyMailer.delay.digest(user.id)
     end
   end
 

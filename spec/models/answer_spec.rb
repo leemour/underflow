@@ -78,4 +78,28 @@ describe Answer do
       end
     end
   end
+
+  context "after_create" do
+    describe "#notify_question_author" do
+      context "when new Answer created" do
+        let(:answer) { build(:answer) }
+        it "sends message to Question author" do
+          expect(NotificationMailer).to receive(:new_answer).with(answer).
+            and_call_original
+
+          answer.save!
+        end
+      end
+
+      context "when Answer updated" do
+        let(:answer) { create(:answer) }
+        it "doesn't send message to Question author" do
+          expect(NotificationMailer).to_not receive(:new_answer).with(answer).
+            and_call_original
+
+          answer.update(body: 'New answer updated body which is awesome')
+        end
+      end
+    end
+  end
 end

@@ -212,8 +212,7 @@ describe User do
 
     it "sends daily digest to all Users" do
       users.each do |user|
-        expect(DailyMailer).to receive(:digest).with(user).
-          and_call_original
+        expect(DailyMailer).to receive(:digest).with(user.id).and_call_original
       end
       User.send_daily_digest
     end

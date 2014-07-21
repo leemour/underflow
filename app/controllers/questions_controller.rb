@@ -11,6 +11,9 @@ class QuestionsController < InheritedResources::Base
 
   load_and_authorize_resource except: [:index, :new]
 
+  def subscribe
+  end
+
   def favor
     @favored = resource.favor(current_user)
     respond_to do |format|

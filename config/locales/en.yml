@@ -43,7 +43,12 @@ en:
     replace_file: Replace file
     last_activity: Last activity
   daily_mailer:
+    subject: Digest
     description: Questions asked within last 24 hours
+  notification_mailer:
+    new_answer:
+      subject: New answer
+      description: "There is a new answer to your question: %{question}"
   user:
     profile: Profile
     log_in: Sign in

@@ -1,0 +1,10 @@
+!!! 5
+%html{lang: I18n.locale}
+  %head
+  %body
+    %p= @greeting
+    %p= @description
+
+    %p
+      = t('activerecord.models.question.one') + ":"
+      = link_to @answer.question.title, @answer.question

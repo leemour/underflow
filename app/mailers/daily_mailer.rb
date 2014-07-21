@@ -6,11 +6,12 @@ class DailyMailer < ActionMailer::Base
   #
   #   en.daily_mailer.daily_digest.subject
   #
-  def digest(user)
+  def digest(user_id)
+    @user = User.find(user_id)
     @greeting = t('common.hello')
-    @description = t('daily_mailer.description')
+    @description = t('daily_mailer.digest.description')
     @questions = Question.where('created_at > ?', 1.day.ago)
 
-    mail to: user.email, from: 'no-reply@under.dev'
+    mail to: @user.email, from: 'no-reply@under.dev'
   end
 end

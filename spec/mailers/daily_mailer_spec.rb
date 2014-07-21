@@ -3,11 +3,11 @@ require "spec_helper"
 describe DailyMailer do
   describe "#digest" do
     let(:user) { create(:user) }
-    let(:mail) { DailyMailer.digest(user) }
+    let(:mail) { DailyMailer.digest(user.id) }
 
     context 'headers' do
       it "renders subject" do
-        expect(mail.subject).to eq("Digest")
+        expect(mail.subject).to eq(I18n.t('daily_mailer.digest.subject'))
       end
       it "renders from" do
         expect(mail.from).to eq(["no-reply@under.dev"])
@@ -26,7 +26,8 @@ describe DailyMailer do
       end
 
       it "renders description" do
-        expect(mail.body.encoded).to match(I18n.t('daily_mailer.description'))
+        expect(mail.body.encoded).to match(
+          I18n.t('daily_mailer.digest.description'))
       end
 
       it "renders questions created within 24 hours" do

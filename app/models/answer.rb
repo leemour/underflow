@@ -18,6 +18,8 @@ class Answer < ActiveRecord::Base
 
   paginates_per 5
 
+  after_create :notify_question_author
+
   def from?(user)
     user == self.user
   end
@@ -50,5 +52,9 @@ class Answer < ActiveRecord::Base
     bounty.update(winner_id: nil)
     question.user.reputation += bounty.value
     self.user.reputation     -= bounty.value
+  end
+
+  def notify_question_author
+    NotificationMailer.delay.new_answer(self)
   end
 end

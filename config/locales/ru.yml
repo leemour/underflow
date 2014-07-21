@@ -45,7 +45,13 @@ ru:
     incorrect: неправильный
     new: Новый
   daily_mailer:
-    description: Вопросы за последние 24 часа
+    digest:
+      subject: Дайджест
+      description: Вопросы за последние 24 часа
+  notification_mailer:
+    new_answer:
+      subject: Новый ответ
+      description: "Поступил новый ответ на ваш вопрос: %{question}"
   user:
     profile: Профиль
     log_in: Войти
