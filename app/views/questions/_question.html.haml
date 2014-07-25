@@ -36,10 +36,15 @@
       = link_to tag.name, tag
 
   .row.question-details
-    - if resource.from?(current_user)
-      .controls.col-sm-6
+    .controls.col-sm-6
+      - if resource.from?(current_user)
         = link_to t('common.edit'), [:edit, resource], class: 'edit btn btn-warning btn-xs'
         = link_to t('common.delete'), resource, class: 'delete btn btn-danger btn-xs', remote: true, method: :delete, data: { confirm: t("common.sure") }
+      - elsif current_user.subscribed_to?(resource)
+        = link_to t('common.subscribe'), [:unsubscribe_from, resource], class: 'edit btn btn-default btn-xs'
+      - else
+        = link_to t('common.subscribe'), [:subscribe_to, resource], class: 'edit btn btn-default btn-xs'
+
     = render 'shared/author', resource: resource
 
   .comments

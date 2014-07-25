@@ -8,10 +8,12 @@ en:
       created: "%{model} was successfully created."
       updated: "%{model} was successfully updated."
       deleted: "%{model} was successfully deleted."
+      subscribed: "You are successfully subscribed to %{model} updates"
     female:
       created: "%{model} was successfully created."
       updated: "%{model} was successfully updated."
       deleted: "%{model} was successfully deleted."
+      subscribed: "You are successfully subscribed to %{model} updates"
   errors:
     denied: Access denied
     answer_already_accepted: Best answer already chosen
@@ -42,6 +44,8 @@ en:
     welcome: Welcome
     replace_file: Replace file
     last_activity: Last activity
+    subscribe: Subscribe
+    unsubscribe: Unsubscribe
   daily_mailer:
     subject: Digest
     description: Questions asked within last 24 hours

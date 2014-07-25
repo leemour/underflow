@@ -1,8 +1,8 @@
 # Read about factories at https://github.com/thoughtbot/factory_girl
 
 FactoryGirl.define do
-  factory :subscription, :class => 'Subscriptions' do
+  factory :subscription do
     subscribable nil
-    user nil
+    user
   end
 end

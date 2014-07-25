@@ -6,12 +6,13 @@ class NotificationMailer < ActionMailer::Base
   #
   #   en.notification_mailer.new_answer.subject
   #
-  def new_answer(answer_id)
+  def new_answer(answer_id, user_id)
     @answer = Answer.find(answer_id)
+    @user = User.find(user_id)
     @greeting = t('common.hello')
     @description = t('notification_mailer.new_answer.description',
       question: @answer.question.title)
 
-    mail to: @answer.question.user.email, from: "no-reply@under.dev"
+    mail to: @user.email, from: "no-reply@under.dev"
   end
 end

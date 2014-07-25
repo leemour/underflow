@@ -217,4 +217,24 @@ describe User do
       User.send_daily_digest
     end
   end
+
+  describe "#subscribed_to?" do
+    let(:user) { create(:user) }
+    let(:question) { create(:question) }
+
+    context "user subscribed to Question" do
+      let!(:subscription) { create(:subscription, user: user,
+        subscribable: question) }
+
+      it "returns true" do
+        expect(user.subscribed_to?(question)).to be_true
+      end
+    end
+
+    context "user not subscribed to Question" do
+      it "returns false" do
+        expect(user.subscribed_to?(question)).to be_false
+      end
+    end
+  end
 end

@@ -15,7 +15,7 @@ class QuestionsController < InheritedResources::Base
   def subscribe
     resource.subscribe(current_user)
     respond_to do |format|
-      format.html { redirect_to resource }
+      format.html { redirect_to resource, tr(:question, 'subscribed') }
       format.js
     end
   end

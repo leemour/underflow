@@ -109,6 +109,10 @@ class User < ActiveRecord::Base
     @login || self.name || self.email
   end
 
+  def subscribed_to?(resource)
+    !!Subscription.where(user: self, subscribable: resource).first
+  end
+
   def only_if_unconfirmed
     pending_any_confirmation {yield}
   end

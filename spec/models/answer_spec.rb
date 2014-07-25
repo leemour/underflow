@@ -82,10 +82,12 @@ describe Answer do
   context "after_create" do
     describe "#notify_question_author" do
       context "when new Answer created" do
-        let(:answer) { build(:answer) }
+        let(:answer) { build(:answer, id: 998) }
+
         it "sends message to Question author" do
-          expect(NotificationMailer).to receive(:new_answer).with(answer).
-            and_call_original
+          allow(NotificationMailer).to receive(:new_answer).and_call_original
+          expect(NotificationMailer).to receive(:new_answer).
+            with(answer.id, answer.question.user.id).and_call_original
 
           answer.save!
         end
@@ -93,9 +95,37 @@ describe Answer do
 
       context "when Answer updated" do
         let(:answer) { create(:answer) }
+
         it "doesn't send message to Question author" do
-          expect(NotificationMailer).to_not receive(:new_answer).with(answer).
-            and_call_original
+          expect(NotificationMailer).to_not receive(:new_answer).
+            with(answer, answer.question.user.id).and_call_original
+
+          answer.update(body: 'New answer updated body which is awesome')
+        end
+      end
+    end
+
+    describe "#notify_question_author" do
+      context "when new Answer created" do
+        let(:answer) { build(:answer, id: 999) }
+        let!(:subscription) { create(:subscription, subscribable: answer.question) }
+
+        it "sends message to Question subscribers" do
+          allow(NotificationMailer).to receive(:new_answer).and_call_original
+          expect(NotificationMailer).to receive(:new_answer).
+            with(answer.id, subscription.user.id).at_least(:once).and_call_original
+
+          answer.save!
+        end
+      end
+
+      context "when Answer updated" do
+        let(:answer) { create(:answer) }
+        let!(:subscription) { create(:subscription, subscribable: answer) }
+
+        it "doesn't send message to Question subscribers" do
+          expect(NotificationMailer).to_not receive(:new_answer).
+            with(answer.id, subscription.user.id).and_call_original
 
           answer.update(body: 'New answer updated body which is awesome')
         end
