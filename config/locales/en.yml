@@ -9,11 +9,13 @@ en:
       updated: "%{model} was successfully updated."
       deleted: "%{model} was successfully deleted."
       subscribed: "You are successfully subscribed to %{model} updates"
+      subscribed: "You are successfully unsubscribed from %{model} updates"
     female:
       created: "%{model} was successfully created."
       updated: "%{model} was successfully updated."
       deleted: "%{model} was successfully deleted."
       subscribed: "You are successfully subscribed to %{model} updates"
+      subscribed: "You are successfully unsubscribed from %{model} updates"
   errors:
     denied: Access denied
     answer_already_accepted: Best answer already chosen

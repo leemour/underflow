@@ -41,9 +41,9 @@
         = link_to t('common.edit'), [:edit, resource], class: 'edit btn btn-warning btn-xs'
         = link_to t('common.delete'), resource, class: 'delete btn btn-danger btn-xs', remote: true, method: :delete, data: { confirm: t("common.sure") }
       - elsif current_user.subscribed_to?(resource)
-        = link_to t('common.subscribe'), [:unsubscribe_from, resource], class: 'edit btn btn-default btn-xs'
+        = link_to t('common.unsubscribe'), [:unsubscribe_from, resource], method: 'delete', class: 'unsubscribe btn btn-default btn-xs'
       - else
-        = link_to t('common.subscribe'), [:subscribe_to, resource], class: 'edit btn btn-default btn-xs'
+        = link_to t('common.subscribe'), [:subscribe_to, resource], class: 'subscribe btn btn-default btn-xs'
 
     = render 'shared/author', resource: resource
 

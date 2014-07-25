@@ -4,7 +4,7 @@ class QuestionsController < InheritedResources::Base
   respond_to :html, :js, :json
 
   before_action :authenticate_user!, only: [:favor, :create, :edit, :update,
-    :destroy, :new, :subscribe]
+    :destroy, :new, :subscribe, :unsubscribe]
   before_action :set_user, only: [:favorited, :voted, :by_user]
   # before_action :check_permission, only: [:update, :destroy]
 
@@ -16,6 +16,14 @@ class QuestionsController < InheritedResources::Base
     resource.subscribe(current_user)
     respond_to do |format|
       format.html { redirect_to resource, tr(:question, 'subscribed') }
+      format.js
+    end
+  end
+
+  def unsubscribe
+    resource.unsubscribe(current_user)
+    respond_to do |format|
+      format.html { redirect_to resource, tr(:question, 'unsubscribed') }
       format.js
     end
   end

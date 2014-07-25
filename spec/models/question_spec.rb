@@ -155,6 +155,71 @@ describe Question do
     end
   end
 
+  describe '#unsubscribe' do
+    let(:user) { create(:user) }
+    subject { create(:question) }
+
+    context "if Subscription found" do
+      let!(:subscription) { create(:subscription, subscribable: subject, user: user) }
+
+      it "destroys Subscription" do
+        expect {
+          subject.unsubscribe(user)
+        }.to change(subject.subscriptions, :count).by(-1)
+      end
+
+      it 'returns true' do
+        unsubscription = subject.unsubscribe(user)
+        expect(unsubscription).to be_true
+      end
+    end
+
+    context "if no Subscription found" do
+      context "no Subscription exists" do
+        it "doesn't destroy Subscription" do
+          expect {
+            subject.unsubscribe(user)
+          }.to_not change(subject.subscriptions, :count)
+        end
+
+        it 'returns 0' do
+          unsubscription = subject.unsubscribe(user)
+          expect(unsubscription).to be_zero
+        end
+      end
+
+      context "incorrect susbsribable" do
+        let!(:subscription) { create(:subscription, user: user) }
+
+        it "doesn't destroy Subscription" do
+          expect {
+            subject.unsubscribe(user)
+          }.to_not change(subject.subscriptions, :count)
+        end
+
+        it 'returns 0' do
+          unsubscription = subject.unsubscribe(user)
+          expect(unsubscription).to be_zero
+        end
+      end
+
+      context "incorrect user" do
+        let!(:subscription) { create(:subscription, subscribable: subject) }
+
+        it "doesn't destroy Subscription" do
+          expect {
+            subject.unsubscribe(user)
+          }.to_not change(subject.subscriptions, :count)
+        end
+
+        it 'returns 0' do
+          unsubscription = subject.unsubscribe(user)
+          expect(unsubscription).to be_zero
+        end
+      end
+    end
+  end
+
   context 'scopes' do
     let!(:question1) { create(:question) }
     let!(:question2) { create(:question) }

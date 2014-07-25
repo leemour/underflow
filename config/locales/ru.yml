@@ -8,12 +8,14 @@ ru:
       created: "%{model} успешно создан."
       updated: "%{model} успешно обновлен."
       deleted: "%{model} успешно удален."
-      subscribed: "Вы успешно подписаны на обновление %{model}"
+      subscribed: "Вы успешно подписаны на обновления %{model}"
+      unsubscribed: "Вы успешно отписаны от обновлений %{model}"
     female:
       created: "%{model} успешно создана."
       updated: "%{model} успешно обновлена."
       deleted: "%{model} успешно удалена."
-      subscribed: "Вы успешно подписаны на обновление %{model}"
+      subscribed: "Вы успешно подписаны на обновления %{model}"
+      unsubscribed: "Вы успешно отписаны от обновлений %{model}"
   errors:
     denied: Доступ запрещен
     answer_already_accepted: Лучший ответ уже выбран

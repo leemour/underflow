@@ -81,6 +81,10 @@ class Question < ActiveRecord::Base
     subscription
   end
 
+  def unsubscribe(user)
+    Subscription.delete_all(user: user, subscribable: self)
+  end
+
   protected
 
   def decrement_tags_counter

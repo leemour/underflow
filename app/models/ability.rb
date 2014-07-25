@@ -15,7 +15,7 @@ class Ability
 
     can :create, [Question, Answer, Comment]
     can :modify, [Question, Answer, Comment], user_id: user.id
-    can [:favor, :subscribe], Question
+    can [:favor, :subscribe, :unsubscribe], Question
 
     can :accept, Answer do |answer|
       question = answer.question

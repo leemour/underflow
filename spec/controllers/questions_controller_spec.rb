@@ -22,7 +22,7 @@ describe QuestionsController do
       end
 
       it "redirects to login path" do
-        delete :subscribe, id: question
+        get :subscribe, id: question
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -30,7 +30,7 @@ describe QuestionsController do
     context 'when logged in' do
       before { login_user }
 
-      it "finds Question to delete" do
+      it "finds Question to subscribe to" do
         get :subscribe, id: question
         expect(assigns(:question)).to eq(question)
       end
@@ -43,6 +43,46 @@ describe QuestionsController do
 
       it "redirects to question index" do
         get :subscribe, id: question
+        expect(response).to redirect_to question_path(question)
+      end
+    end
+  end
+
+  describe "GET #unsubscribe" do
+    let!(:question) { create(:question) }
+
+    context 'when not logged in' do
+      before { create(:subscription, subscribable: question) }
+
+      it "doesn't create new Subscription" do
+        expect {
+          delete :unsubscribe, id: question
+        }.to_not change(Subscription, :count)
+      end
+
+      it "redirects to login path" do
+        delete :unsubscribe, id: question
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    context 'when logged in' do
+      before { login_user }
+      before { create(:subscription, subscribable: question, user: @user) }
+
+      it "finds Question to unsubscribe from" do
+        delete :unsubscribe, id: question
+        expect(assigns(:question)).to eq(question)
+      end
+
+      it "creates new Subscription" do
+        expect {
+          delete :unsubscribe, id: question
+        }.to change(question.subscriptions, :count).by(-1)
+      end
+
+      it "redirects to question index" do
+        delete :unsubscribe, id: question
         expect(response).to redirect_to question_path(question)
       end
     end
