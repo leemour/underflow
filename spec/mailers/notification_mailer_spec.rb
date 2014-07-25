@@ -2,8 +2,9 @@ require "spec_helper"
 
 describe NotificationMailer do
   describe "#new_answer" do
+    let(:user) { create(:user) }
     let(:answer) { create(:answer) }
-    let(:mail) { NotificationMailer.new_answer(answer.id) }
+    let(:mail) { NotificationMailer.new_answer(answer.id, user.id) }
 
     context 'headers' do
       it "renders subject" do
@@ -14,7 +15,7 @@ describe NotificationMailer do
         expect(mail.from).to eq(["no-reply@under.dev"])
       end
       it "renders to" do
-        expect(mail.to).to eq([answer.question.user.email])
+        expect(mail.to).to eq([user.email])
       end
     end
 

@@ -10,5 +10,9 @@ FactoryGirl.define do
       The Slings and Arrows of outrageous Fortune,
       Or to take Arms against a Sea of troubles,
       And by opposing end them?"
+
+    after(:build) do |answer|
+      answer.class.skip_callback(:create, :after, :notify_question_subscribers)
+    end
   end
 end

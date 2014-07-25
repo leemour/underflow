@@ -20,6 +20,7 @@ class Question < ActiveRecord::Base
   validates :title, presence: true, length: {in: 15..60}
   validates :body,  presence: true, length: {in: 60..6000}
 
+  after_create  :add_author_to_subscribers
   before_destroy :decrement_tags_counter
 
   paginates_per 5
@@ -86,6 +87,10 @@ class Question < ActiveRecord::Base
   end
 
   protected
+
+  def add_author_to_subscribers
+    subscribe(self.user)
+  end
 
   def decrement_tags_counter
     self.tags.each {|t| t.decrement!(:questions_count) }

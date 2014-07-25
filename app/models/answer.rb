@@ -18,7 +18,6 @@ class Answer < ActiveRecord::Base
 
   paginates_per 5
 
-  after_create :notify_question_author
   after_create :notify_question_subscribers
 
   def from?(user)
@@ -55,13 +54,7 @@ class Answer < ActiveRecord::Base
     self.user.reputation     -= bounty.value
   end
 
-  def notify_question_author
-    NotificationMailer.delay.new_answer(self.id, question.user.id)
-  end
-
   def notify_question_subscribers
-    question.subscribers.each do |subscriber|
-      NotificationMailer.delay.new_answer(self.id, subscriber.id)
-    end
+    NotifySubscribersWorker.perform_async(self.id)
   end
 end
