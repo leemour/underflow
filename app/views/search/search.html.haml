@@ -1,0 +1,18 @@
+%h1= t("search.results")
+%p
+  = t('search.you_searched', for: params[:q]).html_safe
+
+.search-nav.btn-group
+  = link_to t('activerecord.models.question.other'), questions_search_path(q: params[:q]), class: 'btn btn-default' + cp(questions_search_path)
+  = link_to t('activerecord.models.answer.other'), answers_search_path(q: params[:q]), class: 'btn btn-default' + cp(answers_search_path)
+  = link_to t('activerecord.models.comment.other'), comments_search_path(q: params[:q]), class: 'btn btn-default' + cp(comments_search_path)
+  = link_to t('activerecord.models.user.other'), users_search_path(q: params[:q]), class: 'btn btn-default' + cp(users_search_path)
+
+.search-results
+  - if @results
+    - @results.each do |result|
+      .result
+        .h3= link_to result.title, result
+        %p= result.body
+  - else
+    %p= t("search.no_results")

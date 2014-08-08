@@ -1,1 +1,8 @@
 = link_to t('question.ask'), new_question_path, class: 'btn btn-primary btn-block'
+
+#search
+  = form_tag '/search', method: "get" do |f|
+    .form-group
+      = text_field_tag :q, nil, class: 'form-control'
+    .form-group
+      = submit_tag t('search.search'), data: {disable_with: t('common.processing')}, class: 'btn btn-success'

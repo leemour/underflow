@@ -32,3 +32,8 @@ vendor/gems/*
 
 # Ignore Shared
 /config/shared
+
+# DB related
+dump.rdb
+config/*.sphinx.conf
+db/sphinx

@@ -30,6 +30,11 @@ ru:
     '500':
       title: Ошибка 500
       description: Внутренняя ошибка сервера
+  search:
+    results: Результаты поиска
+    you_searched: "Вы искали <strong>%{for}</strong>"
+    no_results: К сожалению, по ничего не найдено.
+    search: Искать
   time:
     ago: назад
     times: раз

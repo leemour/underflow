@@ -2,6 +2,8 @@ require 'sidekiq/web'
 require 'sidetiq/web'
 
 Rails.application.routes.draw do
+  get 'search/search'
+
   # Sidekiq
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
@@ -19,6 +21,14 @@ Rails.application.routes.draw do
       resources :questions, except: [:new, :edit] do
         resources :answers, except: [:new, :edit]
       end
+    end
+  end
+
+  # Search
+  resource :search, only: :index do
+    get :index, to: 'search#search'
+    %w[questions answers comments users].each do |type|
+      get type, to: 'search#search', type: type, as: type
     end
   end
 

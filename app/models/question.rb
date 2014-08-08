@@ -18,7 +18,7 @@ class Question < ActiveRecord::Base
     class_name: User
 
   validates :title, presence: true, length: {in: 15..60}
-  validates :body,  presence: true, length: {in: 60..6000}
+  validates :body,  presence: true, length: {in: 40..6000}
 
   after_create  :add_author_to_subscribers
   before_destroy :decrement_tags_counter

@@ -30,6 +30,11 @@ en:
     '500':
       title: Error 500
       description: Internal server error
+  search:
+    results: Search results
+    you_searched: "Your searched for <strong>%{for}</strong>"
+    no_results: Unfortunately, nothing was found.
+    search: искать
   time:
     ago: ago
     times: times
