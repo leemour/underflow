@@ -131,4 +131,58 @@ module ApplicationHelper
   def bounty_values
     Bounty::VALUES
   end
+
+  def search_link(result)
+    case result.class.to_s
+    when "Comment"
+      # result.commentable.tap { |c| c.is_a?(Question) ? c : c.question }
+      result.commentable.is_a?(Question) ? result.commentable : result.commentable.question
+    when "Answer"
+      result.question
+    else
+      result
+    end
+  end
+
+  def search_link_title(result)
+    title =
+      case result.class.to_s
+      when "Answer"
+        [t("search.answer_to"),
+          t("activerecord.models.question.one"),
+          "'#{result.question.title}'"
+        ].join(" ")
+      when "Comment"
+        commentable_class = result.commentable.class.to_s.downcase
+        question = result.commentable.is_a?(Question) ?
+          result.commentable :
+          result.commentable.question
+        [t("search.comment_to"),
+          t("search.models.#{commentable_class}"),
+          question.title
+        ].join(" ")
+      else
+        %w[title name].each do |name|
+          return result.send(name) if result.respond_to? name
+        end
+      end
+    highlight_search_terms(title[0..300], params[:q]).html_safe
+  end
+
+  def search_body(result)
+    body = %w[body about].each do |meth|
+      return result.send(meth) if result.respond_to? meth
+    end
+    highlight_search_terms(body[0..300], params[:q]).html_safe
+  end
+
+  def highlight_search_terms(text, query)
+    escaped_query = Regexp.escape(query)
+    text.gsub /(#{escaped_query})/i, '<span class="search-terms">\1</span>'
+  end
+
+  def search_counter_start
+    return 1 if params[:page].nil? || params[:page] == 0
+    params[:page].to_i * 20 - 19
+  end
 end

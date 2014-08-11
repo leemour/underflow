@@ -35,4 +35,8 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
   end
+
+  config.before(:each, sphinx: true) do
+    DatabaseCleaner.strategy = :truncation
+  end
 end

@@ -2,7 +2,22 @@ require 'sidekiq/web'
 require 'sidetiq/web'
 
 Rails.application.routes.draw do
-  get 'search/search'
+  root 'questions#index'
+
+  # Concerns
+  concern :pageable do
+    get 'page/:page', action: 'index', on: :collection
+  end
+
+  concern :commentable do
+    resources :comments, except: [:show, :index]
+  end
+
+  concern :voteable do
+    post 'vote/up', to: 'votes#up'
+    post 'vote/down', to: 'votes#down'
+    resources :votes, only: [:index]
+  end
 
   # Sidekiq
   authenticate :user, lambda { |u| u.admin? } do
@@ -26,6 +41,8 @@ Rails.application.routes.draw do
 
   # Search
   resource :search, only: :index do
+    concerns :pageable
+
     get :index, to: 'search#search'
     %w[questions answers comments users].each do |type|
       get type, to: 'search#search', type: type, as: type
@@ -44,26 +61,13 @@ Rails.application.routes.draw do
       as: 'merge_accounts'
   end
 
-  root 'questions#index'
-
-  concern :pageable do
-    get 'page/:page', action: 'index', on: :collection
-  end
-
-  concern :commentable do
-    resources :comments, except: [:show, :index]
-  end
-
-  concern :voteable do
-    post 'vote/up', to: 'votes#up'
-    post 'vote/down', to: 'votes#down'
-    resources :votes, only: [:index]
-  end
-
+  # Static Pages
   %w[faq help].each do |page|
     get page, to: "static##{page}", as: page
   end
 
+
+  # Resources
   resources :questions do
     concerns :pageable, :commentable, :voteable
     resources :answers, except: [:show, :index] do
