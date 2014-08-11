@@ -31,14 +31,22 @@ ru:
       title: Ошибка 500
       description: Внутренняя ошибка сервера
   search:
+    models:
+      question: вопросу
+      answer: ответу на вопрос
+    comment_to: Комментарий к
+    answer_to: Ответ на
+    search: Поиск
+    do_search: Искать
     results: Результаты поиска
     you_searched: "Вы искали <strong>%{for}</strong>"
-    no_results: К сожалению, по ничего не найдено.
-    search: Искать
+    no_results: К сожалению, ничего не найдено.
+    found: "Найдено результатов: <strong>%{results}</strong>"
   time:
     ago: назад
     times: раз
   common:
+    all: Все
     hello: Здравствуйте
     delete: Удалить
     edit: Редактировать

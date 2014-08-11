@@ -31,14 +31,22 @@ en:
       title: Error 500
       description: Internal server error
   search:
+    models:
+      question: question
+      answer: answer to question
+    comment_to: Comment to
+    answer_to: Answer to
+    search: Search for
+    do_search: Search
     results: Search results
     you_searched: "Your searched for <strong>%{for}</strong>"
     no_results: Unfortunately, nothing was found.
-    search: искать
+    found: "Results found: <strong>%{results}</strong>"
   time:
     ago: ago
     times: times
   common:
+    all: Everything
     hello: Hello
     delete: Delete
     edit: Edit
