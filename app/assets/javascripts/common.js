@@ -189,4 +189,10 @@ $(function() {
 
   $('.login-link').hide();
   $('.login-link.js').show();
+
+  $('#q').on('focus', function(ev) {
+    if (this.value == 'Search for' || this.value == 'Поиск') {
+      this.value = '';
+    }
+  })
 });

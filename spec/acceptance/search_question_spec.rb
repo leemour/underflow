@@ -11,12 +11,13 @@ feature 'User searches questions',
     create(:question, body: 'Невероятно сложный вопрос, который надо решить')
     create(:question, body: 'Довольно сложный вопрос, который надо решить')
     create(:question, body: 'Очень простой вопрос, который надо решить')
+    ThinkingSphinx::Test.index
 
     visit root_path
   end
 
   context 'when searching for 1 word' do
-    scenario 'finds questions containing it' do
+    scenario 'finds questions containing it', sphinx:  true do
       within("#search") do
         fill_in "q", with: 'сложный'
         click_on 'Искать'

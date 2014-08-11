@@ -11,25 +11,29 @@ describe SearchController do
       body: 'Очень простой вопрос, который надо решить') }
 
     context "when results found" do
+      before {  }
+
       it "assigns records containing search text to @results" do
+        ThinkingSphinx::Test.index
         get :search, q: 'сложный'
         expect(assigns(:results)).to eq([question1, question2])
       end
 
       it "renders :search view" do
-        get :subscribe, q: 'сложный'
+        get :search, q: 'сложный'
         expect(response).to render_template 'search'
       end
     end
 
     context "when results not found" do
       it "@results are empty" do
+        ThinkingSphinx::Test.index
         get :search, q: 'не найдено'
         expect(assigns(:results)).to be_empty
       end
 
       it "renders :search view" do
-        get :subscribe, q: 'не найдено'
+        get :search, q: 'не найдено'
         expect(response).to render_template 'search'
       end
     end
