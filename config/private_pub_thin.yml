@@ -1,0 +1,5 @@
+---
+port: 9292
+environment: production
+rackup: private_pub.ru
+daemonize: true
