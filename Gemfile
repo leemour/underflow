@@ -32,6 +32,7 @@ gem 'redis-throttle', git: 'git@github.com:andreareginato/redis-throttle.git'
 gem 'active_model_serializers'
 gem 'oj'
 gem 'oj_mimic_json'
+gem 'gon'
 
 gem 'sidekiq'
 gem 'sidetiq'
@@ -39,6 +40,7 @@ gem 'sinatra', '>= 1.3.0', require: false
 
 gem 'mysql2'
 gem 'thinking-sphinx'
+gem 'whenever'
 
 gem 'private_pub'
 gem 'thin'
@@ -48,6 +50,7 @@ group :development do
   gem 'capistrano-rails', require: false
   gem 'capistrano-rbenv', require: false
   gem 'capistrano-bundler', require: false
+  gem 'capistrano-sidekiq', require: false
   gem 'pry-byebug'
   gem 'quiet_assets'
   gem 'better_errors'

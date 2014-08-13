@@ -44,7 +44,7 @@
         - if current_user.subscribed_to?(resource)
           = link_to t('common.unsubscribe'), [:unsubscribe_from, resource], method: 'delete', class: 'unsubscribe btn btn-default btn-xs'
         - else
-          = link_to t('common.subscribe'), [:subscribe_to, resource], class: 'subscribe btn btn-default btn-xs'
+          = link_to t('common.subscribe'), [:subscribe_to, resource], method: 'post', class: 'subscribe btn btn-default btn-xs'
 
     = render 'shared/author', resource: resource
 

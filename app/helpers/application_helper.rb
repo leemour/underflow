@@ -162,9 +162,8 @@ module ApplicationHelper
           question.title
         ].join(" ")
       else
-        %w[title name].each do |name|
-          return result.send(name) if result.respond_to? name
-        end
+        name = %w[title name].detect {|name| result.respond_to? name }
+        result.send(name)
       end
     highlight_search_terms(title[0..300], params[:q]).html_safe
   end

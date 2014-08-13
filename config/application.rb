@@ -13,7 +13,7 @@ module Underflow
     # -- all .rb files in that directory are automatically loaded.
     config.autoload_paths << Rails.root.join("lib")
 
-    unless Rails.env.test?
+    if Rails.env.production?
       config.middleware.insert_after Rack::Runtime, 'Middleware::DailyRateLimit'
     end
 

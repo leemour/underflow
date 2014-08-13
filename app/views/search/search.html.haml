@@ -17,7 +17,7 @@
     %ol{start: search_counter_start}
       - @results.each do |result|
         %li.result
-          .h3= link_to search_link_title(result).html_safe, search_link(result)
+          .h3= link_to search_link_title(result), search_link(result)
           %p= search_body(result).html_safe
 
   - else

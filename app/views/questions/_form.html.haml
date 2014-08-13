@@ -37,3 +37,7 @@
     = f.submit t('question.ask'), data: {disable_with: t('common.processing')}, class: 'btn btn-success'
     - if remote
       %button.cancel.btn= t('common.cancel')
+
+:javascript
+  if (typeof window.gon === 'undefined') window.gon={};
+  gon.tag_names = #{Tag.name_list};

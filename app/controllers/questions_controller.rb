@@ -6,7 +6,7 @@ class QuestionsController < InheritedResources::Base
   before_action :authenticate_user!, only: [:favor, :create, :edit, :update,
     :destroy, :new, :subscribe, :unsubscribe]
   before_action :set_user, only: [:favorited, :voted, :by_user]
-  # before_action :check_permission, only: [:update, :destroy]
+  before_action :set_tags, only: [:new, :edit]
 
   impressionist actions: [:show]
 
@@ -89,9 +89,9 @@ class QuestionsController < InheritedResources::Base
       answers: [:comments, :attachments, :user]).find(params[:id])
   end
 
-  # def check_permission
-  #   render_error t('errors.denied') if resource.user != current_user
-  # end
+  def set_tags
+    gon.tag_names = Tag.name_list
+  end
 
   def set_user
     @user = User.find(params[:user_id])
