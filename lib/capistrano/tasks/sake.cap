@@ -1,0 +1,37 @@
+namespace :sake do
+  task :run, :command do |t, args|
+    on roles(:app) do
+      within release_path do
+        # within current_path doesn't work, using cd manually
+        # execute "cd #{current_path}"
+        with rack_env: 'production' do
+          execute :rake, args[:command]
+        end
+      end
+    end
+  end
+
+  namespace :db do
+    task :migrate do
+      on roles(:app) do
+        within release_path do
+          with rack_env: 'production' do
+            execute :rake, "db:migrate"
+          end
+        end
+      end
+    end
+  end
+
+  namespace :sitemaps do
+    task :refresh do
+      on roles(:app) do
+        within release_path do
+          with rack_env: 'production' do
+            execute :rake, "sitemaps:refresh"
+          end
+        end
+      end
+    end
+  end
+end

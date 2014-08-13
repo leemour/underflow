@@ -1,0 +1,86 @@
+namespace :shared do
+  desc "Copy config files to remote shared. Create shared folders"
+  task :setup_all do
+    invoke 'shared:create_dirs'
+    invoke 'shared:upload_dirs'
+    invoke 'shared:upload_files'
+    invoke 'shared:executable_files'
+    invoke 'shared:writable_files'
+    invoke 'shared:touch_files'
+    invoke 'shared:symlink_system'
+  end
+
+  desc 'Create folders in remote shared'
+  task :create_dirs do
+    on roles(:app) do
+      fetch(:create_shared_dirs).each do |dir|
+        execute :mkdir, "-p #{shared_path}/#{dir}"
+      end
+    end
+  end
+
+  desc 'Upload directories recursively to shared folders'
+  task :upload_dirs do
+    on roles(:app) do
+      fetch(:upload_dirs).each do |dir|
+        destination = "#{shared_path}/#{dir}"
+        if File.directory? dir
+          upload! dir, destination, recursive: true
+          info "copying directory: #{dir} to: #{destination}"
+        else
+          error "directory #{dir} not found"
+        end
+      end
+    end
+  end
+
+  desc 'Upload separate files to shared folders'
+  task :upload_files do
+    on roles(:app) do
+      fetch(:upload_files).each do |file|
+        file_to = "#{shared_path}/#{file[:to]}"
+        if File.exist? file[:from]
+          upload! file[:from], file_to
+          info "copying: #{file[:from]} to: #{file_to}"
+        else
+          error "file #{file[:from]} not found"
+        end
+      end
+    end
+  end
+
+  desc 'which of the above files should be marked as executable'
+  task :executable_files do
+    on roles(:app) do
+      fetch(:executable_files).each do |file|
+        execute :chmod, "+x #{shared_path}/#{file}"
+      end
+    end
+  end
+
+  task :writable_files do
+    on roles(:app) do
+      fetch(:writable_files).each do |file|
+        sudo :chmod, "664 #{shared_path}/#{file}"
+      end
+    end
+  end
+
+  desc 'Create empty files unless exist (logs etc)'
+  task :touch_files do
+    on roles(:app) do
+      fetch(:touch_files).each do |file|
+        execute :touch, "#{shared_path}/#{file}"
+      end
+    end
+  end
+
+  desc 'symlink stuff which should be... symlinked'
+  task :symlink_system do
+    on roles(:app) do
+      fetch(:symlinks).each do |link|
+        sudo "ln -nfs #{shared_path}/#{link[:from]} #{link[:to]}"
+      end
+    end
+  end
+end

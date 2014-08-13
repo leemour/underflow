@@ -42,10 +42,12 @@ gem 'thinking-sphinx'
 
 gem 'private_pub'
 gem 'thin'
-gem 'puma'
+gem 'unicorn'
 
 group :development do
-  gem 'capistrano-rails'
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rbenv', require: false
+  gem 'capistrano-bundler', require: false
   gem 'pry-byebug'
   gem 'quiet_assets'
   gem 'better_errors'

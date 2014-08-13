@@ -1,0 +1,35 @@
+namespace :backup do
+  desc "Backup all remote shared folders to local machine"
+  task :all do
+    on roles(:app) do
+      copy_to_local 'config'
+      copy_to_local 'db'
+      copy_to_local 'public'
+    end
+  end
+
+  # TODO
+  desc "Backup remote db to local machine"
+  task :db do
+    on roles(:app) do
+      # copy_to_local "db"
+    end
+  end
+
+  desc "Backup remote uploads to local machine"
+  task :uploads do
+    on roles(:app) do
+      copy_to_local "uploads"
+    end
+  end
+end
+
+def copy_to_local(path='.')
+  path += '/.' unless path == '.'
+  time        = Time.now.strftime "%Y.%m.%d_%H.%M"
+  backup_root = File.expand_path "~/Backup"
+  backup_path = File.join backup_root, fetch(:full_app_name), path, time
+  destination = ENV['to'] || backup_path
+  `mkdir -p #{backup_path}`
+  download! "#{shared_path}/#{path}", destination, recursive: true
+end

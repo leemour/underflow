@@ -18,5 +18,5 @@ test:
 production:
   <<: *default
   database: underflow_production
-  username: underflow
+  username: <%= Rails.application.secrets.db_user %>
   password: <%= Rails.application.secrets.db_password %>
