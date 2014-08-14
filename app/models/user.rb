@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
 
   def self.send_daily_digest
     select(:id).find_each do |user|
-      DailyMailer.delay.digest(user.id)
+      DailyMailer.delay.digest(user.id) if user.try(:daily_digest)
     end
   end
 

@@ -5,6 +5,6 @@ test:
   server: "http://localhost:9292/faye"
   secret_token: "secret"
 production:
-  server: <%= Rails.application.secrets.private_pub_server %>
-  secret_token: <%= Rails.application.secrets.private_pub_secret %>
+  server: underflow.riabit.ru
+  secret_token: 2d7ab81b1ff737db346b2093f30ce36b6c6947d5b975928467438
   signature_expiration: 3600 # one hour
