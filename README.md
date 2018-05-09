@@ -2,7 +2,9 @@ Overview
 ====================
 __Underflow__ is a Questions and Answers platform, built with Ruby on Rails.
 
-Technically, it's a [stackoverflow](http://stackoverflow.com) clone.
+![Underflow Logo](https://raw.githubusercontent.com/leemour/underflow/master/app/assets/images/underflow_logo.png)
+
+Technically, it's a [StackOverflow](http://stackoverflow.com) clone.
 
 Features
 --------
