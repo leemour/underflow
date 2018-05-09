@@ -1,7 +1,7 @@
 - if devise_mapping.omniauthable?
   - User.omniauth_providers.each do |provider|
     %h3
-      = link_to "#{t('user.sign_in_with')} #{provider.to_s.titleize}", user_omniauth_authorize_path(provider)
+      = link_to "#{t('user.sign_in_with')} #{provider.to_s.titleize}", send("user_#{provider}_omniauth_authorize_path")
 
   = form_for(User.new, url: session_path(:user)) do |f|
     .form-group

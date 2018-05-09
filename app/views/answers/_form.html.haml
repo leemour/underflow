@@ -8,6 +8,7 @@
 
 = form_for [@question, answer], remote: true do |f|
   .form-group
+    = f.hidden_field :question_id, value: @question.id
     = f.text_area :body, class: "form-control"
 
   = f.fields_for :attachments do |a|

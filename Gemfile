@@ -7,7 +7,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'uglifier'
 gem 'jbuilder', '~> 2.0'
-gem 'pg'
+gem 'pg', '~> 0.18'
 gem 'haml-rails'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'compass-rails'
@@ -45,6 +45,8 @@ gem 'whenever'
 gem 'private_pub'
 gem 'thin'
 gem 'unicorn'
+
+gem 'celluloid', '~> 0.18.0.pre'
 
 group :development do
   gem 'capistrano-rails', require: false
