@@ -1,4 +1,4 @@
-ruby '2.1.0'
+ruby '2.3.6'
 source 'https://rubygems.org'
 
 gem 'rails', '~> 4.1'
@@ -63,11 +63,11 @@ end
 
 group :development, :test do
   gem 'spring'
-  gem 'jazz_hands'
+  gem 'jazz_fingers'
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
   gem 'guard-rspec'
-  gem "rb-readline", "~> 0.5.0"
+  # gem "rb-readline", "~> 0.5.0"
   gem 'guard-livereload'
   gem 'rack-livereload'
   gem 'factory_girl_rails'
@@ -85,9 +85,6 @@ group :test do
   #gem 'rb-fchange', :require => false
 end
 
-group :doc do
-  gem 'sdoc', '~> 0.4.0'
-end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
