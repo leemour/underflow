@@ -63,11 +63,11 @@ OR
 ## Usage
 Server:
 
-  $ spring rails server
+    $ spring rails server
 
 PrivatePub:
 
-  $ rackup private_pub.ru -s thin -E production
+    $ rackup private_pub.ru -s thin -E production
 
 
 ### I18n
