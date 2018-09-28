@@ -28,5 +28,7 @@ module Underflow
     config.sass.preferred_syntax = :sass
 
     config.active_record.observers = :reputation_observer
+
+    config.active_record.raise_in_transactional_callbacks = true
   end
 end

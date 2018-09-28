@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :favorite do
-    favorable   nil
-    user        nil
+    favorable   { nil }
+    user        { nil }
   end
 end

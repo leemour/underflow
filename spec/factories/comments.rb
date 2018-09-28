@@ -1,10 +1,8 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
-FactoryGirl.define do
+FactoryBot.define do
   factory :comment do
     user
-    commentable nil
-    body        "Lorem ipsum dolor sit amet lorum"
+    commentable { nil }
+    body        { "Lorem ipsum dolor sit amet lorum" }
 
     factory :question_comment do
       association :commentable, factory: :question

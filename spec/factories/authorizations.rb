@@ -1,9 +1,7 @@
-# Read about factories at https://github.com/thoughtbot/factory_girl
-
-FactoryGirl.define do
+FactoryBot.define do
   factory :authorization do
-    user     nil
-    provider "facebook"
-    uid      "MyString"
+    user     { nil }
+    provider { "facebook" }
+    uid      { "MyString" }
   end
 end

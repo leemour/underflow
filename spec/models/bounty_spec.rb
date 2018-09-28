@@ -24,6 +24,6 @@ describe Bounty do
   # end
 end
 
-# question = FactoryGirl.create(:question)
-# bounty = FactoryGirl.create(:bounty, question: question)
-# answer = FactoryGirl.create(:answer, question: question)
+# question = FactoryBot.create(:question)
+# bounty = FactoryBot.create(:bounty, question: question)
+# answer = FactoryBot.create(:answer, question: question)

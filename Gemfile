@@ -59,10 +59,20 @@ group :development do
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'rubocop', require: false
   gem 'letter_opener'
   gem 'bullet'
   gem 'rails_best_practices'
+
+  # Code quality
+  gem 'overcommit', require: false
+  gem 'rubocop-rspec', require: false
+  gem 'license_finder', require: false
+  gem 'brakeman', require: false
+  gem 'bundler-audit', require: false
+  gem 'fasterer', require: false
+  gem 'sqlint', require: false
+  gem 'mdl', require: false
+  gem 'w3c_validators', require: false
 end
 
 group :development, :test do
@@ -74,7 +84,7 @@ group :development, :test do
   # gem "rb-readline", "~> 0.5.0"
   gem 'guard-livereload'
   gem 'rack-livereload'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'launchy'
   gem 'capybara'
   gem 'capybara-webkit'

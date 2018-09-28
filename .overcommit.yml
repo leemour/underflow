@@ -1,0 +1,133 @@
+concurrency: '%{processors}'
+
+verify_signatures: true
+
+CommitMsg:
+  CapitalizedSubject:
+    enabled: true
+
+  EmptyMessage:
+    enabled: true
+
+  TrailingPeriod:
+    enabled: true
+
+  TextWidth:
+    enabled: true
+
+  HardTabs:
+    enabled: true
+    description: 'Check for hard tabs'
+
+  RussianNovel:
+    enabled: true
+    description: 'Check length of commit message'
+
+  SingleLineSubject:
+    enabled: true
+    description: 'Check subject line'
+
+  SpellCheck:
+    enabled: true
+    description: 'Check for misspelled words'
+    required_executable: 'hunspell'
+    flags: ['-a']
+
+  TextWidth:
+    enabled: true
+    description: 'Check text width'
+    max_subject_width: 60
+    min_subject_width: 0
+    max_body_width: 72
+
+  TrailingPeriod:
+    enabled: true
+    description: 'Check for trailing periods in subject'
+
+
+PreCommit:
+  ALL:
+    on_warn: fail
+    exclude: &default_excludes
+      - 'node_modules/**/*'
+      - 'vendor/**/*'
+
+  AuthorEmail:
+    enabled: true
+
+  AuthorName:
+    enabled: true
+
+  Brakeman:
+    enabled: true
+
+  BrokenSymlinks:
+    enabled: true
+
+  BundleAudit:
+    enabled: true
+
+  BundleCheck:
+    enabled: true
+
+  ExecutePermissions:
+    enabled: true
+    exclude:
+      - 'bin/**/*'
+
+  Fasterer:
+    enabled: true
+
+  HardTabs:
+    enabled: true
+
+  JsonSyntax:
+    enabled: true
+
+  LicenseFinder:
+    enabled: true
+
+  LocalPathsInGemfile:
+    enabled: true
+
+  Mdl:
+    enabled: true
+
+  MergeConflicts:
+    enabled: true
+
+  NginxTest:
+    enabled: true
+
+  RailsSchemaUpToDate:
+    enabled: true
+
+  RuboCop:
+    enabled: false
+
+  ShellCheck:
+    enabled: true
+
+  Sqlint:
+    enabled: true
+
+  W3cCss:
+    enabled: true
+    include: 'public/**/*.css'
+
+  W3cHtml:
+    enabled: true
+    include: 'public/**/*.html'
+    validator_uri: 'https://validator.w3.org/nu/'
+
+  XmlSyntax:
+    enabled: true
+
+  YamlSyntax:
+    enabled: true
+
+
+PostMerge:
+
+
+PostRewrite:

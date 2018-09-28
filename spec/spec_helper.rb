@@ -2,7 +2,6 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 require 'sidekiq/testing'
 
 Sidekiq::Testing.inline!
@@ -17,7 +16,7 @@ ActiveRecord::Migration.maintain_test_schema!
 DatabaseCleaner.strategy = :transaction
 
 RSpec.configure do |config|
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include Capybara::DSL
   config.include Devise::TestHelpers, type: :controller
   config.include Devise::TestHelpers, type: :view

@@ -1,7 +1,7 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :vote do
-    voteable    nil
-    user        nil
+    voteable    { nil }
+    user        { nil }
     value       { [1, -1].sample }
   end
 end

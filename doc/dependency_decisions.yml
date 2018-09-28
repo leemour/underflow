@@ -1,0 +1,122 @@
+---
+- - :whitelist
+  - MIT
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-23 22:48:17.030371441 Z
+- - :whitelist
+  - ISC
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-23 22:57:12.283746656 Z
+- - :whitelist
+  - Simplified BSD
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-23 22:57:22.410292836 Z
+- - :whitelist
+  - Apache 2.0
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-23 23:00:59.132461187 Z
+- - :whitelist
+  - New BSD
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-23 23:02:30.654499272 Z
+- - :whitelist
+  - WTFPL
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-23 23:26:26.241592335 Z
+- - :whitelist
+  - "(WTFPL OR MIT)"
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-23 23:26:51.443741418 Z
+- - :whitelist
+  - LGPL
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-23 23:38:38.686924128 Z
+- - :whitelist
+  - BSD
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-23 23:39:01.266192593 Z
+- - :whitelist
+  - 2-clause BSDL
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-23 23:39:08.209872680 Z
+- - :whitelist
+  - Mozilla Public License 2.0
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-23 23:43:42.905440915 Z
+- - :whitelist
+  - ruby
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-23 23:53:20.455690178 Z
+- - :approve
+  - coolline
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-23 23:55:55.935668352 Z
+- - :ignore_group
+  - dev
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-24 00:18:45.191400270 Z
+- - :ignore_group
+  - development
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-24 00:19:11.141143972 Z
+- - :ignore_group
+  - test
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-24 00:19:16.031298348 Z
+- - :license
+  - rb-fchange
+  - MIT
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-24 00:23:55.319194795 Z
+- - :whitelist
+  - CC0-1.0
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-24 00:29:49.740053041 Z
+- - :ignore_group
+  - devDependencies
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-24 00:33:10.002222749 Z
+- - :blacklist
+  - GPL
+  - :who:
+    :why:
+    :versions: []
+    :when: 2018-09-24 07:59:39.544449329 Z
